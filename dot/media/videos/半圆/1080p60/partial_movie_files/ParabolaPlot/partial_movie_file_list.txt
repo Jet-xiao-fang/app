@@ -1,0 +1,5 @@
+# This file is used internally by FFMPEG.
+file 'file:D:/project/python/dot/media/videos/半圆/1080p60/partial_movie_files/ParabolaPlot/2118349249_2844780215_646652312.mp4'
+file 'file:D:/project/python/dot/media/videos/半圆/1080p60/partial_movie_files/ParabolaPlot/1732080710_558580960_3535302182.mp4'
+file 'file:D:/project/python/dot/media/videos/半圆/1080p60/partial_movie_files/ParabolaPlot/1732080710_2659358015_2994268204.mp4'
+file 'file:D:/project/python/dot/media/videos/半圆/1080p60/partial_movie_files/ParabolaPlot/1732080710_1391709230_239337319.mp4'
