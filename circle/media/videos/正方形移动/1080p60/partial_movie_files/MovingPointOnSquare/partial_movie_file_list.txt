@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnSquare/2118349249_2436249268_3922947841.mp4'
-file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnSquare/1732080710_1256918594_1786700667.mp4'
-file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnSquare/1732080710_4217992463_281229270.mp4'

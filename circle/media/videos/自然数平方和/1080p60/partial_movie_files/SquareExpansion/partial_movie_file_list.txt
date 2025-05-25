@@ -1,7 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/project/python/circle/media/videos/自然数平方和/1080p60/partial_movie_files/SquareExpansion/3529212410_1143277012_223132457.mp4'
-file 'file:D:/project/python/circle/media/videos/自然数平方和/1080p60/partial_movie_files/SquareExpansion/3040924799_4217992463_921378489.mp4'
-file 'file:D:/project/python/circle/media/videos/自然数平方和/1080p60/partial_movie_files/SquareExpansion/3040924799_3797556021_2651137006.mp4'
-file 'file:D:/project/python/circle/media/videos/自然数平方和/1080p60/partial_movie_files/SquareExpansion/3040924799_3556135830_4290305641.mp4'
-file 'file:D:/project/python/circle/media/videos/自然数平方和/1080p60/partial_movie_files/SquareExpansion/3040924799_4275009841_1494674973.mp4'
-file 'file:D:/project/python/circle/media/videos/自然数平方和/1080p60/partial_movie_files/SquareExpansion/3040924799_2844360058_2204142400.mp4'

@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/ParabolaPlot/2118349249_2637897999_1472132943.mp4'
-file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/ParabolaPlot/1732080710_723183269_932181812.mp4'
-file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/ParabolaPlot/1732080710_2834709167_3909038428.mp4'
