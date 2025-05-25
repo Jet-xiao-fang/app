@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnDC/2118349249_3408754951_223132457.mp4'
+file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnDC/1732080710_1832712134_1761815788.mp4'
+file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnDC/1732080710_3676123244_855326053.mp4'
+file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnDC/1732080710_1832712134_3880650360.mp4'
+file 'file:D:/project/python/circle/media/videos/正方形移动/1080p60/partial_movie_files/MovingPointOnDC/1732080710_2834709167_2806846839.mp4'
