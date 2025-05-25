@@ -3,8 +3,6 @@ from manim import *
 class ParabolaPlot(Scene):
     def construct(self):
         self.camera.background_color = "#263238"
-        
-    
         axes = Axes(
             x_range=[-8, 8, 1],
             y_range=[-2, 6, 1],
