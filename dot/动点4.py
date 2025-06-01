@@ -91,7 +91,7 @@ class ParabolaPlot(Scene):
             pa_x = 2 - p_x
             pa_y = -p_y  # A点y坐标为0
             
-            # 固定使用逆时针旋转：(x, y) -> (-y, x)
+            # 固定使用逆时针旋转：(x, y) -> (-y, x)，代表的是旋转了90度
             pb_x = -pa_y
             pb_y = pa_x
             
