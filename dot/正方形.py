@@ -1,8 +1,11 @@
 from manim import *
-
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
 class ParabolaPlot(Scene):
     def construct(self):
         self.camera.background_color = "#263238"
+        tex = Tex(r"求: $\triangle ABP$ 的最小值?", color=BLUE).to_edge(UP)
+        self.play(Write(tex))
         axes = Axes(
             x_range=[-8, 8, 1],
             y_range=[-2, 6, 1],
