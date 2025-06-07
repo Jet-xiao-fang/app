@@ -5,14 +5,25 @@ config.tex_template = TexTemplateLibrary.ctex
 class OptimizedMultiImage(Scene):
     def construct(self):
         # 设置深色背景
-        self.camera.background_color = "#0F0B1A"
+        # self.camera.background_color = "#0F0B1A"
         
         # 添加标题 "量子力学三剑客"
-        title = Tex("量子力学三剑客", color=BLUE).scale(1)
-        title_box = SurroundingRectangle(title, color=WHITE, stroke_width=1, buff=0.4)
-        title_group = VGroup(title, title_box)
-        title_group.to_edge(UP, buff=0.5)
-        title_box.surround(title, stretch=True)
+        # title = Tex("量子力学三剑客", color=BLUE).scale(1)
+        # title_box = SurroundingRectangle(title, color=WHITE, stroke_width=1, buff=0.4)
+        # title_group = VGroup(title, title_box)
+        # title_group.to_edge(UP, buff=0.5)
+        # title_box.surround(title, stretch=True)
+        # 深空背景
+        stars = VGroup(*[Dot(point=np.random.uniform(-7,7,3), 
+                          radius=np.random.uniform(0.01,0.03),
+                          color=BLUE_E) for _ in range(200)])
+        self.add(stars)
+        
+        # 标题设计
+        title = Tex("量子力学三剑客", font_size=36, color="#FFD700")
+        title_box = SurroundingRectangle(title, color=WHITE, buff=0.3, corner_radius=0.2)
+        title_group = VGroup(title_box, title)
+        title_group.to_edge(UP)
         
         # 设置缩放比例和间距
         image_scale = 0.3
@@ -60,3 +71,5 @@ class OptimizedMultiImage(Scene):
         final_text = Text("物理之美", font="Microsoft YaHei", font_size=26, color=RED)
         self.play(Write(final_text.to_edge(DOWN, buff=0.2)))
         self.wait(4)
+
+#  manim -pqh 名句.py OptimizedMultiImage -r 1920,1080
