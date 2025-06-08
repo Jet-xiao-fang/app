@@ -181,3 +181,5 @@ class MatrixProperties(Scene):
         explanation.next_to(transformed_square, DOWN*2)
         self.play(Write(explanation))
         self.wait(2)
+
+# manim -pqh 矩阵.py MatrixProperties -r 1920,1080
