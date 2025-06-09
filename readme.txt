@@ -16,3 +16,8 @@ self.play(
     FadeIn(caption, shift=UP)
 )
 版本 Manim Community v0.19.0
+
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1080
+config.pixel_width = 608
