@@ -15,3 +15,4 @@ self.play(
     Write(title),
     FadeIn(caption, shift=UP)
 )
+版本 Manim Community v0.19.0
