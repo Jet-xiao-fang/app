@@ -17,4 +17,21 @@ class test(Scene):
 
         # Tex - 保持在文本模式，适合文字为主的标题
         text_ex = Tex(r"物理学: $\int_a^b f(x) dx$ 是积分定义")
-        self.add(text_ex)
+        
+        
+        # MathTex 的多行对齐
+        multi_line = MathTex(
+        r"\begin{aligned} " 
+        r"F &= ma \\ "
+        r"v &= u + at "
+        r"\end{aligned}"
+        )
+
+        # Tex 的多行需要手动处理
+        # tex_multi = Tex(r"""
+        # Line 1 \\ 
+        # $\text{Line 2} \\ 
+        # \text{Line 3}$
+        # """, alignment="")
+        
+        self.add(multi_line)
