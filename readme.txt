@@ -3,6 +3,8 @@ config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 # 生成视频
 manim -pqh example5.py StaticCircle3 -r 1920,1080
+# 覆盖上次生成的图片
+manim -pqh --format=png 测试.py test -r 1920,1080 --output_file test
 # 生成图片
 manim -pqh --format=png circle_static.py StaticCircle -r 1920,1080
 
