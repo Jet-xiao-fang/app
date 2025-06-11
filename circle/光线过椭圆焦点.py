@@ -67,4 +67,4 @@ class EllipseOptics(Scene):
             )
         self.wait()
 
-# manim -pqh 三角恒等式.py EllipseOptics -r 1920,1080
+# manim -pqh 光线过椭圆焦点.py EllipseOptics -r 1920,1080
