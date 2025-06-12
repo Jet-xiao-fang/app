@@ -21,5 +21,5 @@ self.play(
 更改了DNS解析为8.8.8.8后访问外部网络更加稳定了。但是要刷新CDN和重新启动电脑，不需要外网也ok
 config.frame_height = 16
 config.frame_width = 9
-config.pixel_height = 1080
-config.pixel_width = 608
+config.pixel_height = 1920
+config.pixel_width = 1080

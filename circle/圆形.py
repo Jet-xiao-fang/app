@@ -3,19 +3,19 @@ config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 config.frame_height = 16
 config.frame_width = 9
-config.pixel_height = 1080
-config.pixel_width = 608
+config.pixel_height = 1920
+config.pixel_width = 1080
 
 class ImportantFormulas(Scene):
     def construct(self):
         # 设置深色背景
-        self.camera.background_color = "#0F0B1A"
+        self.camera.background_color = "#0F0F1A"
         
         # 1. 创建标题
         title = Text("世界上最重要的10个公式", 
                     font="Microsoft YaHei",
                     font_size=36,
-                    color=YELLOW).to_edge(UP, buff=0.2)
+                    color=YELLOW).to_edge(UP, buff=0.6)
         
         subtitle = Text("人类智慧的结晶，科学进步的基石",
                       font="Microsoft YaHei",
@@ -145,7 +145,7 @@ class ImportantFormulas(Scene):
         right_column.arrange(DOWN, buff=0.8, aligned_edge=LEFT)
         
         # 6. 定位两列
-        left_column.to_edge(LEFT, buff=0.4).shift(DOWN*0.5)
+        left_column.to_edge(LEFT, buff=0.5).shift(DOWN*0.5)
         right_column.to_edge(RIGHT, buff=0.3).shift(DOWN*0.5)
         
         # 逐项显示左列公式
@@ -176,7 +176,7 @@ class ImportantFormulas(Scene):
                         font_size=24,
                         color=GREY_B).to_edge(DOWN, buff=0.5)
         
-        date = Text("2023年", 
+        date = Text("2025年-爱物理的小方", 
                    font="Microsoft YaHei",
                    font_size=20,
                    color=GREY_B).next_to(copyright, DOWN, buff=0.2)
