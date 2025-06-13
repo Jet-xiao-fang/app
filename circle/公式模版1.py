@@ -158,17 +158,7 @@ class ImportantFormulas(Scene):
             self.play(FadeIn(item, shift=LEFT*0.5, scale=0.9))
             self.wait(0.3)
         
-        # 9. 添加强调效果
-        highlight_rect = SurroundingRectangle(
-            formulas[6]["formula"],  # 质能方程
-            color=YELLOW,
-            buff=0.2,
-            corner_radius=0.1
-        )
-        
-        self.play(Create(highlight_rect))
         self.wait(1)
-        self.play(FadeOut(highlight_rect))
         
         # 10. 添加版权信息
         copyright = Text("数学之美 · 科学之光",
