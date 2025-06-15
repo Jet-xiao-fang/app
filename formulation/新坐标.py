@@ -1,8 +1,8 @@
 from manim import *
-# config.frame_height = 16
-# config.frame_width = 9
-# config.pixel_height = 1080
-# config.pixel_width = 608
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
@@ -14,7 +14,7 @@ class CirclePropertiesDemo(Scene):
         # 创建等比例坐标系
         axes = Axes(
             x_range=[-4, 4, 1],
-            y_range=[-3, 3, 1],
+            y_range=[-3, 5, 1],  # 扩展y轴范围以显示完整图像
             x_length=8,
             y_length=6,
             axis_config={"color": WHITE, "stroke_width": 2},
@@ -24,7 +24,7 @@ class CirclePropertiesDemo(Scene):
         # 添加精细网格
         grid = NumberPlane(
             x_range=[-4, 4, 0.5],
-            y_range=[-3, 3, 0.5],
+            y_range=[-3, 5, 0.5],
             background_line_style={
                 "stroke_color": GREY_B,
                 "stroke_width": 1,
@@ -41,156 +41,81 @@ class CirclePropertiesDemo(Scene):
             Tex("y").set_color(WHITE)
         )
         
-        # 创建圆（半径=2）
-        circle = Circle(radius=2, color=BLUE, stroke_width=4)
+        # 添加抛物线函数 y = -x^2 - 2x + 3
+        def parabola(x):
+            return -x**2 - 2*x + 3
+            
+        graph = axes.plot(
+            parabola, 
+            color=GREEN, 
+            stroke_width=3,
+            x_range=[-3.5, 1.5]  # 限制x范围以确保曲线在y值域内
+        )
+        graph_label = axes.get_graph_label(
+            graph, 
+            label=Tex('$y=-x^{2}-2x+3$'), 
+            direction=DL
+        ).set_color(GREEN)
         
-        # 圆心标记
-        center = Dot(color=WHITE).scale(0.8)
-        center_label = Tex("O", color=WHITE).next_to(center, DR, buff=0.1)
+        # 计算交点
+        # 与y轴交点 (x=0)
+        A_dot = Dot(axes.c2p(0, parabola(0)), color=YELLOW).scale(1.2)
+        A_label = Tex("A(0,3)", font_size=40).next_to(A_dot, UP, buff=0.2)
         
-        # 组合基本元素
-        self.add(grid, axes, axis_labels, circle, center, center_label)
-        self.wait(1)
+        # 与x轴交点 (y=0)
+        # 解方程：-x^2 -2x +3 = 0 => x^2 + 2x -3 =0
+        # 因式分解：(x+3)(x-1)=0，得解 x=-3 和 x=1
+        B_dot = Dot(axes.c2p(-3, 0), color=RED).scale(1.2)
+        B_label = Tex("B(-3,0)", font_size=40).next_to(B_dot, DOWN, buff=0.2)
         
-        # ===== 演示圆的性质 =====
         
-        # 3. 切线与圆心关系
-        self.tangent_properties(circle, center)
+        self.add(axes,grid,axis_labels,graph,A_dot,A_label,B_dot,B_label)
         
-        # 4. 圆周角定理
-        self.inscribed_angle_theorem(circle, center)
-    
-    def tangent_properties(self, circle, center):
-        """演示切线与圆心的关系"""
-        title = Tex("性质1: 切线与半径的关系", font_size=36, color=YELLOW).to_edge(UP)
-        self.play(Write(title))
-        self.wait(0.5)
+        problem_text = VGroup(
+            Tex("在二次函数 $y = -x^{2} - 2x + 3$ 上有一点 $P$"),
+            Tex("$P$ 在 $AB$ 上方运动"),
+            Tex("求 $\\triangle PAB$ 面积的最大值")
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3)
+        problem_text.scale(0.9)
+        problem_text.set_color(WHITE)
+        problem_text.to_corner(UP, buff=1.5)
         
-        # 创建切点
-        tangent_point = circle.point_at_angle(3*PI/4)
-        tangent_dot = Dot(tangent_point, color=YELLOW)
+        self.add(problem_text)
         
-        # 创建切线
-        tangent_dir = tangent_point - center.get_center()
-        tangent_normal = np.array([-tangent_dir[1], tangent_dir[0], 0])
-        tangent_line = Line(
-            tangent_point - tangent_normal*1.5,
-            tangent_point + tangent_normal*1.5,
-            color=GREEN,
+        # 动点P
+        p_tracker = ValueTracker(-2.5)  # 控制P点位置的追踪器
+        def get_p_point():
+            x = p_tracker.get_value()
+            y = parabola(x)
+            return axes.c2p(x, y)
+        
+        P_dot = always_redraw(lambda: Dot(get_p_point(), color=ORANGE).scale(1.2))
+        P_label = always_redraw(lambda: Tex("P", font_size=30).next_to(P_dot, UP, buff=0.1))
+        
+        # 三角形PAB（橘黄色）
+        triangle = always_redraw(lambda: Polygon(
+            A_dot.get_center(),
+            B_dot.get_center(),
+            get_p_point(),
+            color=ORANGE,
+            fill_color=ORANGE,
+            fill_opacity=0.3,
             stroke_width=3
-        )
-        
-        # 创建半径
-        radius = Line(center.get_center(), tangent_point, color=RED, stroke_width=2.5)
-        
-        # 标记直角
-        right_angle = RightAngle(
-            tangent_line, radius,
-            length=0.3, color=BLUE_C,
-            quadrant=(-1,1)
-        )
-        
-        # 公式
-        formula = MathTex(
-            r"\text{切线} \perp \text{半径}",
-            color=PURPLE
-        ).next_to(circle, RIGHT, buff=1)
-        
-        # 动画展示
-        self.play(FadeIn(tangent_dot))
-        self.play(Create(tangent_line))
-        self.play(Create(radius))
-        self.play(Create(right_angle))
-        self.play(Write(formula))
-        
-        # 说明文本
-        explanation = Tex(
-            r"圆的切线与经过切点的半径垂直",
-            font_size=28,
-            color=GREEN
-        ).next_to(formula, DOWN, buff=0.3)
-        
-        self.play(Write(explanation))
-        self.wait(2)
-        
-        # 清理场景
-        self.play(
-            FadeOut(tangent_dot),
-            FadeOut(tangent_line),
-            FadeOut(radius),
-            FadeOut(right_angle),
-            FadeOut(formula),
-            FadeOut(explanation),
-            FadeOut(title)
-        )
-    
-    def inscribed_angle_theorem(self, circle, center):
-        """演示圆周角定理"""
-        title = Tex("性质2: 圆周角定理", font_size=36, color=YELLOW).to_edge(UP)
-        self.play(Write(title))
+        ))
+        # 显示动点P和三角形
+        self.play(Create(P_dot), Write(P_label), Create(triangle))
         self.wait(0.5)
+        # 动画展示P点移动和三角形变化
+        for i in range(3):
+            self.play(
+                p_tracker.animate.set_value(-0.5),
+                run_time=3,
+                rate_func=rate_functions.smooth
+            )
+            self.play(
+                p_tracker.animate.set_value(-2.5),
+                run_time=3,
+                rate_func=rate_functions.smooth
+            )
         
-        # 创建弧上的点
-        A = Dot(circle.point_at_angle(PI/6), color=GREEN)
-        B = Dot(circle.point_at_angle(PI/2), color=GREEN)
-        C = Dot(circle.point_at_angle(5*PI/4), color=GREEN)
-        
-        # 创建弦
-        AB = Line(A.get_center(), B.get_center(), color=BLUE, stroke_width=2)
-        BC = Line(B.get_center(), C.get_center(), color=BLUE, stroke_width=2)
-        AC = Line(A.get_center(), C.get_center(), color=BLUE, stroke_width=2)
-        
-        # 创建圆心角
-        OA = Line(center.get_center(), A.get_center(), color=RED, stroke_width=2)
-        OB = Line(center.get_center(), B.get_center(), color=RED, stroke_width=2)
-        OC = Line(center.get_center(), C.get_center(), color=RED, stroke_width=2)
-        
-        # 标记圆心角
-        center_angle = Angle(
-            OA, OB, radius=0.5, color=YELLOW, other_angle=True
-        )
-        center_label = MathTex(r"\theta", color=YELLOW).next_to(center_angle, UR, buff=0.1)
-        
-        # 标记圆周角
-        circum_angle = Angle(
-            AC, BC, radius=0.7, color=PURPLE
-        )
-        circum_label = MathTex(r"\phi", color=PURPLE).next_to(circum_angle, UR, buff=0.15)
-        
-        # 公式
-        formula = MathTex(
-            r"\phi = \frac{1}{2}\theta",
-            color=ORANGE
-        ).next_to(circle, RIGHT, buff=1)
-        
-        # 动画展示
-        self.play(
-            FadeIn(A),
-            FadeIn(B),
-            FadeIn(C)
-        )
-        self.play(
-            Create(AB),
-            Create(BC),
-            Create(AC),
-            Create(OA),
-            Create(OB),
-            Create(OC)
-        )
-        self.play(
-            Create(center_angle),
-            Write(center_label),
-            Create(circum_angle),
-            Write(circum_label)
-        )
-        self.play(Write(formula))
-        
-        # 说明文本
-        explanation = Tex(
-            r"圆周角等于其所对圆心角的一半",
-            font_size=28,
-            color=GREEN
-        ).next_to(formula, DOWN, buff=0.3)
-        
-        self.play(Write(explanation))
         self.wait(3)
