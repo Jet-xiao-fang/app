@@ -56,15 +56,9 @@ class StaticFormula(Scene):
 
         self.add(layout)
         
-        # 4. 添加装饰元素
-        line1 = Line(columns.get_left(), columns.get_right(), color=BLUE_D)
-        line2 = Line(columns.get_left(), columns.get_right(), color=BLUE_D).shift(DOWN*1.5)
-        
         # 5. 动画展示
         self.play(
-            FadeIn(title.scale(1.2), shift=DOWN, run_time=1.5),
-            Create(line1, run_time=1.0),
-            Create(line2, run_time=1.0)
+            FadeIn(title.scale(1.2), shift=DOWN, run_time=1.5)
         )
         self.wait(0.5)
         
@@ -89,10 +83,6 @@ class StaticFormula(Scene):
             text_col2_2.animate.set_color(PURPLE)
         )
         self.wait(1)
-        
-        # 6. 添加最终效果
-        final_box = SurroundingRectangle(layout, color=BLUE, buff=0.8)
-        self.play(Create(final_box), run_time=2)
         
         # 7. 版权信息
         copyright = Text("@数据分析师",
