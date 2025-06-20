@@ -1,9 +1,14 @@
 from manim import *
 import numpy as np
-
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
 class ParabolaPlot(Scene):
     def construct(self):
-        self.camera.background_color = "#263238"
+        self.camera.background_color = "#0F0F1A"
         
         # 坐标系
         axes = Axes(
@@ -27,6 +32,8 @@ class ParabolaPlot(Scene):
             },
             axis_config={"color": "#ECEFF1"},
         )
+        titile = Tex("求OB的最小值?",color=BLUE,font_size=56).next_to(axes,UP,buff = 1)
+        self.add(titile)
         
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
         origin_point = axes.c2p(0, 0)
