@@ -1,3 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/project/python/dot/media/videos/将军饮马/1080p60/partial_movie_files/AnimateSquareWithAPBP/3529212410_3676875472_2072649273.mp4'
-file 'file:D:/project/python/dot/media/videos/将军饮马/1080p60/partial_movie_files/AnimateSquareWithAPBP/3040924799_2844360058_1005267790.mp4'

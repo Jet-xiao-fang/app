@@ -1,4 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/project/python/dot/media/videos/将军饮马/1080p60/partial_movie_files/AnimatePointOnCE/3529212410_1758866774_2358810818.mp4'
-file 'file:D:/project/python/dot/media/videos/将军饮马/1080p60/partial_movie_files/AnimatePointOnCE/3040924799_2547010319_1851616098.mp4'
-file 'file:D:/project/python/dot/media/videos/将军饮马/1080p60/partial_movie_files/AnimatePointOnCE/3040924799_1761112952_2951756951.mp4'

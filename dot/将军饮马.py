@@ -1,7 +1,14 @@
 from manim import *
-
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
 class AnimateSquareWithAPBP(Scene):
     def construct(self):
+         # 设置背景为深空蓝
+        self.camera.background_color = "#0F0F1A"
         # 配置参数
         side_length = 5
         half = side_length / 2
@@ -19,6 +26,8 @@ class AnimateSquareWithAPBP(Scene):
                         fill_color=fill_color,
                         fill_opacity=1)
         self.add(square)
+        titile = Tex("求AP+BP最小值",color=BLUE).next_to(square,UP,buff = 1.5)
+        self.add(titile)
 
         # 顶点标签配置
         label_conf = {
@@ -77,6 +86,6 @@ class AnimateSquareWithAPBP(Scene):
             run_time=8,
             rate_func=there_and_back
         )
-        self.wait(2)
+        self.wait(4)
 
 # manim -pqh 将军饮马.py AnimateSquareWithAPBP -r 1920,1080

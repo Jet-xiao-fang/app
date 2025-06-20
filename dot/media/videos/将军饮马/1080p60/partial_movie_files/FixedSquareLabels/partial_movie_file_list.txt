@@ -1,3 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:D:/project/python/dot/media/videos/将军饮马/1080p60/partial_movie_files/FixedSquareLabels/3529212410_3120388353_567962294.mp4'
-file 'file:D:/project/python/dot/media/videos/将军饮马/1080p60/partial_movie_files/FixedSquareLabels/3040924799_2834709167_4287097102.mp4'
