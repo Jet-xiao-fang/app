@@ -1,8 +1,10 @@
 from manim import *
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-# config.frame_width = 6
-# config.frame_height = 8
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
 
 class QuantumCover(Scene):
     def construct(self):
