@@ -12,18 +12,18 @@ class ParabolaPlot(Scene):
         
         # 坐标系
         axes = Axes(
-            x_range=[-4, 4, 1],
+            x_range=[-3, 3, 1],
             y_range=[-4, 4, 1],
-            x_length=8,
+            x_length=6,
             y_length=8,
             axis_config={"color": "#ECEFF1", "stroke_width": 2},
             tips=False,
-        ).set_aspect_ratio(1.0)
+        ).set_aspect_ratio(1.0).scale(1.2)
         
         grid = NumberPlane(
-            x_range=[-4, 4, 0.5],
+            x_range=[-3, 3, 0.5],
             y_range=[-4, 4, 0.5],
-            x_length=8,
+            x_length=6,
             y_length=8,
             background_line_style={
                 "stroke_color": "#546E7A",
@@ -31,8 +31,8 @@ class ParabolaPlot(Scene):
                 "stroke_opacity": 0.6
             },
             axis_config={"color": "#ECEFF1"},
-        )
-        titile = Tex("求OB的最小值?",color=BLUE,font_size=56).next_to(axes,UP,buff = 1)
+        ).scale(1.2)
+        titile = Tex("求$OB$的最小值?",color=YELLOW,font_size=56).next_to(axes,UP,buff = 1)
         self.add(titile)
         
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
