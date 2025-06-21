@@ -1,8 +1,14 @@
 from manim import *
 import math
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
 class ParabolaPlot(Scene):
     def construct(self):
-        self.camera.background_color = "#263238"
+        self.camera.background_color = "#0F0F1A"
         axes = Axes(
             x_range=[-6, 6, 1],
             y_range=[0, 6, 1],
@@ -27,6 +33,8 @@ class ParabolaPlot(Scene):
         coordinate_system  = VGroup(axes,grid)
         # 整体向上移动 1.5 单位（可根据需求调整数值）
         coordinate_system.shift(UP * 0.5)
+        titile = Tex("求OE的最大值?",color=YELLOW,font_size=56).next_to(coordinate_system,UP,buff = 1)
+        self.add(titile)
         
         axis_labels = coordinate_system[0].get_axis_labels(MathTex("x"), MathTex("y"))  # 使用MathTex
         origin_point = coordinate_system[0].c2p(0, 0)
