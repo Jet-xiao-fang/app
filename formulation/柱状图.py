@@ -70,5 +70,5 @@ class tupan(Scene):
         self.play(Restore(bar))
         self.wait()
 
-#  manim -pqh --format=png 图片.py tupan -r 1920,1080
+#  manim -pqh --format=png 柱状图.py tupan -r 1920,1080
 
