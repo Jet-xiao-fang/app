@@ -50,7 +50,7 @@ class ParabolaPlot(Scene):
             radius=1,
             color=BLUE_C,
             stroke_width=4
-        ).move_to(axes.c2p(0, 0))
+        ).move_to(axes.c2p(0, 0)).scale(1.2)
         
         center_dot = Dot(
             point=circle.get_center(),
@@ -135,25 +135,6 @@ class ParabolaPlot(Scene):
         
         # 添加动态元素
         self.add(p_dot, p_label, b_dot, b_label, triangle, ob_line, ob_label)
-        
-        # 添加直角标记 - 使用always_redraw避免初始零长度问题
-        def create_right_angle():
-            line1 = Line(A_point.get_center(), p_dot.get_center())
-            line2 = Line(p_dot.get_center(), b_dot.get_center())
-            
-            # 避免零长度线段
-            if line1.get_length() < 0.01 or line2.get_length() < 0.01:
-                return VMobject()
-                
-            return RightAngle(
-                line1, line2,
-                length=0.2,
-                color=YELLOW,
-                stroke_width=3
-            )
-        
-        right_angle = always_redraw(create_right_angle)
-        self.add(right_angle)
         
         # 初始化位置
         update_points(None)
