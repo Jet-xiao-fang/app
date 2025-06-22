@@ -100,7 +100,7 @@ class BiologyPioneersScene(Scene):
             self.play(
                 FadeIn(img, shift=RIGHT),
                 Write(content_group, shift=LEFT),
-                run_time=3
+                run_time=1.5
             )
             self.wait(0.5)
             groups.add(group)
