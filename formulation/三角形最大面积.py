@@ -9,7 +9,7 @@ config.tex_template = TexTemplateLibrary.ctex
 class CirclePropertiesDemo(Scene):
     def construct(self):
         # 设置背景颜色
-        self.camera.background_color = "#263238"
+        self.camera.background_color = "#0F0F1A"
         
         # 创建等比例坐标系
         axes = Axes(
@@ -78,7 +78,7 @@ class CirclePropertiesDemo(Scene):
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.3)
         problem_text.scale(0.9)
         problem_text.set_color(WHITE)
-        problem_text.to_corner(UP, buff=1.5)
+        problem_text.next_to(axes,UP,buff=0.5)
         
         self.add(problem_text)
         
@@ -119,3 +119,5 @@ class CirclePropertiesDemo(Scene):
             )
         
         self.wait(3)
+        
+#   manim -pqh --format=png 三角形最大面积.py CirclePropertiesDemo -r 1920,1080
