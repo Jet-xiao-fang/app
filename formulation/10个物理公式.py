@@ -54,7 +54,7 @@ class ImportantPhysicsFormulas(Scene):
                 formula.scale(1.0)
         
         # 4. 创建序号列表
-        indices = [Tex(f"{i+1}.", font_size=36, color=BLUE) for i in range(10)]
+        indices = [Tex(f"{i+1}.", font_size=48, color=BLUE) for i in range(10)]
         
         # 5. 创建完整的公式行（序号+公式+中文解释）
         formula_rows = []
