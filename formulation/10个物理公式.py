@@ -112,3 +112,5 @@ class ImportantPhysicsFormulas(Scene):
             run_time=2
         )
         self.wait(3)
+        
+# manim -pqh 10个化学方程式.py ImageGallery -r 1920,1080
