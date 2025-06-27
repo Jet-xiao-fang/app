@@ -1,5 +1,4 @@
 from manim import *
-import random  # 添加 random 模块导入
 
 config.frame_height = 16
 config.frame_width = 9
@@ -8,7 +7,7 @@ config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
-class ImportantChemistryEquations(Scene):  # 修改类名为化学方程
+class ImportantChemistryEquations(Scene):
     def construct(self):
         # 设置宇宙深空背景
         self.camera.background_color = "#0F0F1A"
@@ -17,7 +16,7 @@ class ImportantChemistryEquations(Scene):  # 修改类名为化学方程
         title = Text("10个重要化学方程式", 
                     font_size=48,
                     color=BLUE
-                    ).to_edge(UP, buff=1.5)
+                    ).to_edge(UP, buff=1.0)
         
         # 2. 创建所有化学方程式列表
         formulas = [
@@ -35,83 +34,70 @@ class ImportantChemistryEquations(Scene):  # 修改类名为化学方程
         
         # 方程的中文解释
         chinese_texts = [
-            Text("水的生成(燃烧反应)", font="Microsoft YaHei", font_size=24, color=YELLOW),  # 1
-            Text("水的电解(氧化还原反应)", font="Microsoft YaHei", font_size=24, color=YELLOW),  # 2
-            Text("甲烷燃烧(放热反应)", font="Microsoft YaHei", font_size=24, color=YELLOW),  # 3
-            Text("光合作用(能量转化)", font="Microsoft YaHei", font_size=24, color=GREEN),  # 4
-            Text("呼吸作用(氧化反应)", font="Microsoft YaHei", font_size=24, color=GREEN),  # 5
-            Text("中和反应(pH变化)", font="Microsoft YaHei", font_size=24, color=GREEN),  # 6
-            Text("金属置换反应", font="Microsoft YaHei", font_size=24, color=RED),  # 7
-            Text("分解反应(热分解)", font="Microsoft YaHei", font_size=24, color=RED),  # 8
-            Text("哈伯法合成氨", font="Microsoft YaHei", font_size=24, color=BLUE),  # 9
-            Text("复分解反应", font="Microsoft YaHei", font_size=24, color=BLUE)  # 10
+            Text("水的生成(燃烧反应)", font="Microsoft YaHei", font_size=22, color=YELLOW),  # 1
+            Text("水的电解(氧化还原反应)", font="Microsoft YaHei", font_size=22, color=YELLOW),  # 2
+            Text("甲烷燃烧(放热反应)", font="Microsoft YaHei", font_size=22, color=YELLOW),  # 3
+            Text("光合作用(能量转化)", font="Microsoft YaHei", font_size=22, color=GREEN),  # 4
+            Text("呼吸作用(氧化反应)", font="Microsoft YaHei", font_size=22, color=GREEN),  # 5
+            Text("中和反应(pH变化)", font="Microsoft YaHei", font_size=22, color=GREEN),  # 6
+            Text("金属置换反应", font="Microsoft YaHei", font_size=22, color=RED),  # 7
+            Text("分解反应(热分解)", font="Microsoft YaHei", font_size=22, color=RED),  # 8
+            Text("哈伯法合成氨", font="Microsoft YaHei", font_size=22, color=BLUE),  # 9
+            Text("复分解反应", font="Microsoft YaHei", font_size=22, color=BLUE)  # 10
         ]
         
-        # 3. 调整方程式大小（根据需要调整）
-        for formula in formulas:
-            formula.scale(0.8)  # 整体调小以适应复杂方程式
-            
-        # 特殊调整长方程式
-        formulas[3].scale(0.7)  # 光合作用
-        formulas[8].scale(0.75)  # 合成氨
+        # 3. 调整方程式大小（整体调小以适应屏幕）
+        for formula, text in zip(formulas, chinese_texts):
+            formula.scale(0.85)
+            text.scale(0.9)
         
         # 4. 创建序号列表
-        indices = [Tex(f"{i+1}.", font_size=48, color=BLUE) for i in range(10)]
+        indices = [Tex(f"{i+1}.", font_size=32, color=BLUE) for i in range(10)]
         
         # 5. 创建完整的方程式行（序号+方程式+中文解释）
         formula_rows = []
         for i in range(10):
             # 创建方程式和中文的组合
-            formula_group = VGroup(formulas[i], chinese_texts[i]).arrange(DOWN, buff=0.2)
+            formula_group = VGroup(formulas[i], chinese_texts[i]).arrange(DOWN, buff=0.15)
             
             # 创建完整行（序号在左侧）
             row = VGroup(indices[i], formula_group).arrange(RIGHT, buff=0.3)
-            
-            # 添加背景框
-            box = SurroundingRectangle(row, color=BLUE_D, buff=0.3, corner_radius=0.2)
-            box.set_fill(BLACK, opacity=0.6)
-            box.set_stroke(width=2)
-            
-            # 将背景框和内容组合
-            formula_rows.append(VGroup(box, row))
+            formula_rows.append(row)
         
-        # 6. 创建两列布局（每列5个方程式）
-        left_column = VGroup(*formula_rows[:5]).arrange(DOWN, buff=0.8, aligned_edge=LEFT).scale(0.8)
-        right_column = VGroup(*formula_rows[5:]).arrange(DOWN, buff=0.8, aligned_edge=LEFT).scale(0.8)
+        # 6. 将所有行垂直排列（调整为每行间隔稍小）
+        all_rows = VGroup(*formula_rows).arrange(DOWN, buff=0.5, aligned_edge=LEFT)
+        all_rows.scale(0.85).next_to(title, DOWN, buff=0.3)  # 减少间距
         
-        # 7. 将两列并排排列
-        columns = VGroup(left_column, right_column).arrange(RIGHT, buff=0.5)
-        columns.next_to(title, DOWN, buff=1.0)
+        # 7. 调整整个组的位置确保完全可见
+        all_rows.center().to_edge(UP, buff=2.0)
         
         # 8. 动画展示
         self.play(Write(title))
         self.wait(0.5)
         
-        # 逐个展示方程式行（左列从上到下，然后右列从上到下）
-        for i in range(5):
-            self.play(
-                Write(formula_rows[i], shift=UP*0.5),
-                run_time=1.5
-            )
-            self.wait(0.1)
-            
-        for i in range(5, 10):
-            self.play(
-                Write(formula_rows[i], shift=UP*0.5),
-                run_time=1.5
-            )
-            self.wait(0.1)
+        # 一次性显示所有方程（前5个用FadeIn，后5个用Write）
+        animations = []
+        for i, row in enumerate(formula_rows):
+            if i < 5:
+                animations.append(FadeIn(row, shift=UP*0.3))
+            else:
+                animations.append(Write(row))
         
-        # 9. 添加版权信息和装饰
-        copyright = Text("化学之美 · 万物之源",
+        # 执行动画
+        self.play(
+            LaggedStart(*animations, lag_ratio=0.3),
+            run_time=15
+        )
+        self.wait(0.5)
+        
+        # 9. 添加版权信息（位置稍作调整）
+        copyright = Text("@爱物理的小方",
                         font="Microsoft YaHei",
-                        font_size=24,
-                        color=BLUE_E).to_edge(DOWN).shift(UP*1.5)
+                        font_size=36,
+                        color=RED_C).to_edge(DOWN, buff=1.2)
         
         self.play(
             FadeIn(copyright, shift=UP),
             run_time=2
         )
         self.wait(3)
-        
-# # manim -pqh 10个化学方程式.py ImportantChemistryEquations -r 1920,1080
