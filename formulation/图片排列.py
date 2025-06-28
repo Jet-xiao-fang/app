@@ -25,19 +25,14 @@ class QuantumGallery(Scene):
             stars.add(star)
         self.add(stars)
         
-        # 创建标题
-        title = Text("量子物理学奠基人", font_size=48, color="#ffff99", font="Microsoft YaHei")
-        title.set_stroke(color="#ffcc00", width=2, opacity=0.7)
-        title.to_edge(UP, buff=0.7)
-        
-        subtitle = Text("1900-1935 量子革命时代", font_size=36, color="#99ccff", font="Microsoft YaHei")
-        subtitle.next_to(title, DOWN, buff=0.3)
+        title = Text("1900-1935 量子革命时代", font_size=42, color="#99ccff", font="Microsoft YaHei")
+        # subtitle.next_to(title, DOWN, buff=0.3)
+        title.to_edge(UP,buff=0.3)
         
         # 标题入场动画
         self.play(
-            FadeIn(title, scale=0.8),
-            FadeIn(subtitle, shift=DOWN),
-            run_time=2
+            FadeIn(title, shift=DOWN),
+            run_time=1.5
         )
         self.wait(0.5)
         
@@ -77,19 +72,20 @@ class QuantumGallery(Scene):
             img = ImageMobject(path)
             img.height = 2.8
             
-            # 添加圆形边框
+            # 创建更大的圆形边框
+            border_radius = img.height/2 * 1.25  # 增加边框尺寸比例
             border = Circle(
-                radius=img.height/2 * 1.08,
+                radius=border_radius,
                 color="#4a86e8",
-                stroke_width=3,
+                stroke_width=4,  # 增加边框宽度
                 fill_opacity=0,
                 stroke_opacity=0.8
             )
             border.move_to(img.get_center())
             
-            # 添加光晕效果
+            # 添加更大的光晕效果
             glow = Circle(
-                radius=img.height/2 * 1.15,
+                radius=border_radius * 1.15,  # 增加光晕尺寸
                 color="#4a86e8",
                 stroke_width=0,
                 fill_opacity=0.2
@@ -170,20 +166,13 @@ class QuantumGallery(Scene):
         ending.set_stroke(color="#4a86e8", width=2, opacity=0.7)
         ending.to_edge(DOWN, buff=1.0)
         
-        
-        quote = Text("量子力学描述自然令人震惊\n但其数学之美令人信服", 
-                    font_size=32, 
-                    font="Microsoft YaHei",
-                    color="#99ffcc")
-        quote.to_edge(DOWN, buff=0.8)
-        
+
         # 创建退出动画
         self.play(
-            Write(quote),
             FadeIn(ending, shift=UP),
             run_time=2
         )
-        self.wait(2)
+        self.wait(0.5)
         
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
