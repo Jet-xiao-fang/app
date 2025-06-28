@@ -10,7 +10,7 @@ class PrincipleOfLeastActionStatic(Scene):
         self.camera.background_color = "#F5F5F5"
         
         # 创建标题（增大字体尺寸）
-        title = Text("最小作用量原理", font_size=60, color="#B22222", weight=BOLD)
+        title = Text("最小作用量原理参数解释", font_size=60, color="#B22222", weight=BOLD)
         title.to_edge(UP, buff=0.5)
         
         # 添加标题下划线
@@ -21,20 +21,21 @@ class PrincipleOfLeastActionStatic(Scene):
         # 创建公式（增大公式尺寸，添加边框）
         formula_box = Rectangle(
             width=14,
-            height=3,
+            height=4,
             color=BLUE_D,
             stroke_width=2,
             fill_color="#E6F2FF",
             fill_opacity=0.8
         )
         
-        formula = MathTex(
-            r"\delta S = 0 \quad \text{其中} \quad S = \int_{t_1}^{t_2} L(q, \dot{q}, t) \, dt",
-            color="#003366",  # 深蓝色提高可读性
-            font_size=40
-        )
+        explanation = VGroup(
+            Text("δS: 作用量的变分", color="#8B0000", font_size=38),  # 深红
+            Text("S: 作用量泛函", color="#006400", font_size=38),      # 深绿
+            Text("L: 拉格朗日量", color="#00008B", font_size=38),      # 深蓝
+            Text("T: 动能, V: 势能", color="#8B4513", font_size=38)   # 深棕
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.4)
         formula_box.move_to(ORIGIN)
-        formula.move_to(formula_box)
+        explanation.move_to(formula_box)
         
         # 添加拉格朗日量说明（增大尺寸）
         lagrange_def = MathTex(
@@ -53,7 +54,7 @@ class PrincipleOfLeastActionStatic(Scene):
             title,
             underline,
             formula_box,
-            formula,
+            explanation,
             lagrange_def,
             footer
         )

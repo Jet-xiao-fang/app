@@ -1,19 +1,47 @@
 from manim import *
+import numpy as np
+import random
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
-class ImageGallery(Scene):
+class QuantumGallery(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1A"
+        # 宇宙深空背景
+        self.camera.background_color = "#0a0a1a"
         
-        # 添加标题
-        title = Text("量子物理学奠基人", font_size=40, color=YELLOW)
-        title.to_edge(UP)
-        self.add(title)
+        # 创建静态星空背景
+        stars = VGroup()
+        for _ in range(200):
+            star = Dot(
+                radius=random.uniform(0.01, 0.03),
+                color=BLUE_E,
+                fill_opacity=random.uniform(0.2, 0.8))
+            star.move_to([
+                random.uniform(-7, 7),
+                random.uniform(-4, 4),
+                0
+            ])
+            stars.add(star)
+        self.add(stars)
+        
+        # 创建标题
+        title = Text("量子物理学奠基人", font_size=48, color="#ffff99", font="Microsoft YaHei")
+        title.set_stroke(color="#ffcc00", width=2, opacity=0.7)
+        title.to_edge(UP, buff=0.7)
+        
+        subtitle = Text("1900-1935 量子革命时代", font_size=36, color="#99ccff", font="Microsoft YaHei")
+        subtitle.next_to(title, DOWN, buff=0.3)
+        
+        # 标题入场动画
+        self.play(
+            FadeIn(title, scale=0.8),
+            FadeIn(subtitle, shift=DOWN),
+            run_time=2
+        )
         self.wait(0.5)
         
-        # 图片路径
+        # 图片路径 (使用你的实际路径)
         image_paths = [
             r"D:\Videos\图片素材\普朗克.png",
             r"D:\Videos\图片素材\爱因斯坦.jpeg",
@@ -26,76 +54,140 @@ class ImageGallery(Scene):
             r"D:\Videos\图片素材\狄拉克.jpeg"
         ]
 
-        # 重新设计的描述文本
+        # 描述文本
         descriptions = [
-            # 普朗克
-            "\\begin{array}{c} \\text{马克斯·普朗克} \\\\ \\text{(1858–1947)} \\\\ \\hline \\text{1900年提出量子假说} \\\\ \\text{解释黑体辐射} \\\\ \\text{奠基量子理论} \\end{array}",
-            # 爱因斯坦
-            "\\begin{array}{c} \\text{阿尔伯特·爱因斯坦} \\\\ \\text{(1879–1955)} \\\\ \\hline \\text{1905年提出光量子理论} \\\\ \\text{1916年预言受激辐射} \\\\ \\text{(激光原理)} \\end{array}",
-            # 康普顿
-            "\\begin{array}{c} \\text{阿瑟·康普顿} \\\\ \\text{(1892–1962)} \\\\ \\hline \\text{1923年发现康普顿效应} \\\\ \\text{证实光子动量} \\end{array}",
-            # 卢瑟福
-            "\\begin{array}{c} \\text{欧内斯特·卢瑟福} \\\\ \\text{(1871–1937)} \\\\ \\hline \\text{1911年提出} \\\\ \\text{原子核式结构模型} \\\\ \\text{1919年实现人工核反应} \\end{array}",
-            # 玻尔
-            "\\begin{array}{c} \\text{尼尔斯·玻尔} \\\\ \\text{(1885–1962)} \\\\ \\hline \\text{1913年提出} \\\\ \\text{量子化原子模型} \\\\ \\text{1927年创立哥本哈根诠释} \\end{array}",
-            # 德布罗意
-            "\\begin{array}{c} \\text{路易·德布罗意} \\\\ \\text{(1892–1987)} \\\\ \\hline \\text{1924年提出物质波假设} \\\\ \\text{奠定波动力学基础} \\end{array}",
-            # 海森堡
-            "\\begin{array}{c} \\text{维尔纳·海森堡} \\\\ \\text{(1901–1976)} \\\\ \\hline \\text{1925年创立矩阵力学} \\\\ \\text{1927年提出不确定性原理} \\end{array}",
-            # 薛定谔
-            "\\begin{array}{c} \\text{埃尔温·薛定谔} \\\\ \\text{(1887–1961)} \\\\ \\hline \\text{1926年提出} \\\\ \\text{波动力学方程} \\\\ \\text{1935年发表薛定谔猫} \\end{array}",
-            # 狄拉克
-            "\\begin{array}{c} \\text{保罗·狄拉克} \\\\ \\text{(1902–1984)} \\\\ \\hline \\text{1928年创立狄拉克方程} \\\\ \\text{1931年预言反物质存在} \\end{array}"
+            ["马克斯·普朗克", "(1858-1947)", "量子假说", "黑体辐射"],
+            ["阿尔伯特·爱因斯坦", "(1879-1955)", "光量子理论", "受激辐射"],
+            ["阿瑟·康普顿", "(1892-1962)", "康普顿效应", "光子动量"],
+            ["欧内斯特·卢瑟福", "(1871-1937)", "核式结构模型", "人工核反应"],
+            ["尼尔斯·玻尔", "(1885-1962)", "量子化原子", "哥本哈根诠释"],
+            ["路易·德布罗意", "(1892-1987)", "物质波假设", "波动力学"],
+            ["维尔纳·海森堡", "(1901-1976)", "矩阵力学", "不确定性原理"],
+            ["埃尔温·薛定谔", "(1887-1961)", "波动力学方程", "薛定谔猫"],
+            ["保罗·狄拉克", "(1902-1984)", "狄拉克方程", "反物质"]
         ]
-
+        
         # 创建图片-文字组合
         image_text_pairs = []
-        for path, desc in zip(image_paths, descriptions):
-            # 创建容器组
+        for path, desc_lines in zip(image_paths, descriptions):
+            # 使用 Group 而不是 VGroup
             group = Group()
             
             # 添加图片
             img = ImageMobject(path)
-            img.height = 3
-            group.add(img)
+            img.height = 2.8
             
-            # 添加文字 - 使用数组格式确保排版
-            text = MathTex(desc, font_size=24, color=WHITE)
-            text.next_to(img, DOWN, buff=0.3)  # 增加间距
-            group.add(text)
+            # 添加圆形边框
+            border = Circle(
+                radius=img.height/2 * 1.08,
+                color="#4a86e8",
+                stroke_width=3,
+                fill_opacity=0,
+                stroke_opacity=0.8
+            )
+            border.move_to(img.get_center())
             
+            # 添加光晕效果
+            glow = Circle(
+                radius=img.height/2 * 1.15,
+                color="#4a86e8",
+                stroke_width=0,
+                fill_opacity=0.2
+            )
+            glow.move_to(img.get_center())
+            
+            # 创建文字组
+            text_group = VGroup()
+            for i, line in enumerate(desc_lines):
+                if i == 0:  # 姓名
+                    text = Text(line, font_size=30, font="Microsoft YaHei", weight="BOLD", color="#FFD700")
+                elif i == 1:  # 年份
+                    text = Text(line, font_size=24, font="Microsoft YaHei", color="#4FC3F7")
+                else:  # 描述
+                    text = Text(line, font_size=26, font="Microsoft YaHei", color="WHITE")
+                text_group.add(text)
+            
+            # 排列文字组
+            text_group.arrange(DOWN, aligned_edge=LEFT, buff=0.2)
+            text_group.next_to(border, DOWN, buff=0.3)
+            
+            # 添加所有元素到组中
+            group.add(glow, border, img, text_group)
             image_text_pairs.append(group)
+            group.scale(0.85)
 
-        # 排列图片组
+        # 排列图片组 - 使用 Group 而不是 VGroup
         gallery = Group(*image_text_pairs)
-        gallery.arrange(RIGHT, buff=1.0)
-
+        gallery.arrange(RIGHT, buff=1.5)
+        
         # 初始位置：屏幕右侧外
-        screen_width = config.frame_width
-        gallery.next_to(ORIGIN, RIGHT, buff=0)
-        gallery.shift(RIGHT * (screen_width / 2))
-
+        gallery.move_to(RIGHT * (config.frame_width/2 + gallery.get_width()/2))
+        
         # 目标位置：屏幕左侧外
-        gallery_width = gallery.get_width()
         target_position = gallery.copy()
-        target_position.shift(LEFT * (screen_width + gallery_width))
+        target_position.move_to(LEFT * (config.frame_width/2 + gallery.get_width()/2))
 
-        # 动画序列
-        self.play(
-            gallery.animate.set_opacity(1),
-            run_time=1
+        # 直接添加画廊到场景（不再设置透明度）
+        self.add(gallery)
+        
+        # 添加时间线
+        timeline = NumberLine(
+            x_range=[1900, 1935, 5],
+            length=10,
+            color="#4a86e8",
+            stroke_width=2
         )
+        timeline.to_edge(UP, buff=1.8).shift(DOWN * 3.0)
+        
+        # 添加年份标记
+        years = [1900, 1905, 1910, 1915, 1920, 1925, 1930, 1935]
+        year_marks = VGroup()
+        for year in years:
+            mark = Triangle(color="#99ccff", fill_opacity=1).scale(0.1)
+            mark.rotate(PI)
+            mark.move_to(timeline.n2p(year))
+            
+            year_text = Text(str(year), font_size=20, color="#99ccff")
+            year_text.next_to(mark, DOWN, buff=0.1)
+            year_marks.add(mark, year_text)
+        
+        timeline_group = VGroup(timeline, year_marks)
+        timeline_group.set_opacity(0)
+        
+        self.add(timeline_group)
+        
+        # 缓慢滚动动画
+        scroll_time = 30
         self.play(
-            gallery.animate.move_to(target_position.get_center()),
-            run_time=45,  # 缓慢滚动
+            gallery.animate.move_to(target_position),
+            timeline_group.animate.set_opacity(0.7),
+            run_time=scroll_time,
             rate_func=linear
         )
-        self.play(
-            gallery.animate.set_opacity(0),
-            run_time=1
-        )
         
-        # 结束字幕
-        ending = Text("量子物理学发展历程", font_size=40, color=BLUE)
-        self.play(Write(ending))
+        # 结束场景
+        ending = Text("量子革命: 重塑物理学", font_size=42, color="#99ccff", font="Microsoft YaHei")
+        ending.set_stroke(color="#4a86e8", width=2, opacity=0.7)
+        ending.to_edge(DOWN, buff=1.0)
+        
+        
+        quote = Text("量子力学描述自然令人震惊\n但其数学之美令人信服", 
+                    font_size=32, 
+                    font="Microsoft YaHei",
+                    color="#99ffcc")
+        quote.to_edge(DOWN, buff=0.8)
+        
+        # 创建退出动画
+        self.play(
+            Write(quote),
+            FadeIn(ending, shift=UP),
+            run_time=2
+        )
         self.wait(2)
+        
+        self.play(
+            *[FadeOut(mob) for mob in self.mobjects],
+            run_time=2
+        )
+        self.wait(1)
+# manim -pqh --format=png 图片排列.py QuantumGallery -r 1920,1080
