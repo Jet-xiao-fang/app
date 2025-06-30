@@ -104,12 +104,6 @@ class ImportantFormulas(Scene):
             title.scale(0.95)  # 稍微缩小标题
             columns.scale(0.95)  # 稍微缩小公式
         
-        
-        
-       
-        
-        # 14. 动画展示
-       
         self.play(Write(title), run_time=1.5)
     
         self.wait(0.5)
