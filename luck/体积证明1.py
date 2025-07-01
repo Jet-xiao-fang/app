@@ -7,32 +7,18 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class ConeVolumeProof(ThreeDScene):
     def construct(self):
-        # 1. 标题和开场动画
+        # 1. 标题和开场
         title = Text("圆锥体积的微积分证明", 
                      font="Source Han Sans CN", 
                      font_size=40,
                      weight=BOLD,
-                     color=WHITE)
-        title.to_edge(UP)
+                     color=WHITE).to_edge(UP)
         self.add_fixed_in_frame_mobjects(title)
         
-        # 添加介绍文本
-        intro_text = VGroup(
-            Text("圆锥体积公式:", font="Source Han Sans CN", font_size=28, color=YELLOW),
-            MathTex(r"V = \frac{1}{3} \pi r^2 h", font_size=36, color=YELLOW)
-        ).arrange(RIGHT, buff=0.5)
-        intro_text.next_to(title, DOWN)
-        self.add_fixed_in_frame_mobjects(intro_text)
-        self.play(FadeIn(intro_text))
-        self.wait(1)
-        
-        # 添加证明说明
-        proof_desc = Text("我们将通过切割圆锥和积分的方法证明这个公式", 
-                          font="Source Han Sans CN", 
-                          font_size=28,
-                          color=BLUE_A).to_edge(DOWN)
-        self.add_fixed_in_frame_mobjects(proof_desc)
-        self.play(Write(proof_desc))
+        formula = MathTex(r"V = \frac{1}{3} \pi r^2 h", font_size=40, color=YELLOW)
+        formula.next_to(title, DOWN)
+        self.add_fixed_in_frame_mobjects(formula)
+        self.play(FadeIn(title), FadeIn(formula))
         self.wait(1)
         
         # 2. 创建三维圆锥
@@ -46,30 +32,27 @@ class ConeVolumeProof(ThreeDScene):
             resolution=(24, 36),
             fill_color=BLUE_D,
             fill_opacity=0.8,
-            stroke_width=0
+            stroke_width=1.0
         )
         cone.rotate(PI/2, RIGHT, about_point=ORIGIN)
         cone.move_to(ORIGIN)
         
         self.set_camera_orientation(phi=65*DEGREES, theta=-30*DEGREES)
         self.play(Create(cone), run_time=1.5)
-        self.wait(0.5)
+        self.wait(1)
         
         # 3. 切割动画
-        self.begin_ambient_camera_rotation(rate=0.15)
+        self.begin_ambient_camera_rotation(rate=0.1)
         
-        # 添加切割说明 - 修改部分
+        # 添加切割说明（固定在屏幕上）
         cut_desc = Text("将圆锥切割为许多薄圆盘", 
                        font="Source Han Sans CN", 
                        font_size=28,
                        color=BLUE_A).to_edge(DOWN)
         self.add_fixed_in_frame_mobjects(cut_desc)
-        self.play(
-            ReplacementTransform(proof_desc, cut_desc),
-        )
+        self.play(Write(cut_desc))
         self.wait(0.5)
         
-        # 创建切割圆盘组
         discs = Group()
         heights = np.linspace(0, cone_height, 30)
         
@@ -81,11 +64,10 @@ class ConeVolumeProof(ThreeDScene):
                 radius=r,
                 fill_color=interpolate_color(BLUE_A, GREEN, i/len(heights)),
                 fill_opacity=0.7,
-                stroke_width=0.1,
+                stroke_width=0.5,
                 stroke_color=WHITE
             )
-            disc.stretch(0.3, 0)
-            disc.stretch(ratio * 0.8, 1)
+            disc.stretch(0.01, 0)  # 非常薄的圆盘
             disc.rotate(PI/2, RIGHT)
             
             prop = h / cone_height
@@ -100,36 +82,22 @@ class ConeVolumeProof(ThreeDScene):
             LaggedStart(*[FadeIn(disc) for disc in discs], lag_ratio=0.05),
             run_time=2
         )
-        self.wait(0.5)
-        
-        # 4. 展示代表性圆盘
-        # 选择一个中间的圆盘作为代表
-        sample_disc = discs[15].copy()
-        sample_disc.set_fill(color=RED, opacity=0.9)
-        self.play(
-            discs.animate.set_opacity(0.3),
-            FadeIn(sample_disc),
-            run_time=1
-        )
-        
-        # 添加圆盘说明 - 优化位置
-        disc_desc = VGroup(
-            Text("每个薄圆盘:", font="Source Han Sans CN", font_size=28, color=RED),
-            MathTex(r"\text{厚度} = dx", font_size=36, color=RED),
-            MathTex(r"\text{半径} = r(x)", font_size=36, color=RED)
-        ).arrange(DOWN, aligned_edge=LEFT)
-        disc_desc.to_corner(UL)  # 移到左上角避免重叠
-        self.add_fixed_in_frame_mobjects(disc_desc)
-        self.play(FadeIn(disc_desc))
         self.wait(1)
         
-        # 5. 展示半径的变化关系
-        # 相似三角形图示 - 优化位置和大小
+        # 4. 相似三角形关系展示（固定在屏幕上）
+        sim_desc = Text("根据相似三角形关系:", 
+                        font="Source Han Sans CN", 
+                        font_size=28,
+                        color=BLUE_A).to_corner(UL)
+        self.add_fixed_in_frame_mobjects(sim_desc)
+        self.play(FadeIn(sim_desc))
+        
+        # 相似三角形图示
         sim_triangle = Polygon(
-            [0, 0, 0], [1.5, 0, 0], [1.5, 1.2, 0],  # 缩小尺寸
+            [0, 0, 0], [1.5, 0, 0], [1.5, 1.2, 0], 
             color=PINK, fill_opacity=0.3
-        ).next_to(disc_desc, DOWN, buff=0.2)
-
+        ).to_corner(UL).shift(DOWN)
+        
         # 添加标签
         tri_labels = VGroup(
             MathTex(r"r", font_size=28).next_to(sim_triangle, RIGHT, buff=0.1),
@@ -144,64 +112,41 @@ class ConeVolumeProof(ThreeDScene):
             color=YELLOW
         ).next_to(sim_triangle, DOWN, buff=0.7)
         
-        # 添加相似三角形说明 - 优化位置
-        sim_desc = Text("根据相似三角形关系:", 
-                        font="Source Han Sans CN", 
-                        font_size=28,
-                        color=BLUE_A).next_to(ratio_formula, DOWN, buff=0.5).scale(0.5)
-        
-        all_2d = VGroup(sim_triangle, tri_labels, ratio_formula, sim_desc)
-        self.add_fixed_in_frame_mobjects(all_2d)
-        
+        self.add_fixed_in_frame_mobjects(sim_triangle, tri_labels, ratio_formula)
         self.play(
             FadeIn(sim_triangle),
             FadeIn(tri_labels),
             Write(ratio_formula),
-            Write(sim_desc),
-            run_time=1.5
+            run_time=1
         )
-        self.wait(1)
+        self.wait(2)
         
-        # 6. 积分公式推导
-        # 添加积分说明 - 修改部分
+        # 5. 积分公式推导（固定在屏幕上）
         integral_desc = Text("将所有圆盘的体积相加(积分):", 
                              font="Source Han Sans CN", 
                              font_size=28,
                              color=BLUE_A).to_edge(DOWN)
         self.add_fixed_in_frame_mobjects(integral_desc)
-        self.play(
-            ReplacementTransform(cut_desc, integral_desc),
-        )
+        self.play(Transform(cut_desc, integral_desc))
         self.wait(0.5)
         
-        # 显示积分公式 - 优化位置
         integral_tex = MathTex(
-            r"V = \int_{0}^{h} \pi \left[ r(x) \right]^2 \, dx",
+            r"V = \int_{0}^{h} \pi \left[ r \cdot \frac{x}{h} \right]^2 \, dx",
             font_size=36
-        ).next_to(integral_desc, UP, buff=0.3)  # 放在说明上方
+        ).next_to(integral_desc, UP, buff=0.3)
         self.add_fixed_in_frame_mobjects(integral_tex)
-        self.play(FadeIn(integral_tex))
-        self.wait(1)
+        self.play(Write(integral_tex))
+        self.wait(2)
         
-        # 代入半径关系 - 优化位置
-        substituted_tex = MathTex(
-            r"V = \int_{0}^{h} \pi \left( r \cdot \frac{x}{h} \right)^2 \, dx",
-            font_size=36
-        ).move_to(integral_tex)  # 保持在同一位置
-        self.add_fixed_in_frame_mobjects(substituted_tex)
-        self.play(Transform(integral_tex, substituted_tex))
-        self.wait(1)
-        
-        # 7. 计算结果动画 - 优化布局
-        # 添加计算说明
+        # 6. 计算结果（固定在屏幕上）
         calc_desc = Text("计算积分:", 
                         font="Source Han Sans CN", 
                         font_size=28,
-                        color=BLUE_A).to_edge(UP).shift(DOWN*1.5)  # 放在顶部下方
+                        color=BLUE_A).to_corner(UR)
         self.add_fixed_in_frame_mobjects(calc_desc)
         self.play(FadeIn(calc_desc))
         
-        # 分步展示计算过程 - 优化位置和间距
+        # 分步展示计算过程
         steps = VGroup(
             MathTex(r"V = \int_{0}^{h} \pi \left( r \cdot \frac{x}{h} \right)^2 \, dx", 
                     font_size=36),
@@ -213,10 +158,9 @@ class ConeVolumeProof(ThreeDScene):
                     font_size=36, color=YELLOW)
         )
         
-        # 增加间距并左对齐
         steps.arrange(DOWN, aligned_edge=LEFT, buff=0.4)
         steps.next_to(calc_desc, DOWN, buff=0.5)
-        steps.to_edge(RIGHT)  # 移到左侧避免重叠
+        steps.to_edge(RIGHT)
         steps.scale(0.8)
         
         self.add_fixed_in_frame_mobjects(steps[0])
@@ -231,40 +175,39 @@ class ConeVolumeProof(ThreeDScene):
             )
             self.wait(0.5)
         
-        # 8. 最终结果强调 - 优化位置
+        # 7. 最终结果强调
+        self.stop_ambient_camera_rotation()
+        self.move_camera(phi=70*DEGREES, theta=-30*DEGREES)
+        
         final_formula = MathTex(
             r"V_{\text{圆锥}} = \frac{1}{3} \pi r^2 h", 
             color=YELLOW,
             font_size=42
-        ).move_to(ORIGIN + UP*1)  # 上移避免与标题重叠
+        ).move_to(ORIGIN)
         
         box = SurroundingRectangle(final_formula, buff=0.2, color=RED)
-        box.set_fill(BLACK, opacity=0.8)
-        
         self.add_fixed_in_frame_mobjects(box, final_formula)
-        
         self.play(
             FadeOut(discs),
-            FadeOut(sample_disc),
-            FadeOut(all_2d),
+            FadeOut(sim_triangle),
+            FadeOut(tri_labels),
+            FadeOut(ratio_formula),
             FadeOut(integral_tex),
-            FadeOut(integral_desc),  # 正确淡出积分说明
+            FadeOut(integral_desc),
             FadeOut(calc_desc),
             FadeOut(steps),
             Create(box),
             Write(final_formula),
-            Flash(final_formula, line_length=0.4, flash_radius=1.3),
             run_time=1.5
         )
         self.wait(2)
         
-        # 9. 简洁结尾 - 优化位置
-        conclusion = VGroup(
-            Text("微积分证明完成!", font="Source Han Sans CN", font_size=36, color="#4FEB34"),
-            Text("圆锥体积 = 1/3 × 底面积 × 高", font="Source Han Sans CN", font_size=30, color=BLUE_A)
-        ).arrange(DOWN, buff=0.5).to_edge(DOWN).shift(UP*0.5)  # 上移避免与屏幕边缘重叠
+        # 8. 简洁结尾
+        conclusion = Text("微积分证明完成!", 
+                         font="Source Han Sans CN", 
+                         font_size=36, 
+                         color="#4FEB34").next_to(final_formula, DOWN, buff=0.7)
         
         self.add_fixed_in_frame_mobjects(conclusion)
         self.play(Write(conclusion))
         self.wait(3)
-# manim -pqh --format=png 体积证明.py ConeVolumeProof -r 1920,1080
