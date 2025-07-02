@@ -1,125 +1,104 @@
 from manim import *
-config.tex_compiler = "xelatex"
-config.tex_template = TexTemplateLibrary.ctex
+
 config.frame_height = 16
 config.frame_width = 9
 config.pixel_height = 1920
 config.pixel_width = 1080
-class LogarithmFormulas(Scene):
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
+
+class ImportantLogarithmicFormulas(Scene):
     def construct(self):
-        # 设置深色星空背景
-        self.camera.background_color = "#0F0B1A"
+        # 设置背景颜色
+        self.camera.background_color = "#0F0F1A"
         
-        # 1. 标题设计
-        title = Text("重要对数公式", 
-                    font="Microsoft YaHei",
+        # 1. 创建标题
+        title = Text("10个必会的重要对数公式", 
                     font_size=48,
-                    color="#FF7F50").set_shade(0.5)
-        subtitle = Text("Essential Logarithmic Formulas", 
-                       font="Arial",
-                       font_size=28,
-                       color=LIGHT_GRAY)
-        title_group = VGroup(title, subtitle).arrange(DOWN, buff=0.3).to_edge(UP)
+                    color=YELLOW).to_edge(UP, buff=1.5)
         
-        # 2. 核心公式展示
-        formulas = VGroup(
-            MathTex(r"\log_a(bc) = \log_a b + \log_a c"),
-            MathTex(r"\log_a\left(\frac{b}{c}\right) = \log_a b - \log_a c"),
-            MathTex(r"\log_a(b^c) = c \cdot \log_a b"),
-            MathTex(r"\log_a b = \frac{\log_c b}{\log_c a}"),
-            MathTex(r"a^{\log_a b} = b"),
-        )
+        # 2. 创建所有对数公式列表（每行一个公式）
+        formulas = [
+            MathTex(r"\log_b(xy) = \log_b x + \log_b y"),  # 1. 对数乘法公式
+            MathTex(r"\log_b\left(\frac{x}{y}\right) = \log_b x - \log_b y"),  # 2. 对数除法公式
+            MathTex(r"\log_b(x^a) = a \cdot \log_b x"),  # 3. 对数幂公式
+            MathTex(r"\log_b b = 1"),  # 4. 底数对数
+            MathTex(r"\log_b 1 = 0"),  # 5. 1的对数
+            MathTex(r"b^{\log_b x} = x"),  # 6. 对数与指数的互逆关系
+            MathTex(r"\log_b a = \frac{1}{\log_a b}"),  # 7. 倒数关系
+            MathTex(r"\log_b a = \frac{\log_c a}{\log_c b}"),  # 8. 换底公式
+            MathTex(r"\log_b x = \frac{\ln x}{\ln b}"),  # 9. 自然对数表达式
+            MathTex(r"\log_b x = \frac{\log_k x}{\log_k b}")  # 10. 一般换底公式
+        ]
         
-        # 添加中文说明
-        descriptions = VGroup(
-            Text("积的对数 = 对数的和", font="Microsoft YaHei", font_size=24, color=YELLOW_C),
-            Text("商的对数 = 对数的差", font="Microsoft YaHei", font_size=24, color=YELLOW_C),
-            Text("幂的对数 = 指数×底数对数", font="Microsoft YaHei", font_size=24, color=YELLOW_C),
-            Text("不同底数对数的转换", font="Microsoft YaHei", font_size=24, color=YELLOW_C),
-            Text("对数与指数的互逆关系", font="Microsoft YaHei", font_size=24, color=YELLOW_C)
-        )
+        # 公式的中文解释
+        chinese_texts = [
+            Text("对数乘法公式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 1
+            Text("对数除法公式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 2
+            Text("对数幂公式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 3
+            Text("底数对数", font="Microsoft YaHei", font_size=16, color=RED),  # 4
+            Text("1的对数", font="Microsoft YaHei", font_size=16, color=RED),  # 5
+            Text("对数与指数的互逆关系", font="Microsoft YaHei", font_size=16, color=RED),  # 6
+            Text("倒数关系", font="Microsoft YaHei", font_size=16, color=PINK),  # 7
+            Text("换底公式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 8
+            Text("自然对数表达式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 9
+            Text("一般换底公式", font="Microsoft YaHei", font_size=16, color=GREEN)  # 10
+        ]
         
-        # 组合公式和说明
-        formula_group = VGroup()
-        for formula, desc in zip(formulas, descriptions):
-            group = VGroup(formula, desc).arrange(DOWN, buff=0.3)
-            formula_group.add(group)
+        # 3. 调整公式大小（保持与原模板相同的缩放逻辑）
+        for i, formula in enumerate(formulas):
+            if i in [1, 7, 8]:  # 较长的公式
+                formula.scale(0.5)
+            elif i in [0, 2, 3, 4, 5, 6, 9]:  # 中等长度
+                formula.scale(0.7)
+            else:
+                formula.scale(0.6)
         
-        formula_group.arrange(DOWN, buff=0.7, aligned_edge=LEFT).next_to(title_group, DOWN, buff=1)
+        # 4. 创建序号列表
+        indices = [Tex(f"{i+1}.", font_size=48) for i in range(10)]
         
-        # 3. 动画展示
-        self.play(
-            FadeIn(title_group, shift=DOWN, scale=0.9),
-            run_time=1.5
-        )
+        # 5. 创建完整的公式行（序号+公式+中文解释）
+        formula_rows = []
+        for i in range(10):
+            # 创建公式和中文的组合
+            formula_group = VGroup(formulas[i], chinese_texts[i]).arrange(DOWN, buff=0.2)
+            
+            # 创建完整行（序号在左侧）
+            row = VGroup(indices[i], formula_group).arrange(RIGHT, buff=0.3)
+            formula_rows.append(row)
+        
+        # 6. 创建垂直布局（所有公式行垂直排列）
+        all_rows = VGroup(*formula_rows).arrange(DOWN, buff=0.4, aligned_edge=LEFT)
+        
+        # 7. 整体布局（标题+所有行）
+        all_rows.next_to(title, DOWN, buff=0.8).to_edge(LEFT, buff=1.0)  # 左侧留出空间给序号
+        
+        # 8. 调整位置确保在屏幕内
+        if all_rows.get_bottom()[1] < -6.5:
+            all_rows.scale(0.9)
+            all_rows.next_to(title, DOWN, buff=0.3)
+        
+        # 9. 动画展示
+        self.play(Write(title), run_time=0.5)
         self.wait(0.5)
         
-        # 公式逐个显示
-        for i, group in enumerate(formula_group):
+        # 逐个展示公式行
+        for i in range(10):
             self.play(
-                LaggedStart(
-                    FadeIn(group[0], shift=UP),
-                    FadeIn(group[1], shift=DOWN),
-                    lag_ratio=0.3
-                ),
-                run_time=1.2
+                Write(indices[i]),
+                Write(formulas[i]),
+                FadeIn(chinese_texts[i], shift=UP*0.3),
+                run_time=2
             )
-            
-            # 添加公式应用示例
-            if i == 0:  # 乘法公式
-                example = MathTex(r"\ln(2x) = \ln 2 + \ln x").next_to(group, DOWN, buff=0.4)
-                self.play(Write(example), run_time=0.8)
-                self.wait(0.5)
-                self.play(FadeOut(example))
-            
-            self.wait(0.3)
+            self.wait(0.2)
         
-        # 4. 关键性质总结
-        properties = VGroup(
-            Text("• 底数a>0且a≠1", font="Microsoft YaHei", font_size=20, color=BLUE_C),
-            Text("• 真数必须大于0", font="Microsoft YaHei", font_size=20, color=BLUE_C),
-            Text("• logₐ1=0, logₐa=1", font="Microsoft YaHei", font_size=20, color=BLUE_C)
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.5)
-        
-        properties_box = SurroundingRectangle(
-            properties, 
-            color=BLUE_E, 
-            buff=0.5,
-            corner_radius=0.2
-        ).set_fill(color=BLACK, opacity=0.7)
-        
-        properties_group = VGroup(properties_box, properties).next_to(formula_group, DOWN, buff=0.2)
-        
-        self.play(
-            Create(properties_box),
-            FadeIn(properties, shift=UP),
-            run_time=1.5
-        )
-        self.wait(1)
-        self.play(FadeOut(properties_box,properties, shift=UP))
-        
-        # 5. 自然对数与常用对数
-        special_logs = VGroup(
-            MathTex(r"\ln x = \log_e x \quad (e \approx 2.71828)").scale(1.1),
-            MathTex(r"\lg x = \log_{10} x").scale(1.1)
-        ).arrange(DOWN, buff=0.6, aligned_edge=LEFT).next_to(properties_group, DOWN, buff=0.8)
-        
-        self.play(
-            LaggedStart(
-                *[Write(log) for log in special_logs],
-                lag_ratio=0.7
-            ),
-            run_time=2
-        )
-        self.wait(1)
-        
-        # 6. 版权信息
-        copyright = Text("@数学之美 | 对数公式原理与应用",
+        # 10. 添加版权信息
+        copyright = Text("数学之美",
                         font="Microsoft YaHei",
                         font_size=24,
-                        color=GREY_A).to_edge(DOWN)
+                        color=GREY_B).to_edge(DOWN).shift(UP*0.2)
         
         self.play(FadeIn(copyright, shift=UP), run_time=1.5)
         self.wait(3)
         
-# 运行命令：manim -pqh --format=png 对数公式.py LogarithmFormulas -r 1920,1080
+# 运行命令：manim -pqh --format=png 对数公式.py ImportantLogarithmicFormulas -r 1920,1080

@@ -33,10 +33,10 @@ class ImportantInequalities(Scene):
         
         # 不等式的中文解释
         chinese_texts = [
-            Text("算术-几何平均不等式", font="Microsoft YaHei", font_size=16, color=YELLOW),  # 1
-            Text("柯西-施瓦茨不等式", font="Microsoft YaHei", font_size=16, color=YELLOW),  # 2
-            Text("n元AM-GM不等式", font="Microsoft YaHei", font_size=16, color=YELLOW),  # 3
-            Text("三角不等式", font="Microsoft YaHei", font_size=16, color=YELLOW),  # 4
+            Text("算术-几何平均不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 1
+            Text("柯西-施瓦茨不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 2
+            Text("n元AM-GM不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 3
+            Text("三角不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 4
             Text("基本不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 5
             Text("调和平均不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 6
             Text("闵可夫斯基不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 7
