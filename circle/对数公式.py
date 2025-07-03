@@ -15,7 +15,7 @@ class ImportantLogarithmicFormulas(Scene):
         # 1. 创建标题
         title = Text("10个必会的重要对数公式", 
                     font_size=48,
-                    color=YELLOW).to_edge(UP, buff=1.5)
+                    color=YELLOW).to_edge(UP, buff=1)
         
         # 2. 创建所有对数公式列表（每行一个公式）
         formulas = [
@@ -71,7 +71,7 @@ class ImportantLogarithmicFormulas(Scene):
         all_rows = VGroup(*formula_rows).arrange(DOWN, buff=0.4, aligned_edge=LEFT)
         
         # 7. 整体布局（标题+所有行）
-        all_rows.next_to(title, DOWN, buff=0.8).to_edge(LEFT, buff=1.0)  # 左侧留出空间给序号
+        all_rows.next_to(title, DOWN, buff=1.2).to_edge(LEFT, buff=1.0)  # 左侧留出空间给序号
         
         # 8. 调整位置确保在屏幕内
         if all_rows.get_bottom()[1] < -6.5:
