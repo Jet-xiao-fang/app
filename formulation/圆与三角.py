@@ -1,8 +1,12 @@
 from manim import *
 import numpy as np
-
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
+
 
 class DynamicLineChart(Scene):
     def construct(self):
@@ -14,8 +18,9 @@ class DynamicLineChart(Scene):
         label_A = Tex("A").next_to(a, LEFT,buff=0.1).scale(0.5)
         label_B = Tex("B").next_to(b, RIGHT,buff=0.1).scale(0.5)
         label_O = Tex("O").next_to(o,DOWN,buff=0.1).scale(0.5)
+        title = Tex("求$AC$的取值范围?",color=YELLOW).to_edge(UP,buff=3)
         
-        self.add(a,b,o,line_ab,label_A,label_B,label_O)
+        self.add(a,b,o,line_ab,label_A,label_B,label_O,title)
         
         circle = Circle(
             radius=1,
