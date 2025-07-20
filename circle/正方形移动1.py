@@ -1,41 +1,49 @@
 from manim import *
-from manim.utils.space_ops import line_intersection
-
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
 class MovingPointOnDC(Scene):
     def construct(self):
-        self.camera.background_color = "#263238"
-        tex = Tex(r"求: CP的最小值?", color=BLUE).to_edge(UP)
-        self.play(Write(tex))
+        self.camera.background_color = "#0F0F1A"
         
         # 创建正方形
-        square = Square(side_length=4, color=WHITE, stroke_width=2.5)
+        square = Square(side_length=4, color=BLUE)
+        square.set_fill(color=BLUE,opacity=0.5)
         square.move_to(ORIGIN)
-        
+        titile = Tex(r"求$CP$的最小值?", color=YELLOW).next_to(square,UP,buff=1.5);
         # 获取顶点坐标
-        vertices = {
-            "A": square.get_corner(UL),  # 左上
-            "B": square.get_corner(UR),  # 右上
-            "C": square.get_corner(DR),  # 右下
-            "D": square.get_corner(DL)   # 左下
-        }
-        
-        # 顶点标签
-        labels = VGroup(*[
-            MathTex(label, color=WHITE, font_size=28).next_to(
-                point, direction, buff=0.18
-            ) for label, point, direction in zip(
-                ["A", "B", "C", "D"],
-                vertices.values(),
-                [UL, UR, DR, DL]
-            )
-        ])
-        
+        vertices = [
+            square.get_corner(UL),  # 左上A
+            square.get_corner(UR),  # 右上B
+            square.get_corner(DR),  # 右下C
+            square.get_corner(DL)   # 左下D
+        ]
+        labels = ["A", "B", "C", "D"]
+        dots = []
+        texts = []
+        for idx, (corner, label) in enumerate(zip(vertices, labels)):
+            dot = Dot(corner, color=RED)
+            if idx == 0:  # A (左下)
+                text = Text(label, color=WHITE, font_size=24).next_to(dot, UL, buff=0.1)
+            elif idx == 1:  # B (右下)
+                text = Text(label, color=WHITE, font_size=24).next_to(dot, UR, buff=0.1)
+            elif idx == 2:  # C (右上)
+                text = Text(label, color=WHITE, font_size=24).next_to(dot, DR, buff=0.1)
+            elif idx == 3:  # D (左上)
+                text = Text(label, color=WHITE, font_size=24).next_to(dot, DL, buff=0.1)
+
+            dots.append(dot)
+            texts.append(text)
+        width_label = Text("4", color=YELLOW, font_size=36)
+        width_label.next_to(square, RIGHT, buff=0.2)
+        self.add(titile,width_label,square,*dots, *texts)
         # 创建DC边（从D到C的底边）和CB边（从C到B的右边）
-        line_DC = Line(vertices["D"], vertices["C"], color=GREY)
-        line_CB = Line(vertices["C"], vertices["B"])
+        line_DC = Line(vertices[3], vertices[2],color=BLUE)
+        line_CB = Line(vertices[2], vertices[1],color=BLUE)
+        self.add(line_DC,line_CB)
         
         # 动态点系统
         t = ValueTracker(0)
@@ -60,13 +68,13 @@ class MovingPointOnDC(Scene):
         
         # 动态连接线AE和DF
         line_ae = always_redraw(lambda: Line(
-            vertices["A"], e_dot.get_center(),
-            color=BLUE_B, stroke_width=2.5
+            vertices[0], e_dot.get_center(),
+            color=PINK, stroke_width=3
         ))
         
         line_df = always_redraw(lambda: Line(
-            vertices["D"], f_dot.get_center(),
-            color=BLUE_B, stroke_width=2.5
+            vertices[3], f_dot.get_center(),
+            color=PINK, stroke_width=3
         ))
         
         # 创建点P作为AE和DF的交点
@@ -91,12 +99,11 @@ class MovingPointOnDC(Scene):
         
         # 创建连接线PC
         line_pc = always_redraw(lambda: Line(
-            p_dot.get_center(), vertices["C"],
-            color=GREEN, stroke_width=2.5
+            p_dot.get_center(), vertices[2],
+            color=RED, stroke_width=4
         ))
         
         # 添加所有元素
-        self.add(square, labels, line_DC, line_CB)
         self.add(e_dot, f_dot, e_label, f_label, line_ae, line_df)
         self.add(p_dot, p_label, line_pc)
         
@@ -111,34 +118,15 @@ class MovingPointOnDC(Scene):
             rate_func=linear,
             run_time=5
         )
-        self.play(
-            t.animate.set_value(1),
-            rate_func=linear,
-            run_time=5
-        )
-        
-        # 添加注释解释点P
-        explanation = Tex("P: AE和DF的交点", color=YELLOW).to_edge(DOWN)
-        self.play(Write(explanation))
-        self.wait(2)
-        self.play(FadeOut(explanation))
-        
-        # 放大P点移动部分
-        self.play(
-            t.animate.set_value(0),
-            rate_func=linear,
-            run_time=3
-        )
-        
         # 显示跟踪路径
         path = TracedPath(p_dot.get_center, stroke_color=RED, stroke_width=2.5)
         self.add(path)
         self.play(
             t.animate.set_value(1),
             rate_func=linear,
-            run_time=10
+            run_time=6
         )
-        self.wait(2)
+        self.wait(1)
         
         # 最终聚焦在PC上
         pc_group = VGroup(p_dot, line_pc, p_label)
@@ -146,13 +134,6 @@ class MovingPointOnDC(Scene):
             pc_group.animate.scale(1.5).shift(UP*0.5),
             run_time=2
         )
-        
-        # 添加最终文本
-        final_text = Tex("观察CP长度的变化", color=GREEN).to_edge(DOWN)
-        self.play(Write(final_text))
-        self.wait(3)
-        
-        # 淡出所有内容
-        self.play(*[FadeOut(mob) for mob in self.mobjects])
+        self.wait(2)
 
 # manim -pqh 正方形移动1.py MovingPointOnDC -r 1920,1080
