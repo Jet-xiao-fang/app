@@ -59,28 +59,28 @@ class MovingPointOnDC(Scene):
         )
         
         # E和F的标签
-        e_label = MathTex("E", color=YELLOW, font_size=24).add_updater(
-            lambda m: m.next_to(e_dot, UP, buff=0.12)
+        e_label = MathTex("E", font_size=24).add_updater(
+            lambda m: m.next_to(e_dot, UP, buff=0.1)
         )
-        f_label = MathTex("F", color=YELLOW, font_size=24).add_updater(
-            lambda m: m.next_to(f_dot, LEFT, buff=0.12)
+        f_label = MathTex("F", font_size=24).add_updater(
+            lambda m: m.next_to(f_dot, LEFT, buff=0.1)
         )
         
         # 动态连接线AE和DF
         line_ae = always_redraw(lambda: Line(
             vertices[0], e_dot.get_center(),
-            color=PINK, stroke_width=3
+            color=PURPLE, stroke_width=4
         ))
         
         line_df = always_redraw(lambda: Line(
             vertices[3], f_dot.get_center(),
-            color=PINK, stroke_width=3
+            color=PURPLE, stroke_width=4
         ))
         
         # 创建点P作为AE和DF的交点
         p_dot = Dot(color=RED, radius=0.1)
-        p_label = MathTex("P", color=RED, font_size=24).add_updater(
-            lambda m: m.next_to(p_dot, UR, buff=0.12)
+        p_label = MathTex("P", color=RED, font_size=36).add_updater(
+            lambda m: m.next_to(p_dot, UP, buff=0.1)
         )
         
         # 更新点P的位置（作为AE和DF的交点）
