@@ -1,11 +1,14 @@
 from manim import *
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 class ParabolaPlot(Scene):
     def construct(self):
-        self.camera.background_color = "#263238"
-        tex = Tex(r"求: $\triangle ABP$ 的最小值?", color=BLUE).to_edge(UP)
-        self.play(Write(tex))
+        self.camera.background_color = "#0F0F1A"
+        
         axes = Axes(
             x_range=[-8, 8, 1],
             y_range=[-2, 6, 1],
@@ -16,21 +19,11 @@ class ParabolaPlot(Scene):
             tips=False,
         ).set_aspect_ratio(1.0)
         
-        grid = NumberPlane(
-            x_range=[-8, 8, 0.5],
-            y_range=[-2, 6, 0.5],
-            background_line_style={"stroke_color": "#546E7A", "stroke_width": 1, "stroke_opacity": 0.6},
-            axis_config={"color": "#ECEFF1"},
-            x_length=16,
-            y_length=8
-            
-        )
-        
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))  # 使用MathTex
         origin_point = axes.c2p(0, 0)
         origin_dot = Dot(point=origin_point).scale(0.8)
         origin_label = Tex("O").next_to(origin_dot, DR, buff=0.1)
-        
+        tex = Tex(r"求: $\triangle ABP$周长的最小值?", color=YELLOW).next_to(axes,UP,buff=1.5)
         # 抛物线绘制
         parabola = axes.plot(
             lambda x: x**2 / 4,
@@ -45,11 +38,11 @@ class ParabolaPlot(Scene):
             label=MathTex(r"y = \dfrac{1}{4}x^2", color=GREEN).scale(0.8),
             x_val=-3,  # 指定x=3处的标签位置
             direction=LEFT,
-            buff=0.4,
+            buff=0.6,
             dot=False  # 不显示定位点
         )
         # 添加到场景
-        self.add(grid, axes, axis_labels, origin_dot, origin_label,parabola,parabola_label)
+        self.add(axes, axis_labels, origin_dot, origin_label,parabola,parabola_label,tex)
         # 正确写法（Axes坐标系转换）
         A_coords = (0, 1)  # 数学坐标系中的坐标
         A_point = Dot(axes.c2p(*A_coords), color=RED)  # 转换到场景坐标系
@@ -75,20 +68,20 @@ class ParabolaPlot(Scene):
             A_point.get_center(), 
             P.get_center(),
             color=RED_C,
-            stroke_width=2.5
+            stroke_width=3
         ))
         BP = always_redraw(lambda: DashedLine(
             B_point.get_center(),
             P.get_center(),
             color=BLUE_C,
-            stroke_width=2.5
+            stroke_width=3
         ))
         self.play(
             Create(P),
             Write(P_label),
             Create(AP),
             Create(BP),
-            run_time = 2
+            run_time = 1
         )
          # 轨迹跟踪（网页6的抛物线绘制扩展）
         trace = TracedPath(P.get_center, dissipating_time=1, stroke_color=YELLOW)
@@ -107,4 +100,4 @@ class ParabolaPlot(Scene):
         self.wait(2)
 
 
-# manim -pqh 正方形.py ParabolaPlot -r 1920,1080
+# manim -pqh 三角形周长最小.py ParabolaPlot -r 1920,1080
