@@ -12,11 +12,11 @@ class ParabolaPlot(Scene):
             x_range=[-8, 8, 1],
             y_range=[-3, 5, 1],
             x_length=16,
-            y_length=9,
+            y_length=8,
             
             axis_config={"color": "#ECEFF1", "stroke_width": 2},
             tips=False,
-        ).set_aspect_ratio(1.0)
+        ).set_aspect_ratio(1.0).scale(0.8)
         
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))  # 使用MathTex
         origin_point = axes.c2p(0, 0)
@@ -52,7 +52,7 @@ class ParabolaPlot(Scene):
         self.add(A_point,Label_A,B_point,Label_B)
 
         circle = Circle(
-            radius= 1,
+            radius= 1*0.8,
             color= BLUE_C,
             stroke_width = 4
         ).move_to(axes.c2p(0,2))
