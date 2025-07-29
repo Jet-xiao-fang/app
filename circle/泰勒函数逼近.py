@@ -1,9 +1,14 @@
 from manim import *
 import math
-
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
 class TaylorApproximationEnhanced(Scene):
     def construct(self):
-        self.camera.background_color = "#263238"
+        self.camera.background_color = "#0F0F1A"
         
         # 坐标系配置
         axes = Axes(
@@ -13,8 +18,10 @@ class TaylorApproximationEnhanced(Scene):
             y_length=6,
             axis_config={"color": "#ECEFF1", "stroke_width": 2},
             tips=False,
-        ).to_edge(DOWN)
-        
+        )
+        axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
+        titile = Tex("$sin(x)$泰勒展开式",color=YELLOW,font_size=56).to_edge(UP,buff=1.5)
+        self.add(titile)
         # 生成泰勒展开式文本的函数
         def get_taylor_formula(order):
             terms = []
@@ -30,11 +37,11 @@ class TaylorApproximationEnhanced(Scene):
             formula = "T_{}(x) = ".format(order) + " ".join(terms)
             # 修正首项的符号问题
             formula = formula.replace("+ ", "", 1).replace("- ", "-", 1)
-            return MathTex(formula).scale(0.8).to_corner(UR).shift(LEFT*2)
+            return MathTex(formula).scale(0.8).next_to(axes,UP,buff=1.5)
 
         # 原始正弦曲线
         original_curve = axes.plot(lambda x: math.sin(x), color="#EF5350")
-        original_label = axes.get_graph_label(original_curve, label="\\sin(x)", direction=UR).set_color("#EF5350")
+        original_label = axes.get_graph_label(original_curve, label="\\sin(x)", direction=DOWN).set_color("#EF5350")
 
         # 泰勒多项式配置
         orders = [1, 3, 5, 7, 9]
@@ -58,7 +65,7 @@ class TaylorApproximationEnhanced(Scene):
             formula_objects.append(formula)
 
         # 动画序列
-        self.play(Create(axes), run_time=2)
+        self.play(Create(axes),Create(axis_labels), run_time=2)
         self.play(Create(original_curve), Write(original_label))
         self.wait()
         
