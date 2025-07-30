@@ -1,27 +1,23 @@
 from manim import *
 import math
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
 class ParabolaPlot(Scene):
     def construct(self):
-        self.camera.background_color = "#263238"
+        self.camera.background_color = "#0F0F1A"
         axes = Axes(
             x_range=[-6, 6, 1],
-            y_range=[0, 6, 1],
+            y_range=[-1, 4, 1],
             x_length=12,
-            y_length=6,
+            y_length=5,
             
             axis_config={"color": "#ECEFF1", "stroke_width": 2},
             tips=False,
         ).set_aspect_ratio(1.0)
-        
-        grid = NumberPlane(
-            x_range=[-6, 6, 0.5],
-            y_range=[0, 6, 0.5],
-            background_line_style={"stroke_color": "#546E7A", "stroke_width": 1, "stroke_opacity": 0.6},
-            axis_config={"color": "#ECEFF1"},
-            x_length=12,
-            y_length=6
-            
-        )
         
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))  # 使用MathTex
         origin_point = axes.c2p(0, 0)
@@ -35,7 +31,7 @@ class ParabolaPlot(Scene):
             angle=PI,          # 画180°（上半圆）
             color=RED,
             arc_center=axes.c2p(0, 0),  # 直接指定圆心坐标
-            stroke_width=2
+            stroke_width=4
         )
         A_coords = (-2, 0)  # 数学坐标系中的坐标
         A_point = Dot(axes.c2p(*A_coords), color=RED)  # 转换到场景坐标系
@@ -43,8 +39,8 @@ class ParabolaPlot(Scene):
         B_coords = (2, 0)  # 数学坐标系中的坐标
         B_point = Dot(axes.c2p(*B_coords), color=RED)  # 转换到场景坐标系
         Label_B = Tex("B").next_to(B_point, DOWN, buff=0.1)
-
-        self.add(grid, axes, axis_labels, origin_dot, origin_label,semicircle,Label_A,Label_B)
+        titile = Tex("求$PA+PB$的最大值?",color=YELLOW,font_size=56).next_to(axes,UP,buff = 2)
+        self.add(axes,titile, axis_labels, origin_dot, origin_label,semicircle,Label_A,Label_B)
 
         vt = ValueTracker(-1.5)  # 初始值对应x=1
 
@@ -57,14 +53,15 @@ class ParabolaPlot(Scene):
             A_point.get_center(), 
             P.get_center(),
             color=RED_C,
-            stroke_width=2.5
+            stroke_width=3
         ))
         BP = always_redraw(lambda: DashedLine(
             B_point.get_center(),
             P.get_center(),
             color=BLUE_C,
-            stroke_width=2.5
+            stroke_width=3
         ))
+        self.add(A_point,B_point)
         self.play(
             Create(P),
             Write(P_label),
