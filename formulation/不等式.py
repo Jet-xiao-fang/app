@@ -33,26 +33,26 @@ class ImportantInequalities(Scene):
         
         # 不等式的中文解释
         chinese_texts = [
-            Text("算术-几何平均不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 1
-            Text("柯西-施瓦茨不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 2
-            Text("n元AM-GM不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 3
-            Text("三角不等式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 4
-            Text("基本不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 5
-            Text("调和平均不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 6
-            Text("闵可夫斯基不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 7
-            Text("Nesbitt不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 8
-            Text("指数不等式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 9
-            Text("对数不等式", font="Microsoft YaHei", font_size=16, color=GREEN)  # 10
+            Text("算术-几何平均不等式", font="Microsoft YaHei", font_size=18, color=RED),  # 1
+            Text("柯西-施瓦茨不等式", font="Microsoft YaHei", font_size=18, color=RED),  # 2
+            Text("n元AM-GM不等式", font="Microsoft YaHei", font_size=18, color=BLUE),  # 3
+            Text("三角不等式", font="Microsoft YaHei", font_size=18, color=BLUE),  # 4
+            Text("基本不等式", font="Microsoft YaHei", font_size=18, color=ORANGE),  # 5
+            Text("调和平均不等式", font="Microsoft YaHei", font_size=18, color=ORANGE),  # 6
+            Text("闵可夫斯基不等式", font="Microsoft YaHei", font_size=18, color=PURPLE),  # 7
+            Text("Nesbitt不等式", font="Microsoft YaHei", font_size=18, color=PURPLE),  # 8
+            Text("指数不等式", font="Microsoft YaHei", font_size=18, color=GREEN),  # 9
+            Text("对数不等式", font="Microsoft YaHei", font_size=18, color=GREEN)  # 10
         ]
         
         # 3. 调整公式大小（缩小复杂公式）
         for i, formula in enumerate(inequalities):
             if i in [1, 2, 6]:  # 较长的公式
-                formula.scale(0.5)
-            elif i in [0, 3, 4, 5, 7, 8, 9]:  # 中等长度
-                formula.scale(0.7)
-            else:
                 formula.scale(0.6)
+            elif i in [0, 3, 4, 5, 7, 8, 9]:  # 中等长度
+                formula.scale(0.8)
+            else:
+                formula.scale(0.5)
         
         # 4. 创建序号列表
         indices = [Tex(f"{i+1}.", font_size=48) for i in range(10)]
@@ -79,7 +79,7 @@ class ImportantInequalities(Scene):
             all_rows.next_to(title, DOWN, buff=0.3)
         
         # 9. 动画展示
-        self.play(Write(title), run_time=0.5)
+        self.play(Write(title), run_time=1)
         self.wait(0.5)
         
         # 逐个展示公式行
@@ -88,9 +88,9 @@ class ImportantInequalities(Scene):
                 Write(indices[i]),
                 Write(inequalities[i]),
                 FadeIn(chinese_texts[i], shift=UP*0.3),
-                run_time=1.0
+                run_time=1.5
             )
-            self.wait(0.1)
+            self.wait(0.2)
         
         # 10. 添加版权信息
         copyright = Text("数学之美",
