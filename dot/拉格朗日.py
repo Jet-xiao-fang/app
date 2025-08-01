@@ -1,15 +1,22 @@
 from manim import *
-
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
 class RectangleABCD(Scene):
     def construct(self):
-        self.camera.background_color = "#263238"
+        
+        self.camera.background_color = "#0F0F1A"
         
         # 放大矩形尺寸到6×4
-        rect = Rectangle(width=6, height=4, color=BLUE, fill_opacity=0.3)
+        rect = Rectangle(width=6, height=4, color=BLUE, fill_opacity=0.5)
         # 增大标签字体并调整位置
-        width_label = MathTex("3").scale(0.7).next_to(rect, UP, buff=0.3)
-        height_label = MathTex("2").scale(0.7).next_to(rect, RIGHT, buff=0.3)
-
+        width_label = MathTex("3",color=YELLOW).scale(0.7).next_to(rect, UP, buff=0.3)
+        height_label = MathTex("2",color=YELLOW).scale(0.7).next_to(rect, RIGHT, buff=0.3)
+        tex = Tex(r"当$PE+2PD$最小时，\\求$BP$的长", color=YELLOW).next_to(rect ,UP,buff=1.5)
+        self.add(tex)
         # 顶点坐标定义（按比例放大）
         A = np.array([-3, 2, 0])
         B = np.array([-3, -2, 0])
@@ -44,13 +51,13 @@ class RectangleABCD(Scene):
         EP = always_redraw(lambda: Line(
             E, P.get_center(), 
             color=GREEN_C, 
-            stroke_width=3  # 加粗线条
+            stroke_width=4  # 加粗线条
         ))
         
         PD = always_redraw(lambda: Line(
             P.get_center(), D, 
             color=ORANGE, 
-            stroke_width=3  # 加粗线条
+            stroke_width=4  # 加粗线条
         ))
 
         # 添加线段标签
@@ -65,13 +72,13 @@ class RectangleABCD(Scene):
             .next_to(PD.point_from_proportion(0.5), DOWN, buff=0.1)
             .set_color(ORANGE)
         )
+        pd_line = always_redraw(lambda: Line(B,P.get_center(),color=RED,stroke_width=4))
 
         # 创建BC边路径（加粗）
-        bc_path = Line(B, C, color=GREY, stroke_width=2.5, stroke_opacity=0.5)
-        bc_label = MathTex("BC").scale(0.7).next_to(bc_path, DOWN, buff=0.2)
+        bc_path = Line(B, C, color=GREY, stroke_width=3, stroke_opacity=0.5)
 
         # 添加初始元素
-        self.add(rect, width_label, height_label, vertex_labels, points, bc_path, bc_label)
+        self.add(rect, width_label, height_label, vertex_labels, points, bc_path,pd_line)
 
         self.wait(0.5)
         
