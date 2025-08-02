@@ -77,11 +77,11 @@ class QuantumGallery(Scene):
             text_group = VGroup()
             for i, line in enumerate(desc_lines):
                 if i == 0:  # 姓名
-                    text = Text(line, font_size=30, font="Microsoft YaHei", weight="BOLD", color="#FFD700")
+                    text = Text(line, font_size=30,color=YELLOW)
                 elif i == 1:  # 年份
-                    text = Text(line, font_size=24, font="Microsoft YaHei", color="#4FC3F7")
+                    text = Text(line, font_size=24,color=PINK)
                 else:  # 描述
-                    text = Text(line, font_size=26, font="Microsoft YaHei", color="WHITE")
+                    text = Text(line, font_size=26,color=PURPLE)
                 text_group.add(text)
             
             # 排列文字组
@@ -158,4 +158,4 @@ class QuantumGallery(Scene):
             run_time=1
         )
         self.wait(1)
-# manim -pqh --format=png 图片排列.py QuantumGallery -r 1920,1080
+# manim -pqh --format=png 图片排列.py QuantumGallery -r 1080,1920
