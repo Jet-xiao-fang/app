@@ -15,14 +15,14 @@ class GridExample(Scene):
         C = np.array([3, -2, 0])  # BC = 6
 
         # 创建顶点
-        point_A = Dot(A, color=BLUE)
-        point_B = Dot(B, color=BLUE)
-        point_C = Dot(C, color=BLUE)
+        point_A = Dot(A, color=RED)
+        point_B = Dot(B, color=RED)
+        point_C = Dot(C, color=RED)
 
         # 创建顶部标签
-        label_A = Text("A").next_to(point_A, UL, buff=0.1)
-        label_B = Text("B").next_to(point_B, DL, buff=0.1)
-        label_C = Text("C").next_to(point_C, RIGHT, buff=0.1)
+        label_A = MathTex("A",color=YELLOW).next_to(point_A, UL, buff=0.1)
+        label_B = MathTex("B",color=YELLOW).next_to(point_B, DL, buff=0.1)
+        label_C = MathTex("C",color=YELLOW).next_to(point_C, RIGHT, buff=0.1)
 
         # 创建三角形
         triangle_ABC = Polygon(A, B, C, color=BLUE, fill_color=BLUE, fill_opacity=0.5)
@@ -31,25 +31,27 @@ class GridExample(Scene):
         self.wait(0.5)
         title = Tex(r"求$PC+\sqrt{2}PA$的最小值？", font_size=48, color=YELLOW).next_to(triangle_ABC,UP,buff=1.5)
         self.add(title)
+        self.wait(0.5)
         # 将元素添加到场景中
-        self.add(point_A, point_B, point_C, label_A, label_B, label_C)
+        self.play(Create(point_A), Create(point_B), Create(point_C), 
+                  Write(label_A), Write(label_B), Write(label_C),run_time=2)
 
         # 显示直角符号
-        right_angle = RightAngle(Line(B, A), Line(B, C), length=0.4, quadrant=(1, 1))
+        right_angle = RightAngle(Line(B, A), Line(B, C), length=0.4, quadrant=(1, 1),color=PINK)
 
         self.play(Create(right_angle))
-
+        self.wait(0.5)
         point_p = Dot(point_B.get_center(), color=RED)
         line_bc = Line(point_B.get_center(), point_C.get_center())
         line_ap = always_redraw(
-            lambda: DashedLine(point_A.get_center(), point_p.get_center(), color=GREEN, stroke_width=4))
-        line_pc = always_redraw(lambda: Line(point_p.get_center(), point_C.get_center(), color=YELLOW, stroke_width=4))
+            lambda: Line(point_A.get_center(), point_p.get_center(), color=GREEN, stroke_width=4))
+        line_pc = always_redraw(lambda: Line(point_p.get_center(), point_C.get_center(), color=ORANGE, stroke_width=4))
         label_p = always_redraw(lambda: Text("P", color=PURPLE).next_to(point_p, DOWN, buff=0.1))
 
         self.add(line_ap, line_pc, label_p)
 
         # 来回运动：先正向，再反向
-        duration = 6
+        duration = 5
         # 正向
         self.play(
             MoveAlongPath(
@@ -70,4 +72,4 @@ class GridExample(Scene):
         )
         self.wait(3)
         
-# manim -pqh --format=png 三角形.py GridExample -r 1920,1080
+# manim -pqh --format=png 三角形.py GridExample -r 1080,1920

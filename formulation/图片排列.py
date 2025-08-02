@@ -134,7 +134,7 @@ class QuantumGallery(Scene):
         self.add(timeline_group)
         
         # 缓慢滚动动画
-        scroll_time = 30
+        scroll_time = 22.5
         self.play(
             gallery.animate.move_to(target_position),
             timeline_group.animate.set_opacity(0.7),
