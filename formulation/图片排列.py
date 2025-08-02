@@ -1,39 +1,20 @@
 from manim import *
 import numpy as np
 import random
-
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
 class QuantumGallery(Scene):
     def construct(self):
         # 宇宙深空背景
-        self.camera.background_color = "#0a0a1a"
-        
-        # 创建静态星空背景
-        stars = VGroup()
-        for _ in range(200):
-            star = Dot(
-                radius=random.uniform(0.01, 0.03),
-                color=BLUE_E,
-                fill_opacity=random.uniform(0.2, 0.8))
-            star.move_to([
-                random.uniform(-7, 7),
-                random.uniform(-4, 4),
-                0
-            ])
-            stars.add(star)
-        self.add(stars)
-        
-        title = Text("1900-1935 量子革命时代", font_size=42, color="#99ccff", font="Microsoft YaHei")
-        # subtitle.next_to(title, DOWN, buff=0.3)
-        title.to_edge(UP,buff=0.3)
-        
-        # 标题入场动画
-        self.play(
-            FadeIn(title, shift=DOWN),
-            run_time=1.5
-        )
+        self.camera.background_color = "#0F0F1A"
+        title = Text("1900-1935 量子革命时代", color=YELLOW, font="Microsoft YaHei")
+        title.to_edge(UP,buff=3)
+        self.add(title)
         self.wait(0.5)
         
         # 图片路径 (使用你的实际路径)
@@ -162,21 +143,19 @@ class QuantumGallery(Scene):
         )
         
         # 结束场景
-        ending = Text("量子革命: 重塑物理学", font_size=42, color="#99ccff", font="Microsoft YaHei")
-        ending.set_stroke(color="#4a86e8", width=2, opacity=0.7)
-        ending.to_edge(DOWN, buff=1.0)
+        ending = Text("量子革命: 重塑物理学", color=RED, font="Microsoft YaHei")
+        ending.to_edge(DOWN, buff=3)
         
-
         # 创建退出动画
         self.play(
             FadeIn(ending, shift=UP),
-            run_time=2
+            run_time=1
         )
         self.wait(0.5)
         
         self.play(
             *[FadeOut(mob) for mob in self.mobjects],
-            run_time=2
+            run_time=1
         )
         self.wait(1)
 # manim -pqh --format=png 图片排列.py QuantumGallery -r 1920,1080
