@@ -13,9 +13,9 @@ class ImportantLogarithmicFormulas(Scene):
         self.camera.background_color = "#0F0F1A"
         
         # 1. 创建标题
-        title = Text("10个必会的重要对数公式", 
+        title = Text("10个对数公式", 
                     font_size=48,
-                    color=YELLOW).to_edge(UP, buff=1)
+                    color=YELLOW).to_edge(UP, buff=1.5)
         
         # 2. 创建所有对数公式列表（每行一个公式）
         formulas = [
@@ -33,26 +33,26 @@ class ImportantLogarithmicFormulas(Scene):
         
         # 公式的中文解释
         chinese_texts = [
-            Text("对数乘法公式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 1
-            Text("对数除法公式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 2
-            Text("对数幂公式", font="Microsoft YaHei", font_size=16, color=BLUE),  # 3
-            Text("底数对数", font="Microsoft YaHei", font_size=16, color=RED),  # 4
-            Text("1的对数", font="Microsoft YaHei", font_size=16, color=RED),  # 5
-            Text("对数与指数的互逆关系", font="Microsoft YaHei", font_size=16, color=RED),  # 6
-            Text("倒数关系", font="Microsoft YaHei", font_size=16, color=PINK),  # 7
-            Text("换底公式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 8
-            Text("自然对数表达式", font="Microsoft YaHei", font_size=16, color=GREEN),  # 9
-            Text("一般换底公式", font="Microsoft YaHei", font_size=16, color=GREEN)  # 10
+            Text("对数乘法公式", font="Microsoft YaHei", font_size=18, color=BLUE),  # 1
+            Text("对数除法公式", font="Microsoft YaHei", font_size=18, color=BLUE),  # 2
+            Text("对数幂公式", font="Microsoft YaHei", font_size=18, color=BLUE),  # 3
+            Text("底数对数", font="Microsoft YaHei", font_size=18, color=RED),  # 4
+            Text("1的对数", font="Microsoft YaHei", font_size=18, color=RED),  # 5
+            Text("对数与指数的互逆关系", font="Microsoft YaHei", font_size=18, color=RED),  # 6
+            Text("倒数关系", font="Microsoft YaHei", font_size=18, color=PINK),  # 7
+            Text("换底公式", font="Microsoft YaHei", font_size=18, color=GREEN),  # 8
+            Text("自然对数表达式", font="Microsoft YaHei", font_size=18, color=GREEN),  # 9
+            Text("一般换底公式", font="Microsoft YaHei", font_size=18, color=GREEN)  # 10
         ]
         
         # 3. 调整公式大小（保持与原模板相同的缩放逻辑）
         for i, formula in enumerate(formulas):
             if i in [1, 7, 8]:  # 较长的公式
-                formula.scale(0.5)
+                formula.scale(0.8)
             elif i in [0, 2, 3, 4, 5, 6, 9]:  # 中等长度
-                formula.scale(0.7)
+                formula.scale(0.9)
             else:
-                formula.scale(0.6)
+                formula.scale(0.8)
         
         # 4. 创建序号列表
         indices = [Tex(f"{i+1}.", font_size=48) for i in range(10)]
@@ -64,14 +64,14 @@ class ImportantLogarithmicFormulas(Scene):
             formula_group = VGroup(formulas[i], chinese_texts[i]).arrange(DOWN, buff=0.2)
             
             # 创建完整行（序号在左侧）
-            row = VGroup(indices[i], formula_group).arrange(RIGHT, buff=0.3)
+            row = VGroup(indices[i], formula_group).arrange(RIGHT, buff=0.2)
             formula_rows.append(row)
         
         # 6. 创建垂直布局（所有公式行垂直排列）
-        all_rows = VGroup(*formula_rows).arrange(DOWN, buff=0.4, aligned_edge=LEFT)
+        all_rows = VGroup(*formula_rows).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
         
         # 7. 整体布局（标题+所有行）
-        all_rows.next_to(title, DOWN, buff=1.2).to_edge(LEFT, buff=1.0)  # 左侧留出空间给序号
+        all_rows.next_to(title, DOWN, buff=2).to_edge(LEFT, buff=0.1)  # 左侧留出空间给序号
         
         # 8. 调整位置确保在屏幕内
         if all_rows.get_bottom()[1] < -6.5:
@@ -91,14 +91,7 @@ class ImportantLogarithmicFormulas(Scene):
                 run_time=2
             )
             self.wait(0.2)
+    
+        self.wait(2)
         
-        # 10. 添加版权信息
-        copyright = Text("数学之美",
-                        font="Microsoft YaHei",
-                        font_size=24,
-                        color=GREY_B).to_edge(DOWN).shift(UP*0.2)
-        
-        self.play(FadeIn(copyright, shift=UP), run_time=1.5)
-        self.wait(3)
-        
-# 运行命令：manim -pqh --format=png 对数公式.py ImportantLogarithmicFormulas -r 1920,1080
+# 运行命令：manim -pqh  对数公式.py ImportantLogarithmicFormulas -r 1080,1920
