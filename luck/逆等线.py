@@ -102,4 +102,4 @@ class MathSymbolsScene(Scene):
         self.wait(3)
 
 
-# manim -pqh 逆等线.py MathSymbolsScene -r 1920,1080 
+# manim -pqh 逆等线.py MathSymbolsScene -r 1080,1920
