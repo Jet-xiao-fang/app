@@ -4,8 +4,8 @@ config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 config.frame_height = 16
 config.frame_width = 9
-config.pixel_height = 1080
-config.pixel_width = 608
+config.pixel_height = 1920
+config.pixel_width = 1080
 class ImageScene(Scene):
     def construct(self):
         # 设置封面
@@ -14,7 +14,7 @@ class ImageScene(Scene):
         img_files = [
             r"D:\Videos\图片素材\欧拉.jpeg",
             r"D:\Videos\图片素材\高斯.jpeg",
-            r"D:\Videos\图片素材\bb.jpg",
+            r"D:\Videos\图片素材\莱布尼茨.jpg",
             r"D:\Videos\图片素材\拉马.jpeg",
         ]
         y_positions = [4, 1, -2, -5]
@@ -81,4 +81,4 @@ class ImageScene(Scene):
         self.wait(5)
     
 
-# manim -pqh --format=png 人物.py ImageScene -r 1920,1080
+# manim -pqh --format=png 人物.py ImageScene -r 1080,1920
