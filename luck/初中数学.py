@@ -71,12 +71,12 @@ class JuniorHighMathFormulas(Scene):
         all_rows = VGroup(*formula_rows).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
         
         # 7. 整体布局（标题+所有行）
-        all_rows.next_to(title, DOWN, buff=1.0).to_edge(LEFT, buff=2.0)  # 左侧留出空间给序号
+        all_rows.next_to(title, DOWN, buff=0.5).to_edge(LEFT, buff=2.0)  # 左侧留出空间给序号
         
         # 8. 调整位置确保在屏幕内
         if all_rows.get_bottom()[1] < -6.5:
             all_rows.scale(0.9)
-            all_rows.next_to(title, DOWN, buff=0.8)
+            all_rows.next_to(title, DOWN, buff=0.5)
         
         # 9. 动画展示
         self.play(Write(title), run_time=0.5)
@@ -95,10 +95,10 @@ class JuniorHighMathFormulas(Scene):
         # 10. 添加版权信息
         copyright = Text("初中数学核心知识点",
                         font="Microsoft YaHei",
-                        font_size=30,
+                        font_size=24,
                         color=GREY_B).to_edge(DOWN).shift(UP*0.2)
         
         self.play(FadeIn(copyright, shift=UP), run_time=1.5)
         self.wait(3)
 
-# 运行命令：manim -pqh --format=png 数学公式.py JuniorHighMathFormulas
+# 运行命令：manim -pqh --format=png 初中数学.py JuniorHighMathFormulas
