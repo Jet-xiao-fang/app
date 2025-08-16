@@ -5,6 +5,7 @@ import numpy as np
 
 class DynamicParametricSpiral(Scene):
     def construct(self):
+        self.camera.background_color = "#0F0F1A"
         # 固定参数
         a = 1
         c = 0
@@ -31,7 +32,7 @@ class DynamicParametricSpiral(Scene):
         self.play(
             b_value.tracker.animate.set_value(60),
             rate_func=linear,
-            run_time=5
+            run_time=6
         )
         
         # 添加追踪点
@@ -53,6 +54,5 @@ class DynamicParametricSpiral(Scene):
         #     ),
         #     run_time=8
         # )
-        self.wait(3)
 
-# 运行命令: manim -pqh 参数方程1.py DynamicParametricSpiral -r 1080,1920
+# 运行命令: manim -pqh 参数方程1.py DynamicParametricSpiral -r 1920,1080

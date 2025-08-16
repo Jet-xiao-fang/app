@@ -8,7 +8,7 @@ config.tex_template = TexTemplateLibrary.ctex
 import numpy as np
 class CosTaylorApproximation(Scene):
     def construct(self):
-        # self.camera.background_color = "#0F0F1A"
+        self.camera.background_color = "#0F0F1A"
         
         # 坐标系配置
         axes = Axes(
@@ -23,7 +23,7 @@ class CosTaylorApproximation(Scene):
             tips=True,  # 不显示箭头
         )
         
-        my_run_time=0.6
+        my_run_time=0.5
         
         self.add(axes)
         
@@ -159,53 +159,69 @@ class CosTaylorApproximation(Scene):
         self.play(ReplacementTransform(p12, p13), ReplacementTransform(e12, e13),run_time=my_run_time)
         
         p14 = axes.plot(
+        lambda x: np.sin(4*x),
+        color=WHITE,
+        stroke_width=4
+        )
+        e14 = MathTex(r"y = \sin(4x)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p13, p14), ReplacementTransform(e13, e14),run_time=my_run_time)
+        
+        p15 = axes.plot(
             lambda x: np.cos(x),
             color=WHITE,
             stroke_width=4
         )
-        e14 = MathTex(r"y = \cos(x)", color=ORANGE).next_to(axes, UP, buff=0.2)
-        self.play(ReplacementTransform(p13, p14), ReplacementTransform(e13, e14),run_time=my_run_time)
+        e15 = MathTex(r"y = \cos(x)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p14, p15), ReplacementTransform(e14, e15),run_time=my_run_time)
 
-        p15 = axes.plot(
+        p16 = axes.plot(
             lambda x: np.cos(x+PI/6),
             color=WHITE,
             stroke_width=4
         )
-        e15 = MathTex(r"y = \cos\left(x + \frac{\pi}{6}\right)", color=ORANGE).next_to(axes, UP, buff=0.2)
-        self.play(ReplacementTransform(p14, p15), ReplacementTransform(e14, e15),run_time=my_run_time)
+        e16 = MathTex(r"y = \cos\left(x + \frac{\pi}{6}\right)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p15, p16), ReplacementTransform(e15, e16),run_time=my_run_time)
 
-        p16 = axes.plot(
+        p17 = axes.plot(
             lambda x: np.cos(x+PI/3),
             color=WHITE,
             stroke_width=4
         )
-        e16 = MathTex(r"y = \cos\left(x + \frac{\pi}{3}\right)", color=ORANGE).next_to(axes, UP, buff=0.2)
-        self.play(ReplacementTransform(p15, p16), ReplacementTransform(e15, e16),run_time=my_run_time)
+        e17 = MathTex(r"y = \cos\left(x + \frac{\pi}{3}\right)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p16, p17), ReplacementTransform(e16, e17),run_time=my_run_time)
         
-        p17 = axes.plot(
+        p18 = axes.plot(
             lambda x: np.cos(x+PI/2),
             color=WHITE,
             stroke_width=4
         )
-        e17 = MathTex(r"y = \cos\left(x + \frac{\pi}{2}\right)", color=ORANGE).next_to(axes, UP, buff=0.2)
-        self.play(ReplacementTransform(p16, p17), ReplacementTransform(e16, e17),run_time=my_run_time)
+        e18 = MathTex(r"y = \cos\left(x + \frac{\pi}{2}\right)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p17, p18), ReplacementTransform(e17, e18),run_time=my_run_time)
 
-        p18 = axes.plot(
+        p19 = axes.plot(
             lambda x: np.cos(2*x),
             color=WHITE,
             stroke_width=4
         )
-        e18 = MathTex(r"y = \cos(2x)", color=ORANGE).next_to(axes, UP, buff=0.2)
-        self.play(ReplacementTransform(p17, p18), ReplacementTransform(e17, e18),run_time=my_run_time)
+        e19 = MathTex(r"y = \cos(2x)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p18, p19), ReplacementTransform(e18, e19),run_time=my_run_time)
 
-        p19 = axes.plot(
+        p20 = axes.plot(
             lambda x: np.cos(3*x),
             color=WHITE,
             stroke_width=4
         )
-        e19 = MathTex(r"y = \cos(3x)", color=ORANGE).next_to(axes, UP, buff=0.2)
-        self.play(ReplacementTransform(p18, p19), ReplacementTransform(e18, e19),run_time=my_run_time)
-        self.wait(3)
+        e20 = MathTex(r"y = \cos(3x)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p19, p20), ReplacementTransform(e19, e20),run_time=my_run_time)
+        
+        p21 = axes.plot(
+            lambda x: np.cos(4*x),
+            color=WHITE,
+            stroke_width=4
+        )
+        e21 = MathTex(r"y = \cos(4x)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p20, p21), ReplacementTransform(e20, e21),run_time=my_run_time)
+
         
 
-#   manim -pqh 测试.py CosTaylorApproximation -r 1080,1920
+#   manim -pqh 测试.py CosTaylorApproximation -r 1920,1080
