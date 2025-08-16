@@ -21,7 +21,7 @@ class CosTaylorApproximation(Scene):
                          "tip_length": 0.1,
                          "tip_width": 0.2},
             tips=True,  # 不显示箭头
-        )
+        ).shift(DOWN * 0.5)
         
         my_run_time=0.5
         
