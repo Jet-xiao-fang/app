@@ -1,0 +1,121 @@
+from manim import *
+# config.frame_height = 16
+# config.frame_width = 9
+# config.pixel_height = 1920
+# config.pixel_width = 1080
+config.tex_compiler = "xelatex"
+config.tex_template = TexTemplateLibrary.ctex
+import numpy as np
+class CosTaylorApproximation(Scene):
+    def construct(self):
+        # self.camera.background_color = "#0F0F1A"
+        
+        # 坐标系配置
+        axes = Axes(
+            x_range=[-3, 3, 1],
+            y_range=[-2, 2, 1],
+            x_length=6,
+            y_length=4,
+            axis_config={"color": "#ECEFF1",
+                         "stroke_width": 3,
+                         "tip_length": 0.1,
+                         "tip_width": 0.2},
+            tips=True,
+        ).set_aspect_ratio(1.0)
+        
+        
+        self.add(axes)
+        
+        #y = x²
+        parabola = axes.plot(
+            lambda x: x**2, 
+            x_range=[-1.5, 1.5],
+            color=WHITE,
+            stroke_width=3
+        )
+        # 添加方程标签
+        equation = MathTex("y = x^2", color=ORANGE).next_to(axes, UP, buff=0.2)
+        
+        self.play(Create(parabola),Write(equation))
+        
+        #y = -x²
+        p1 = axes.plot(
+            lambda x: -x**2, 
+            x_range=[-1.5, 1.5],
+            color=WHITE,
+            stroke_width=3
+        )
+        # 添加方程标签
+        e1 = MathTex("y = -x^2", color=ORANGE).next_to(axes, UP, buff=0.2)
+        
+        self.play(ReplacementTransform(parabola,p1),ReplacementTransform(equation,e1))
+        
+        p2 = axes.plot(
+            lambda x: x,
+             x_range=[-1.5, 1.5],
+            color=WHITE,
+            stroke_width=3
+        )
+        e2 = MathTex("y = x", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p1,p2),ReplacementTransform(e1,e2))
+        
+        p3 = axes.plot(
+            lambda x: np.abs(x),
+             x_range=[-1.5, 1.5],
+            color=WHITE,
+            stroke_width=3
+        )
+        e3 = MathTex(r"y = |x|", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p2,p3),ReplacementTransform(e2,e3))
+        
+        p4 = axes.plot(
+            lambda x: 2*x+1,
+             x_range=[-1.5, 1.5],
+            color=WHITE,
+            stroke_width=3
+        )
+        e4 = MathTex(r"y = 2x+1", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p3,p4),ReplacementTransform(e3,e4))
+        
+        
+        p5 = axes.plot(
+            lambda x: -2*x+1,
+             x_range=[-1.5, 1.5],
+            color=WHITE,
+            stroke_width=3
+        )
+        e5 = MathTex(r"y = -2x+1", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p4,p5),ReplacementTransform(e4,e5))
+        
+        p6 = axes.plot(
+            lambda x: -2*x+1,
+             x_range=[-1.5, 1.5],
+            color=WHITE,
+            stroke_width=3
+        )
+        e6 = MathTex(r"y = -2x+1", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p5,p6),ReplacementTransform(e5,e6))
+        
+        p7 = axes.plot(
+        lambda x: x ** 3,  # y = x³
+        x_range=[-1.5, 1.5],  # 可调整 x 范围
+        color=WHITE,
+        stroke_width=3
+        )
+        e7 = MathTex(r"y = x^3", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p6, p7), ReplacementTransform(e6, e7))
+        
+    
+        p8 = axes.plot(
+        lambda x: np.sin(x),  # y = x³
+        x_range=[-3, 3],  # 可调整 x 范围
+        color=WHITE,
+        stroke_width=3
+        )
+        e8 = MathTex(r"y = \sin(x)", color=ORANGE).next_to(axes, UP, buff=0.2)
+        self.play(ReplacementTransform(p7, p8), ReplacementTransform(e7, e8))
+        
+        self.wait(3)
+        
+
+#   manim -pqh 动态函数.py CosTaylorApproximation -r 1080,1920
