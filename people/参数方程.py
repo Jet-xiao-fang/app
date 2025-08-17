@@ -8,6 +8,7 @@ config.pixel_height = 1920
 config.pixel_width = 1080
 class ParametricSpiral(Scene):
     def construct(self):
+        self.camera.background_color = "#0F0F1A"
         # 定义参数方程
         def parametric_curve(t,a,b,c):
             # a, c = 1, 0
@@ -19,21 +20,9 @@ class ParametricSpiral(Scene):
         a_value = Variable(1, MathTex("a"), num_decimal_places=0)
         b_value = Variable(1, MathTex("b"), num_decimal_places=0)
         c_value = Variable(0, MathTex("c"), num_decimal_places=0)
-        # 创建曲线
-        curve = always_redraw(
-            lambda: ParametricFunction(
-                lambda t: parametric_curve(t,
-                                           a_value.tracker.get_value(),
-                                           b_value.tracker.get_value(),
-                                           c_value.tracker.get_value()),
-                t_range=[0, 2*PI],
-                color=BLUE,
-                stroke_width=3
-            ).scale(2)
-        )
-        
+       
         # 标题和方程
-        title = Tex(r"参数方程螺旋线", font_size=48,color=YELLOW).to_edge(UP,buff=0.5)
+        title = Tex(r"参数方程螺旋线", font_size=48,color=YELLOW).to_edge(UP,buff=1.5)
         equation = MathTex(
             r"x(t) &= \cos(at) + \frac{\cos(bt)}{2} + \frac{\sin(ct)}{3} \\",
             r"y(t) &= \sin(at) + \frac{\sin(bt)}{2} + \frac{\cos(ct)}{3}",
@@ -44,10 +33,22 @@ class ParametricSpiral(Scene):
         params = always_redraw(
             lambda: MathTex(
                 f"a={int(a_value.tracker.get_value())},\\ b={int(b_value.tracker.get_value())},\\ c={int(c_value.tracker.get_value())}", 
-                font_size=32
+                font_size=40,
+                color=RED
             ).next_to(equation, DOWN, buff=0.3)
         )
-        
+         # 创建曲线
+        curve = always_redraw(
+            lambda: ParametricFunction(
+                lambda t: parametric_curve(t,
+                                           a_value.tracker.get_value(),
+                                           b_value.tracker.get_value(),
+                                           c_value.tracker.get_value()),
+                t_range=[0, 2*PI],
+                color=BLUE,
+                stroke_width=3
+            ).scale(1.8).shift(DOWN * 1)
+        )
         # 动画序列
         self.play(Write(title), Write(equation))
         self.add(params)  # 直接添加动态params
