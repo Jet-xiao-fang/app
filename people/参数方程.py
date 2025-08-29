@@ -22,7 +22,7 @@ class ParametricSpiral(Scene):
         c_value = Variable(0, MathTex("c"), num_decimal_places=0)
        
         # 标题和方程
-        title = Tex(r"参数方程螺旋线", font_size=48,color=YELLOW).to_edge(UP,buff=1.5)
+        title = Tex(r"神奇的参数方程", font_size=48,color=YELLOW).to_edge(UP,buff=1.5)
         equation = MathTex(
             r"x(t) &= \cos(at) + \frac{\cos(bt)}{2} + \frac{\sin(ct)}{3} \\",
             r"y(t) &= \sin(at) + \frac{\sin(bt)}{2} + \frac{\cos(ct)}{3}",
@@ -45,15 +45,12 @@ class ParametricSpiral(Scene):
                                            b_value.tracker.get_value(),
                                            c_value.tracker.get_value()),
                 t_range=[0, 2*PI],
-                color=BLUE,
                 stroke_width=3
-            ).scale(1.8).shift(DOWN * 1)
+            ).scale(1.8).shift(DOWN * 1).set_color(color=[BLUE, PURPLE, RED])
         )
-        # 动画序列
-        self.play(Write(title), Write(equation))
-        self.add(params)  # 直接添加动态params
+        self.add(title,equation,params)
         self.wait(0.5)
-        self.play(Create(curve), run_time=1)
+        self.play(Create(curve), run_time=0.5)
         self.play(
             b_value.tracker.animate.set_value(60),
             rate_func=linear,
