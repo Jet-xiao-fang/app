@@ -46,16 +46,22 @@ class MovieCreditRoll(Scene):
             
             credits.add(line)
         credits.arrange(DOWN,buff=line_spacing,aligned_edge=ORIGIN)
-        #credits.set_y(start_y)
-        # 将整个字幕组移动到屏幕底部下方
-        credits.move_to(DOWN * (config.frame_height / 2 + credits.get_height() / 2 + 1))
-        # ===== 3. 滚动动画 =====
-        # 计算滚动距离（整个字幕组高度 + 屏幕高度）
-        target_y = credits.get_height() + config.frame_height+1
+        # 添加背景矩形
+        background_rect = Rectangle(
+            width=config.frame_width * 0.9,
+            height=credits.height * 1.1,
+            fill_color=BLACK,
+            fill_opacity=0.7,
+            stroke_width=0
+        )
+        background_rect.move_to(credits)
+        credits_group = VGroup(background_rect, credits)
+        credits_group.move_to(DOWN * (config.frame_height / 2 + credits_group.get_height() / 2 + 1))
+        target_y = credits_group.get_height() + config.frame_height+1
         
         self.play(
-            credits.animate.shift(UP * target_y),
-            run_time=28,
+            credits_group.animate.shift(UP * target_y),
+            run_time=16,
             rate_func=linear
         )
         self.wait(2)
