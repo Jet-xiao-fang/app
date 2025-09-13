@@ -1,14 +1,10 @@
 from manim import *
-config.frame_height = 16
-config.frame_width = 9
-config.pixel_height = 1920
-config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
+
 class MultiImage(Scene):
     def construct(self):
         self.showImage()
-        self.wait(0.5)
         self.clear_scene()
         self.showDescribe()
         
@@ -23,29 +19,29 @@ class MultiImage(Scene):
         # 定义每组内容：图片路径、名称和公式
         items = [
             {
-                "image": r"D:\Videos\图片素材\阿贝尔.jpg", 
-                "name": r"尼尔斯·阿贝尔（1802–1829，27岁去世）",
+                "image": r"D:\Videos\图片素材\牛顿.jpeg", 
+                "name": r"牛顿",
                 "symbols": [
-                    r"证明五次方程无一般代数解（1824），终结了数学界250年的猜想",
-                    r"开创椭圆函数论，提出“阿贝尔积分”“阿贝尔函数”等概念，为复变函数奠基"
+                    r"F = G\frac{m_1 m_2}{r^2}",  # 万有引力定律
+                    r"F = ma"  # 牛顿第二定律
                 ],
                 "color": YELLOW
             },
             {
-                "image": r"D:\Videos\图片素材\伽罗瓦.png", 
-                "name": r"埃瓦里斯特·伽罗瓦（1811–1832，21岁去世）",
+                "image": r"D:\Videos\图片素材\爱因斯坦.jpeg", 
+                "name": r"爱因斯坦",
                 "symbols": [
-                    r"创立伽罗瓦理论，用群论彻底解决代数方程根式可解性问题",
-                    r"奠定近世代数基础"
+                    r"E = mc^2",  # 质能方程
+                    r"R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} = \kappa T_{\mu\nu}"  # 爱因斯坦场方程简化版
                 ],
                 "color": GREEN
             },
             {
-                "image": r"D:\Videos\图片素材\拉马.jpeg", 
-                "name": r"斯里尼瓦瑟·拉马努金（1887–1920，32岁去世）",
+                "image": r"D:\Videos\图片素材\麦克斯韦.jpg", 
+                "name": r"麦克斯韦",
                 "symbols": [
-                    r"自学成才，留下3900个公式，涉及数论、分拆数、模形式等，如圆周率无穷级数表达式",
-                    r"直觉推导能力惊人，许多公式后被应用于物理（如黑洞熵）"
+                    r"\nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0}",  # 高斯定律
+                    r"\nabla \times \mathbf{B} = \mu_0\mathbf{J} + \mu_0\varepsilon_0\frac{\partial \mathbf{E}}{\partial t}"  # 安培定律
                 ],
                 "color": PINK
             }
@@ -54,18 +50,16 @@ class MultiImage(Scene):
         groups = Group()
         
         for i, info in enumerate(items):
-            if i==0:
+            if i == 1:
+                img = ImageMobject(info["image"]).scale(0.5)
+            else: 
                 img = ImageMobject(info["image"]).scale(image_scale)
-            elif i==1:
-                img = ImageMobject(info["image"]).scale(image_scale)
-            else:
-                img = ImageMobject(info["image"]).scale(image_scale)
-            
             # 创建名称文本
             name = Text(info["name"], font="Microsoft YaHei", font_size=26, color=info["color"])
             
-            formula1 = Tex(info["symbols"][0], color=info["color"]).scale(0.55)
-            formula2 = Tex(info["symbols"][1], color=info["color"]).scale(0.55)
+            # 简化公式显示
+            formula1 = MathTex(info["symbols"][0], color=info["color"]).scale(0.55)
+            formula2 = MathTex(info["symbols"][1], color=info["color"]).scale(0.55)
             
             # 创建垂直组：名称 + 公式
             text_group = VGroup(name, formula1, formula2)
@@ -79,7 +73,6 @@ class MultiImage(Scene):
         groups.arrange(DOWN, buff=group_buff).shift(UP*0.2)
         
         # 动画展示
-        # 动画展示
         self.play(LaggedStart(
             FadeIn(groups[0], shift=UP*0.5),
             FadeIn(groups[1], shift=UP*0.5),
@@ -91,44 +84,44 @@ class MultiImage(Scene):
     def clear_scene(self):
         # 淡出所有内容，但保留背景色
         self.play(*[FadeOut(mob) for mob in self.mobjects])
-        self.wait(0.5)
+        
         
     def showDescribe(self):
         # 创建标题
-        title = Text("英年早逝的数学家", 
+        title = Text("物理学巨匠的科学贡献", 
                     font="Microsoft YaHei", 
-                    font_size=32,  # 减小标题字号
+                    font_size=32,
                     color=WHITE)
-        title.to_edge(UP, buff=0.5)  # 增加上边距
+        title.to_edge(UP, buff=0.5)
         
         # 添加装饰线
         underline = Line(LEFT, RIGHT, color=BLUE).scale(1.2)
-        underline.next_to(title, DOWN, buff=0.1)  # 减小间距
+        underline.next_to(title, DOWN, buff=0.1)
         
-        # 创建贡献列表 - 精简内容并减小字号
+        # 创建贡献列表
         contributions = VGroup(
-            Text("尼尔斯·阿贝尔:", font="Microsoft YaHei", font_size=28, color=YELLOW),
-            Text("• 出身贫困，18岁负担全家生计", color=YELLOW, font_size=24),
-            Text("• 论文被柯西遗失、勒让德拒评", color=YELLOW, font_size=24),
-            Text("• 1829年贫病中去世", color=YELLOW, font_size=24),
-            Text("• 去世两天后聘书送达", color=YELLOW, font_size=24),
+            Text("牛顿", font="Microsoft YaHei", font_size=28, color=YELLOW),
+            Text("• 经典力学体系奠基人", color=YELLOW, font_size=24),
+            Text("• 万有引力定律", color=YELLOW, font_size=24),
+            Text("• 微积分发明者之一", color=YELLOW, font_size=24),
+            Text("• 光学色散研究先驱", color=YELLOW, font_size=24),
             
-            Text("埃瓦里斯特·伽罗瓦:", font="Microsoft YaHei", font_size=28, color=GREEN),
-            Text("• 论文两次被退回", color=GREEN, font_size=24),
-            Text("• 投身共和运动两次入狱", color=GREEN, font_size=24),
-            Text("• 1832年决斗身亡", color=GREEN, font_size=24),
-            Text("• 理论死后14年才发表", color=GREEN, font_size=24),
+            Text("爱因斯坦", font="Microsoft YaHei", font_size=28, color=GREEN),
+            Text("• 相对论创立者", color=GREEN, font_size=24),
+            Text("• 质能方程提出者", color=GREEN, font_size=24),
+            Text("• 光电效应理论解释者", color=GREEN, font_size=24),
+            Text("• 宇宙学常数提出者", color=GREEN, font_size=24),
             
-            Text("斯里尼瓦瑟·拉马努金:", font="Microsoft YaHei", font_size=28, color=PINK),
-            Text("• 印度贫寒家庭出身", color=PINK, font_size=24),
-            Text("• 受哈代邀请赴剑桥", color=PINK, font_size=24),
-            Text("• 因战争与饮食不适患病", color=PINK, font_size=24),
-            Text("• 返回印度后病逝", color=PINK, font_size=24)
+            Text("麦克斯韦", font="Microsoft YaHei", font_size=28, color=PINK),
+            Text("• 电磁理论集大成者", color=PINK, font_size=24),
+            Text("• 麦克斯韦方程组创立者", color=PINK, font_size=24),
+            Text("• 电磁波预言者", color=PINK, font_size=24),
+            Text("• 气体分子运动论奠基人", color=PINK, font_size=24)
         )
         
-        # 排列贡献列表为三列 - 调整间距
+        # 排列贡献列表为三列
         column1 = VGroup(*contributions[0:5])
-        column1.arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(LEFT*4 + UP*0.2)  # 减小水平和垂直偏移
+        column1.arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(LEFT*4 + UP*0.2)
         
         column2 = VGroup(*contributions[5:10])
         column2.arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(UP*0.2)
@@ -147,16 +140,16 @@ class MultiImage(Scene):
         self.wait(1)
         
         # 添加最终强调
-        final_text = Text("数学人才：人类思想的伟大结晶", 
+        final_text = Text("科学巨匠：人类智慧的璀璨星辰", 
                         font="Microsoft YaHei", 
-                        font_size=36,  # 减小字号
+                        font_size=36,
                         color=RED)
-        final_text.to_edge(DOWN, buff=0.5)  # 增加底部边距
+        final_text.to_edge(DOWN, buff=0.5)
         
-        # 添加装饰框 - 减小缓冲
+        # 添加装饰框
         box = SurroundingRectangle(
             VGroup(column1, column2, column3),
-            buff=0.3,  # 减小缓冲
+            buff=0.3,
             color=BLUE,
             stroke_width=2
         )
@@ -169,4 +162,4 @@ class MultiImage(Scene):
         )
         self.wait(3)
         
-# manim -pqh --format=png 年轻数学家.py MultiImage -r 1920,1080
+# manim -pqh 人物模型.py MultiImage
