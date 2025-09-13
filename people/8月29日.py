@@ -2,27 +2,19 @@ from manim import *
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-config.frame_height = 16
-config.frame_width = 9
-config.pixel_height = 1920
-config.pixel_width = 1080
-
 class MathSymbolsScene(Scene):
     def construct(self):
         # 设置背景
         self.camera.background_color = "#0F0F1A"
         
-        
-        rectangle = Rectangle(width=6, height=4, color=BLUE)
-        rectangle.set_fill(color=BLUE, opacity=0.5).scale(0.8)
-        titile = Tex(r"求$\angle DEP $面积的最大值？",color=YELLOW).next_to(rectangle,UP,buff = 3)
+        rectangle = Rectangle(width=8, height=6, color=BLUE)
+        rectangle.set_fill(color=BLUE, opacity=0.5).scale(0.7)
         corners = [
             rectangle.get_corner(DL),  # 左下 (A)
             rectangle.get_corner(DR),  # 右下 (B)
             rectangle.get_corner(UR),  # 右上 (C)
             rectangle.get_corner(UL)  # 左上 (D)
         ]
-        self.add(titile)
         labels = ["A", "B", "C", "D"]
         dots = []
         texts = []
@@ -39,10 +31,10 @@ class MathSymbolsScene(Scene):
 
             dots.append(dot)
             texts.append(text)
-        length_label = Text("6", color=YELLOW, font_size=28)
+        length_label = Text("8", color=YELLOW, font_size=28)
         length_label.next_to(rectangle, DOWN, buff=0.2)
 
-        width_label = Text("4", color=YELLOW, font_size=28)
+        width_label = Text("6", color=YELLOW, font_size=28)
         width_label.next_to(rectangle, LEFT, buff=0.2)
 
         self.add(length_label, width_label)
@@ -56,15 +48,13 @@ class MathSymbolsScene(Scene):
         
         circle = Circle(
             radius=2,  # 半径
-            color=BLUE,  # 边框颜色
-            fill_opacity=0.5,  # 填充透明度
-            fill_color=GREEN  # 填充颜色
-        ).scale(0.8)
+            color=RED
+        ).scale(0.7)
 
         circle.move_to(rectangle.get_corner(UR))
 
         point_P = Dot(
-            color=RED,
+            color=GREEN,
             radius=0.08
         ).move_to(circle.point_at_angle(245 * DEGREES))
 
@@ -82,7 +72,7 @@ class MathSymbolsScene(Scene):
         line_CP = always_redraw(lambda: Line(
             rectangle.get_corner(UR),
             point_P.get_center(),
-            color=ORANGE,
+            color=GREEN,
             stroke_width=3
         ))
         triangle_DEP = always_redraw(lambda: Polygon(
@@ -118,4 +108,4 @@ class MathSymbolsScene(Scene):
         
         self.wait(3)
 
-# manim -pqh 8月29日.py MathSymbolsScene -r 1920,1080 
+# manim -pqh 8月29日.py MathSymbolsScene
