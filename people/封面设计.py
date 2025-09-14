@@ -48,10 +48,7 @@ class MathSymbolsScene(Scene):
         center = rectangle.get_center()
         point_E = Dot(center, color=GREEN)
         label_E = Text("E", color=WHITE, font_size=24).next_to(point_E, DOWN, buff=0.1)
-        
-        title = Tex(r"求$\triangle \text{DEP}$面积的最大值？",color=YELLOW).next_to(rectangle,UP,buff=2)
-        
-        self.add(point_E, label_E,title)
+        self.add(point_E, label_E)
         
         circle = Circle(
             radius=2,  # 半径
@@ -92,27 +89,8 @@ class MathSymbolsScene(Scene):
         ))
         self.add(circle, point_P, label_P,triangle_DEP)
         
-        self.play(Write(line_DP), Write(line_CP), Write(trail),run_time=1)
-
-        self.play(
-            Rotating(
-                point_P,
-                radians=2 * PI,  # 旋转360度（一圈）
-                about_point=circle.get_center(),  # 围绕圆心旋转
-                run_time=6,
-                rate_func=linear
-            )
-        )
-        self.play(
-            Rotating(
-                point_P,
-                radians=2 * PI,  # 再旋转一圈
-                about_point=circle.get_center(),
-                run_time=6,
-                rate_func=linear
-            )
-        )
+        
         
         self.wait(3)
 
-# manim -pqh 8月29日.py MathSymbolsScene
+# manim -pqh 封面设计.py MathSymbolsScene
