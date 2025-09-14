@@ -1,90 +1,115 @@
 from manim import *
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
+config.frame_height = 16
+config.frame_width = 9
+config.pixel_height = 1920
+config.pixel_width = 1080
 
 class MultiImage(Scene):
     def construct(self):
         self.showImage()
-        self.clear_scene()
-        self.showDescribe()
         
     def showImage(self):
         # 设置深色背景
         self.camera.background_color = "#0F0F1A"
-       
+        title = Text("数学符号发明人", font="Microsoft YaHei", font_size=48, color=YELLOW)
+        self.play(Write(title.to_edge(UP, buff=0.9)))
         # 设置缩放比例和间距
-        image_scale = 0.3
+        image_scale = 0.2
         group_buff = 0.5
         
         # 定义每组内容：图片路径、名称和公式
         items = [
             {
-                "image": r"D:\Videos\图片素材\牛顿.jpeg", 
-                "name": r"牛顿",
+                "name": "莱布尼茨",
+                "image": r"D:\Videos\图片素材\莱布尼茨.jpg",
                 "symbols": [
-                    r"F = G\frac{m_1 m_2}{r^2}",  # 万有引力定律
-                    r"F = ma"  # 牛顿第二定律
+                    (r"\int", "积分符号 (1675年)"),
+                    (r"\frac{d}{dx}", "微分符号"),
+                    (r"=", "等号")
                 ],
                 "color": YELLOW
             },
             {
-                "image": r"D:\Videos\图片素材\爱因斯坦.jpeg", 
-                "name": r"爱因斯坦",
+                "name": "欧拉",
+                "image": r"D:\Videos\图片素材\欧拉.jpeg",
                 "symbols": [
-                    r"E = mc^2",  # 质能方程
-                    r"R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} = \kappa T_{\mu\nu}"  # 爱因斯坦场方程简化版
+                    (r"e", "自然常数 (1736年)"),
+                    (r"i", "虚数单位"),
+                    (r"\sum", "求和符号"),
+                    (r"f(x)", "函数表示法")
                 ],
-                "color": GREEN
+                "color": RED_C
             },
             {
-                "image": r"D:\Videos\图片素材\麦克斯韦.jpg", 
-                "name": r"麦克斯韦",
+                "name": "高斯",
+                "image": r"D:\Videos\图片素材\高斯.jpeg",
                 "symbols": [
-                    r"\nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0}",  # 高斯定律
-                    r"\nabla \times \mathbf{B} = \mu_0\mathbf{J} + \mu_0\varepsilon_0\frac{\partial \mathbf{E}}{\partial t}"  # 安培定律
+                    (r"\equiv", "同余符号"),
+                    (r"\bmod", "模运算符号"),
+                    (r"i", "复数单位")
+                ],
+                "color": BLUE
+            },
+            {
+                "name": "牛顿",
+                "image": r"D:\Videos\图片素材\牛顿.jpeg",
+                "symbols": [
+                    (r"\dot{x}", "流数记号 (导数)"),
+                    (r"\binom{n}{k}", "二项式系数"),
+                    (r"\infty", "无穷大符号")
                 ],
                 "color": PINK
             }
         ]
 
-        groups = Group()
+        groups = Group()  # 使用 Group 而不是 VGroup
         
         for i, info in enumerate(items):
-            if i == 1:
+            if i == 0:
                 img = ImageMobject(info["image"]).scale(0.5)
             else: 
                 img = ImageMobject(info["image"]).scale(image_scale)
+            
             # 创建名称文本
             name = Text(info["name"], font="Microsoft YaHei", font_size=26, color=info["color"])
             
-            # 简化公式显示
-            formula1 = MathTex(info["symbols"][0], color=info["color"]).scale(0.55)
-            formula2 = MathTex(info["symbols"][1], color=info["color"]).scale(0.55)
+            # 创建符号组
+            symbol_group = VGroup()
+            for j, (symbol, desc) in enumerate(info["symbols"]):
+                sym = MathTex(symbol, font_size=26, color=info["color"])
+                txt = Text(desc, font="Microsoft YaHei", font_size=20, color=WHITE)
+                group = VGroup(sym, txt).arrange(RIGHT, buff=0.2)
+                symbol_group.add(group)
             
-            # 创建垂直组：名称 + 公式
-            text_group = VGroup(name, formula1, formula2)
-            text_group.arrange(DOWN, buff=0.2, aligned_edge=LEFT).next_to(img, RIGHT, buff=0.2)
+            symbol_group.arrange(DOWN, aligned_edge=LEFT, buff=0.2)
             
-            # 将图片和文本组组合
-            group = Group(img, text_group)
+             # 整体组合
+            content_group = VGroup(name, symbol_group).arrange(DOWN, buff=0.5)
+            # text_group.arrange(DOWN, buff=0.2, aligned_edge=LEFT).next_to(img, RIGHT, buff=0.2)
+            
+            # 将图片和文本组组合 - 使用 Group 而不是 VGroup
+            group = Group(img, content_group).arrange(RIGHT, buff=1)
             groups.add(group)
             
-        # 排列所有组
-        groups.arrange(DOWN, buff=group_buff).shift(UP*0.2)
+        # 排列所有组，左对齐
+        groups.arrange(DOWN, buff=group_buff, aligned_edge=LEFT).to_edge(LEFT, buff=0.5)
         
         # 动画展示
         self.play(LaggedStart(
             FadeIn(groups[0], shift=UP*0.5),
             FadeIn(groups[1], shift=UP*0.5),
             FadeIn(groups[2], shift=UP*0.5),
-            lag_ratio=1.0
+            FadeIn(groups[3], shift=UP*0.5),
+            lag_ratio=1.0,
+            run_time=6
         ))
         self.wait(3)
         
     def clear_scene(self):
         # 淡出所有内容，但保留背景色
         self.play(*[FadeOut(mob) for mob in self.mobjects])
-        
         
     def showDescribe(self):
         # 创建标题
@@ -119,24 +144,17 @@ class MultiImage(Scene):
             Text("• 气体分子运动论奠基人", color=PINK, font_size=24)
         )
         
-        # 排列贡献列表为三列
-        column1 = VGroup(*contributions[0:5])
-        column1.arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(LEFT*4 + UP*0.2)
-        
-        column2 = VGroup(*contributions[5:10])
-        column2.arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(UP*0.2)
-        
-        column3 = VGroup(*contributions[10:])
-        column3.arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(RIGHT*4 + UP*0.2)
+        # 将所有贡献项垂直排列
+        contributions.arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+        contributions.scale(0.9)  # 稍微缩小以适应屏幕
+        contributions.to_edge(LEFT, buff=1.0)  # 左对齐，留出边距
         
         # 动画展示标题
         self.play(Write(title), Create(underline))
         self.wait(0.5)
         
         # 动画展示贡献列表
-        self.play(FadeIn(column1, shift=RIGHT))
-        self.play(FadeIn(column2, shift=RIGHT))
-        self.play(FadeIn(column3, shift=RIGHT))
+        self.play(FadeIn(contributions, shift=RIGHT))
         self.wait(1)
         
         # 添加最终强调
@@ -148,7 +166,7 @@ class MultiImage(Scene):
         
         # 添加装饰框
         box = SurroundingRectangle(
-            VGroup(column1, column2, column3),
+            contributions,
             buff=0.3,
             color=BLUE,
             stroke_width=2
