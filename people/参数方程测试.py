@@ -7,12 +7,15 @@ config.pixel_height = 1920
 config.pixel_width = 1080
 import numpy as np
 
-class ParametricCurvesDemo(Scene):
+class FunctionGallery(Scene):
     def construct(self):
-        # 坐标系配置
+        # 设置背景颜色
+        self.camera.background_color = "#0F0F1A"
+        
+        # 创建坐标系
         axes = Axes(
-            x_range=[-4, 4, 1],
-            y_range=[-3, 3, 1],
+             x_range=[-5, 5, 1],
+            y_range=[-4, 4, 1],
             x_length=10,
             y_length=8,
             axis_config={
@@ -22,20 +25,14 @@ class ParametricCurvesDemo(Scene):
                 "tip_width": 0.2
             },
             tips=True,
-        ).shift(DOWN * 0.5)
+        ).shift(DOWN * 1)
         
-        self.play(Create(axes), run_time=1)
-        self.wait(0.5)
+        self.add(axes)
         
-        # 创建方程标签位置
-        equation_box = Rectangle(width=5, height=1.5, color=BLUE, fill_opacity=0.1, stroke_width=2)
-        equation_box.to_corner(UL)
-        self.play(Create(equation_box))
-        
-        # 定义更多美丽的参数方程曲线
         curves = [
             # 心形线
             {
+                "title": "心形线",
                 "func": lambda t: [16*np.sin(t)**3, 13*np.cos(t)-5*np.cos(2*t)-2*np.cos(3*t)-np.cos(4*t), 0],
                 "t_range": [0, 2*PI],
                 "color": RED,
@@ -44,10 +41,11 @@ class ParametricCurvesDemo(Scene):
                     r"y(t) &= 13\cos t - 5\cos 2t - 2\cos 3t - \cos 4t",
                     color=RED
                 ),
-                "scale": 0.2
+                "scale": 0.3
             },
             # 蝴蝶曲线
             {
+                "title": "蝴蝶曲线",
                 "func": lambda t: [np.sin(t)*(np.exp(np.cos(t))-2*np.cos(4*t)-np.sin(t/12)**5),
                                   np.cos(t)*(np.exp(np.cos(t))-2*np.cos(4*t)-np.sin(t/12)**5), 0],
                 "t_range": [0, 12*PI],
@@ -61,6 +59,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 玫瑰曲线
             {
+                "title": "玫瑰曲线",
                 "func": lambda t: [3*np.cos(3*t)*np.cos(t), 3*np.cos(3*t)*np.sin(t), 0],
                 "t_range": [0, 2*PI],
                 "color": PURPLE,
@@ -73,6 +72,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 双纽线
             {
+                "title": "双纽线",
                 "func": lambda t: [3*np.sqrt(np.cos(2*t))*np.cos(t), 3*np.sqrt(np.cos(2*t))*np.sin(t), 0],
                 "t_range": [-PI/4, PI/4],
                 "color": BLUE,
@@ -85,6 +85,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 星形线
             {
+                "title": "星形线",
                 "func": lambda t: [3*np.cos(t)**3, 3*np.sin(t)**3, 0],
                 "t_range": [0, 2*PI],
                 "color": ORANGE,
@@ -97,6 +98,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 螺旋线
             {
+                "title": "螺旋线",
                 "func": lambda t: [0.5*t*np.cos(t), 0.5*t*np.sin(t), 0],
                 "t_range": [0, 6*PI],
                 "color": GREEN,
@@ -109,6 +111,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 利萨如图形
             {
+                "title": "利萨如图形",
                 "func": lambda t: [3*np.sin(3*t), 3*np.cos(2*t), 0],
                 "t_range": [0, 2*PI],
                 "color": YELLOW,
@@ -121,6 +124,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 椭圆
             {
+                "title": "椭圆",
                 "func": lambda t: [4*np.cos(t), 2*np.sin(t), 0],
                 "t_range": [0, 2*PI],
                 "color": TEAL,
@@ -133,6 +137,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 双曲线
             {
+                "title": "双曲线",
                 "func": lambda t: [2*np.cosh(t), np.sinh(t), 0],
                 "t_range": [-2, 2],
                 "color": MAROON,
@@ -145,6 +150,7 @@ class ParametricCurvesDemo(Scene):
             },
             # 摆线
             {
+                "title": "摆线",
                 "func": lambda t: [3*(t - np.sin(t)), 3*(1 - np.cos(t)), 0],
                 "t_range": [0, 4*PI],
                 "color": GOLD,
@@ -157,57 +163,36 @@ class ParametricCurvesDemo(Scene):
             }
         ]
         
-        # 初始曲线和方程
-        current_curve = None
-        current_eq = None
         
-        # 绘制参数曲线
-        for curve in curves:
-            new_curve = axes.plot_parametric_curve(
-                curve["func"],
-                t_range=curve["t_range"],
-                color=curve["color"],
-                stroke_width=4
-            ).scale(curve["scale"])
+        # 创建初始函数和标签
+        curve = curves[0]
+        title = Tex(curve["title"], font_size=48, color=curve["color"]).to_edge(UP, buff=2)
+        graph = self.create_graph(axes, curve["func"], curve["t_range"], curve["color"], curve["scale"])
+        equation = curve["equation"].set_color(curve["color"]).next_to(axes, UP, buff=1).scale(curve["scale"])
+        self.play(Create(graph), Write(equation),Write(title), run_time=1.5)
+
+        # 动画展示所有函数
+        for i in range(1, len(curves)):
+            curve = curves[i]
+            new_title = Tex(curve["title"], font_size=48, color=curve["color"]).to_edge(UP, buff=2)
+            new_graph = self.create_graph(axes, curve["func"], curve["t_range"], curve["color"], curve["scale"])
+            new_equation = curve["equation"].set_color(curve["color"]).next_to(axes, UP, buff=1).scale(curve["scale"])
             
-            new_eq = curve["equation"].move_to(equation_box.get_center()).scale(0.7)
-            
-            if current_curve:
-                self.play(
-                    ReplacementTransform(current_curve, new_curve),
-                    ReplacementTransform(current_eq, new_eq),
-                    run_time=2
-                )
-            else:
-                self.play(
-                    Create(new_curve),
-                    Write(new_eq),
-                    run_time=2
-                )
-            
-            # 更新当前曲线和方程
-            current_curve = new_curve
-            current_eq = new_eq
-            
-            self.wait(0.5)  # 展示时间延长到2秒
-            
-            # 在展示下一个曲线前，淡出当前曲线和方程
-            if curve != curves[-1]:  # 如果不是最后一个曲线
-                self.play(
-                    FadeOut(current_curve),
-                    FadeOut(current_eq),
-                    run_time=1
-                )
-        
-        # 最终展示
-        final_text = Text("参数方程曲线演示结束", font_size=48, color=GOLD)
-        self.play(
-            ReplacementTransform(final_text),
-            FadeOut(axes),
-            FadeOut(equation_box),
-            run_time=2
-        )
-        self.wait(1)
-        
-#   manim -pqh 参数方程2.py ParametricCurvesDemo
-        
+            self.play(
+                ReplacementTransform(graph, new_graph),
+                ReplacementTransform(equation, new_equation),
+                ReplacementTransform(title, new_title),
+                run_time=1.5
+            )
+            graph = new_graph
+            equation = new_equation
+            title = new_title
+            self.wait(0.5)  # 添加短暂停顿
+    
+    def create_graph(self, axes, func, t_range=None,color=WHITE,scale=1):
+        """创建函数图像"""
+        if t_range:
+            return axes.plot_parametric_curve(func, t_range=t_range, color=color, stroke_width=4).scale(scale)
+        return axes.plot_parametric_curve(func, color=WHITE, stroke_width=4)
+
+# manim -pqh 参数方程测试.py FunctionGallery
