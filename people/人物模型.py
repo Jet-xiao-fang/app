@@ -13,8 +13,8 @@ class MultiImage(Scene):
     def showImage(self):
         # 设置深色背景
         self.camera.background_color = "#0F0F1A"
-        title = Text("数学符号发明人", font="Microsoft YaHei", font_size=48, color=YELLOW)
-        self.play(Write(title.to_edge(UP, buff=0.9)))
+        title = Text("数学符号发明人", font_size=42, color=YELLOW).to_edge(UP,buff=1)
+        self.play(Write(title))
         # 设置缩放比例和间距
         image_scale = 0.2
         group_buff = 0.5
@@ -98,10 +98,10 @@ class MultiImage(Scene):
         
         # 动画展示
         self.play(LaggedStart(
-            FadeIn(groups[0], shift=UP*0.5),
-            FadeIn(groups[1], shift=UP*0.5),
-            FadeIn(groups[2], shift=UP*0.5),
-            FadeIn(groups[3], shift=UP*0.5),
+            FadeIn(groups[0]),
+            FadeIn(groups[1]),
+            FadeIn(groups[2]),
+            FadeIn(groups[3]),
             lag_ratio=1.0,
             run_time=6
         ))
