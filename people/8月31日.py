@@ -91,4 +91,4 @@ class CirclePropertiesDemo(Scene):
         
         self.wait(2)
         
-#   manim -pqh --format=png 8月31日.py CirclePropertiesDemo -r 1080,1920
+#   manim -pqh 8月31日.py CirclePropertiesDemo

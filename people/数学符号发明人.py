@@ -180,4 +180,4 @@ class MultiImage(Scene):
         )
         self.wait(3)
         
-# manim -pqh 人物模型.py MultiImage
+# manim -pqh 数学符号发明人.py MultiImage

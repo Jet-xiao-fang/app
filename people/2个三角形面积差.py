@@ -198,4 +198,4 @@ class CirclePropertiesDemo(Scene):
         
         self.wait(3)
         
-#   manim -pqh --format=png 8月31日_1.py CirclePropertiesDemo -r 1080,1920
+#   manim -pqh  2个三角形面积差.py CirclePropertiesDemo
