@@ -13,9 +13,9 @@ class ImportantInequalities(Scene):
         self.camera.background_color = "#0F0F1A"
         
         # 1. 创建标题
-        title = Text("10个必会的重要不等式", 
+        title = Text("10个重要不等式", 
                     font_size=48,
-                    color=YELLOW).to_edge(UP, buff=1.5)
+                    color=YELLOW).to_edge(UP, buff=1)
         
         # 2. 创建所有不等式列表（每行一个不等式）
         inequalities = [
@@ -71,7 +71,7 @@ class ImportantInequalities(Scene):
         all_rows = VGroup(*formula_rows).arrange(DOWN, buff=0.4, aligned_edge=LEFT)
         
         # 7. 整体布局（标题+所有行）
-        all_rows.next_to(title, DOWN, buff=0.8).to_edge(LEFT, buff=1.0)  # 左侧留出空间给序号
+        all_rows.next_to(title, DOWN, buff=1).to_edge(LEFT, buff=1.0)  # 左侧留出空间给序号
         
         # 8. 调整位置确保在屏幕内
         if all_rows.get_bottom()[1] < -6.5:
@@ -91,14 +91,6 @@ class ImportantInequalities(Scene):
                 run_time=1.5
             )
             self.wait(0.2)
+        self.wait(1)
         
-        # 10. 添加版权信息
-        copyright = Text("数学之美",
-                        font="Microsoft YaHei",
-                        font_size=24,
-                        color=GREY_B).to_edge(DOWN).shift(UP*0.2)
-        
-        self.play(FadeIn(copyright, shift=UP), run_time=1.5)
-        self.wait(3)
-        
-# 运行命令：manim -pqh --format=png 不等式.py ImportantInequalities -r 1920,1080
+# 运行命令：manim -pqh 不等式.py ImportantInequalities

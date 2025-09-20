@@ -72,4 +72,4 @@ class GridExample(Scene):
         )
         self.wait(3)
         
-# manim -pqh --format=png 三角形.py GridExample -r 1080,1920
+# manim -pqh 三角形.py GridExample
