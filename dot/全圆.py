@@ -1,5 +1,4 @@
 from manim import *
-import math
 
 config.frame_height = 16
 config.frame_width = 9
@@ -154,4 +153,4 @@ class CleanParabolaPlot(Scene):
         )
         
         self.wait(3)  
-# manim -pqh 全圆.py CleanParabolaPlot -r 1920,1080
+# manim -pqh 全圆.py CleanParabolaPlot

@@ -115,4 +115,4 @@ class ParabolaPlot(Scene):
         
         self.wait(2)
 
-# manim -pqh --format=png 动点3.py ParabolaPlot -r 1920,1080
+# manim -pqh 动点3.py ParabolaPlot
