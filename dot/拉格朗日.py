@@ -109,5 +109,5 @@ class RectangleABCD(Scene):
         
         self.wait(2)
 
-# manim -pqh  拉格朗日.py RectangleABCD -r 1920,1080
+# manim -pqh  拉格朗日.py RectangleABCD
 

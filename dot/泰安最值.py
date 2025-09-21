@@ -1,5 +1,4 @@
 from manim import *
-import math
 
 config.frame_height = 16
 config.frame_width = 9
@@ -10,14 +9,14 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class CleanParabolaPlot(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1A"
+        self.camera.background_color = "#0F0F1B"
         
         # 坐标轴配置
         axes = Axes(
-            x_range=[-1, 5, 1],
-            y_range=[-1, 6, 1],
+            x_range=[-2, 4, 1],
+            y_range=[-1, 5, 1],
             x_length=6,
-            y_length=7,
+            y_length=6,
             axis_config={
                 "color": "#ECEFF1", 
                 "stroke_width": 2,
@@ -74,7 +73,7 @@ class CleanParabolaPlot(Scene):
         OM_line = Line(origin_point, M_initial, color=BLUE, stroke_width=3)
 
         # 轨迹跟踪
-        m_trace = TracedPath(M_dot.get_center, stroke_color=ORANGE, stroke_width=3, stroke_opacity=0.7)
+        m_trace = TracedPath(M_dot.get_center, stroke_color=YELLOW, stroke_width=3, stroke_opacity=0.7)
         
         # 添加初始元素
         self.add(
@@ -134,8 +133,7 @@ class CleanParabolaPlot(Scene):
             UpdateFromFunc(BP_line, update_all),
             UpdateFromFunc(M_dot, update_all),
             UpdateFromFunc(M_label, update_all),
-            UpdateFromFunc(OM_line, update_all),
-            run_time=4
+            UpdateFromFunc(OM_line, update_all)
         )
         
         # 第二圈开始时添加轨迹
@@ -161,9 +159,7 @@ class CleanParabolaPlot(Scene):
             UpdateFromFunc(BP_line, update_all),
             UpdateFromFunc(M_dot, update_all),
             UpdateFromFunc(M_label, update_all),
-            UpdateFromFunc(OM_line, update_all),
-            run_time=8
+            UpdateFromFunc(OM_line, update_all)
         )
-        
         self.wait(3)
-# manim -pqh 泰安最值.py CleanParabolaPlot -r 1920,1080
+# manim -pqh 泰安最值.py CleanParabolaPlot
