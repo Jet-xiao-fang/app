@@ -23,7 +23,7 @@ class CirclePropertiesDemo(Scene):
         
         # 添加坐标标签
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
-        title=Tex(r"当$DE:AE=1:2$时，求点D？",color=YELLOW).next_to(axes,UP,buff=1.5)
+        title=Tex(r"当$\angle PCB = 2\angle AEO$时，求点P？",color=YELLOW).next_to(axes,UP,buff=1.5)
         self.add(title)
         
         def parabola(x):
@@ -49,16 +49,16 @@ class CirclePropertiesDemo(Scene):
         # 计算交点
         # 与y轴交点 (x=0)
         A_dot = Dot(axes.c2p(-1,0), color=RED)
-        A_label = Tex("A").next_to(A_dot, DOWN, buff=0.1).scale(0.6)
+        A_label = Tex("A").next_to(A_dot, DOWN, buff=0.1).scale(0.8)
         
         B_dot = Dot(axes.c2p(3, 0), color=RED)
-        B_label = Tex("B").next_to(B_dot, DOWN, buff=0.1).scale(0.6)
+        B_label = Tex("B").next_to(B_dot, DOWN, buff=0.1).scale(0.8)
         
         C_dot = Dot(axes.c2p(0, 3), color=RED)
-        C_label = Tex("C").next_to(C_dot, LEFT, buff=0.1).scale(0.5)
+        C_label = Tex("C").next_to(C_dot, LEFT, buff=0.1).scale(0.8)
         
         E_dot = Dot(axes.c2p(0, 2), color=RED)
-        E_label = Tex("E").next_to(E_dot, LEFT, buff=0.1).scale(0.5)
+        E_label = Tex("E").next_to(E_dot, LEFT, buff=0.1).scale(0.8)
         
         origin_point = axes.c2p(0, 0)
         origin_dot = Dot(point=origin_point).scale(0.6)
@@ -77,11 +77,7 @@ class CirclePropertiesDemo(Scene):
         angle_aeo = Angle(
             Line(E_dot,A_dot),
             Line(E_dot,origin_dot),
-            radius=0.5,
-            color=BLUE,
-            other_angle=False,  # 只绘制较小的角度
-            fill_opacity=0.8,   # 设置填充不透明度
-            fill_color=BLUE     # 设置填充颜色
+            radius=0.5
         )
         self.play(Create(line_bc),Create(line_ae),Create(line_eo),Create(angle_aeo))
         vt = ValueTracker(0.5) 
@@ -93,8 +89,9 @@ class CirclePropertiesDemo(Scene):
         
         line_cp = always_redraw(lambda: Line(C_dot.get_center(),P.get_center(),color=PINK,stroke_width=4))
         angle_bcp = always_redraw(lambda: Angle(
-            Line(C_dot,B_dot),
-            Line(C_dot,P)
+            always_redraw(lambda: Line(C_dot,B_dot)),
+            always_redraw(lambda: Line(C_dot,P)),
+            radius=0.5
         ))
         # 添加所有动态元素
         self.add(P, P_label, line_cp,angle_bcp)
