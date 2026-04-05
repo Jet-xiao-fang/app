@@ -13,7 +13,7 @@ class MathSymbolsScene(Scene):
         self.camera.background_color = "#0F0F1A"
         
         # 标题
-        title = Text("量子力学创世人", font_size=48, color=YELLOW).to_edge(UP,buff=1.5)
+        title = Text("量子力学奠基人之一", font_size=48, color=YELLOW).to_edge(UP,buff=1.5)
         self.add(title)
         self.wait(0.5)
         
@@ -117,4 +117,4 @@ class MathSymbolsScene(Scene):
         )
         self.wait(2)
         
-# manim -pqh --format=png 物理大神.py MathSymbolsScene -r 1920,1080
+# manim -pqh 物理大神.py MathSymbolsScene -r 1920,1080
