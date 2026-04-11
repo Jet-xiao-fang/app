@@ -1,20 +1,21 @@
 from manim import *
+
 config.frame_width = 9      
 config.frame_height = 16 
 config.pixel_height = 1920
 config.pixel_width = 1080 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
+
 class MovingPointOnDC(Scene):
     def construct(self):
-         # 1. 创建Tex对象
-        tex = Tex(r"求AP:BP的最大值?",font_size=24).next_to(square,UP,1.5)
-        
-        # 2. 使用Write动画显示文本
-        self.play(Write(tex))
-        # 创建正方形
+        # 1. 创建正方形（必须先于使用它的Tex对象）
         square = Square(side_length=3, color=WHITE, stroke_width=2.5).scale(1.5)
         square.move_to(ORIGIN)
+        
+        # 2. 创建Tex对象（现在square已定义）
+        tex = Tex(r"求AP:BP的最大值?", font_size=36,color=RED).next_to(square, UP, buff=1.5)
+        self.play(Write(tex))
         
         # 获取顶点坐标
         vertices = {
@@ -65,17 +66,17 @@ class MovingPointOnDC(Scene):
         self.play(
             t.animate.set_value(1),
             rate_func=linear,
-            run_time=5
+            run_time=3
         )
         self.play(
             t.animate.set_value(0),
             rate_func=linear,
-            run_time=5
+            run_time=3
         )
         self.play(
             t.animate.set_value(1),
             rate_func=linear,
-            run_time=5
+            run_time=3
         )
         self.wait()
 
