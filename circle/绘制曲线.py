@@ -60,4 +60,4 @@ class ParabolaPlot(Scene):
         origin_label = Tex("O", color=BLACK).next_to(origin_dot, DR, buff=0.1)
         self.add(origin_dot, origin_label)
 
-#  manim -pqh --format=png 绘制曲线.py ParabolaPlot -r 1920,1080
+#  manim -pqh --format=png 绘制曲线.py ParabolaPlot

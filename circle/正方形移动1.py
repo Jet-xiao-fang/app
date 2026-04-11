@@ -1,19 +1,18 @@
 from manim import *
+config.frame_width = 9      
+config.frame_height = 16 
+config.pixel_height = 1920
+config.pixel_width = 1080    
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-config.frame_height = 16
-config.frame_width = 9
-config.pixel_height = 1920
-config.pixel_width = 1080
 class MovingPointOnDC(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1A"
         
         # 创建正方形
         square = Square(side_length=4, color=BLUE)
         square.set_fill(color=BLUE,opacity=0.5)
         square.move_to(ORIGIN)
-        titile = Tex(r"求$CP$的最小值?", color=YELLOW).next_to(square,UP,buff=1.5);
+        titile = Tex(r"求$CP$的最小值?", color=YELLOW).next_to(square,UP,buff=1);
         # 获取顶点坐标
         vertices = [
             square.get_corner(UL),  # 左上A
@@ -59,22 +58,22 @@ class MovingPointOnDC(Scene):
         )
         
         # E和F的标签
-        e_label = MathTex("E", font_size=24).add_updater(
-            lambda m: m.next_to(e_dot, UP, buff=0.1)
+        e_label = MathTex("E", font_size=26,color=GREEN).add_updater(
+            lambda m: m.next_to(e_dot, DOWN, buff=0.1)
         )
-        f_label = MathTex("F", font_size=24).add_updater(
-            lambda m: m.next_to(f_dot, LEFT, buff=0.1)
+        f_label = MathTex("F", font_size=26,color=GREEN).add_updater(
+            lambda m: m.next_to(f_dot, RIGHT, buff=0.1)
         )
         
         # 动态连接线AE和DF
         line_ae = always_redraw(lambda: Line(
             vertices[0], e_dot.get_center(),
-            color=PURPLE, stroke_width=4
+            color=WHITE, stroke_width=4
         ))
         
         line_df = always_redraw(lambda: Line(
             vertices[3], f_dot.get_center(),
-            color=PURPLE, stroke_width=4
+            color=WHITE, stroke_width=4
         ))
         
         # 创建点P作为AE和DF的交点
@@ -136,4 +135,4 @@ class MovingPointOnDC(Scene):
         )
         self.wait(2)
 
-# manim -pqh 正方形移动1.py MovingPointOnDC -r 1920,1080
+# manim -p 正方形移动1.py MovingPointOnDC
