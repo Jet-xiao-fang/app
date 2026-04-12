@@ -9,8 +9,6 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class MovingPointOnSemicircle(Scene):
     def construct(self):
-        # 设置深色背景
-        self.camera.background_color = "#0F0B1A"
         
         # 定义下移距离
         shift_down = DOWN * 1
@@ -129,4 +127,4 @@ class MovingPointOnSemicircle(Scene):
         )
         self.wait(3)
 
-# manim -pqh 几何半圆.py MovingPointOnSemicircle -r 1920,1080
+# manim -p 几何半圆.py MovingPointOnSemicircle

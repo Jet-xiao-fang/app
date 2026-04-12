@@ -9,8 +9,6 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class ImportantLogarithmicFormulas(Scene):
     def construct(self):
-        # 设置背景颜色
-        self.camera.background_color = "#0F0F1A"
         
         # 1. 创建标题
         title = Text("10个对数公式", 
@@ -94,4 +92,4 @@ class ImportantLogarithmicFormulas(Scene):
     
         self.wait(2)
         
-# 运行命令：manim -pqh  对数公式.py ImportantLogarithmicFormulas -r 1080,1920
+# 运行命令：manim -p  对数公式.py ImportantLogarithmicFormulas
