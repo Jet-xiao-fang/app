@@ -8,7 +8,6 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class GridExample(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1A"
         # 定义点A、B、C的坐标
         A = np.array([-2.5, 1.5, 0])
         B = np.array([-2.5, -1.5, 0])  # AB = 3
@@ -27,11 +26,11 @@ class GridExample(Scene):
         # 创建三角形
         triangle_ABC = Polygon(A, B, C, color=BLUE, fill_color=BLUE, fill_opacity=0.5)
 
-        self.play(Create(triangle_ABC))
-        self.wait(0.5)
+        self.add(triangle_ABC)
+        
         title = Tex(r"求$PA+\frac{1}{3}PC$的最小值？", font_size=48, color=YELLOW).next_to(triangle_ABC,UP,buff=1.5)
         self.add(title)
-        self.wait(0.5)
+  
         # 将元素添加到场景中
         self.play(Create(point_A), Create(point_B), Create(point_C), 
                   Write(label_A), Write(label_B), Write(label_C),run_time=1.5)
@@ -69,4 +68,4 @@ class GridExample(Scene):
         
         self.wait(2)
         
-# manim -pqh 阿氏圆.py GridExample
+# manim -p 阿氏圆.py GridExample

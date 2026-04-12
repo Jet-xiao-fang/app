@@ -8,7 +8,7 @@ config.pixel_height = 1920
 config.pixel_width = 1080
 class ParametricSpiral(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1A"
+
         # 定义参数方程
         def parametric_curve(t,a,b,c):
             # a, c = 1, 0
@@ -86,4 +86,4 @@ class ParametricSpiral(Scene):
         self.wait(2)
         
         
-# manim -pqh 参数方程.py ParametricSpiral -r 1080,1920
+# manim -p 参数方程.py ParametricSpiral

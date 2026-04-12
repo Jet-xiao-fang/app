@@ -7,7 +7,6 @@ config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 class CosTaylorApproximation(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1A"
         
         # 坐标系配置
         axes = Axes(
@@ -53,4 +52,4 @@ class CosTaylorApproximation(Scene):
         self.wait(3)
         
 
-#   manim -pqh 中线长.py CosTaylorApproximation -r 1080,1920
+#   manim -p 中线长.py CosTaylorApproximation

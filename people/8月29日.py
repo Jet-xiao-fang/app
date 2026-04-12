@@ -8,8 +8,6 @@ config.pixel_height = 1920
 config.pixel_width = 1080
 class MathSymbolsScene(Scene):
     def construct(self):
-        # 设置背景
-        self.camera.background_color = "#0F0F1A"
         
         rectangle = Rectangle(width=8, height=6, color=BLUE)
         rectangle.set_fill(color=BLUE, opacity=0.5).scale(0.7)
@@ -74,20 +72,20 @@ class MathSymbolsScene(Scene):
             rectangle.get_corner(UL),
             point_P.get_center(),
             color=ORANGE,
-            stroke_width=3
+            stroke_width=4
         ))
         line_CP = always_redraw(lambda: Line(
             rectangle.get_corner(UR),
             point_P.get_center(),
             color=GREEN,
-            stroke_width=3
+            stroke_width=4
         ))
         triangle_DEP = always_redraw(lambda: Polygon(
             rectangle.get_corner(UL),  # D点
             center,                    # E点
             point_P.get_center(),      # P点
             color=ORANGE,
-            stroke_width=3,
+            stroke_width=4,
             fill_opacity=0.5
         ))
         self.add(circle, point_P, label_P,triangle_DEP)
@@ -97,7 +95,7 @@ class MathSymbolsScene(Scene):
         self.play(
             Rotating(
                 point_P,
-                radians=2 * PI,  # 旋转360度（一圈）
+                angle=2 * PI,  # 旋转360度（一圈）
                 about_point=circle.get_center(),  # 围绕圆心旋转
                 run_time=6,
                 rate_func=linear
@@ -106,7 +104,7 @@ class MathSymbolsScene(Scene):
         self.play(
             Rotating(
                 point_P,
-                radians=2 * PI,  # 再旋转一圈
+                angle=2 * PI,  # 再旋转一圈
                 about_point=circle.get_center(),
                 run_time=6,
                 rate_func=linear
@@ -115,4 +113,4 @@ class MathSymbolsScene(Scene):
         
         self.wait(3)
 
-# manim -pqh 8月29日.py MathSymbolsScene
+# manim -p 8月29日.py MathSymbolsScene

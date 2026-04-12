@@ -31,7 +31,7 @@ class MathMultipleChoice(Scene):
         self.wait(2)
         
         # 添加解题思路
-        solution_text = Text("提示：求导后分析 f'(x) = 3x(x-2) 的符号变化", font_size=28)
+        solution_text = MathTex(r"\text{提示：求导后分析 } f'(x) = 3x(x-2) \text{ 的符号变化}", font_size=28)
         solution_text.to_edge(DOWN, buff=0.5)
         self.play(Write(solution_text))
         self.wait(3)
@@ -44,4 +44,4 @@ class MathMultipleChoice(Scene):
         )
         self.wait(2)
 
-# manim -pqh 9月6日.py MathMultipleChoice
+# manim -pqh 问题和答案.py MathMultipleChoice

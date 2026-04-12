@@ -10,8 +10,7 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class CircularMotionAnimation(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1A"
-        
+
         # 坐标系配置
         axes = Axes(
             x_range=[-4, 4, 1],
@@ -92,4 +91,4 @@ class CircularMotionAnimation(Scene):
         y = center[1] + radius * np.sin(angle)
         return (x, y)
 
-# 运行命令: manim -pqh 瓜豆原理.py CircularMotionAnimation
+# 运行命令: manim -p 瓜豆原理.py CircularMotionAnimation

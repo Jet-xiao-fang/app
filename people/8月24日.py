@@ -8,8 +8,6 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class CirclePropertiesDemo(Scene):
     def construct(self):
-        # 设置背景颜色
-        self.camera.background_color = "#0F0F1A"
         
         # 创建等比例坐标系
         axes = Axes(
@@ -49,16 +47,16 @@ class CirclePropertiesDemo(Scene):
         # 计算交点
         # 与y轴交点 (x=0)
         A_dot = Dot(axes.c2p(3,0), color=RED)
-        A_label = Tex("A").next_to(A_dot, DOWN, buff=0.1).scale(0.6)
+        A_label = Tex("A(3,0)").next_to(A_dot, DOWN, buff=0.1).scale(0.6)
         
         B_dot = Dot(axes.c2p(-1, 0), color=RED)
-        B_label = Tex("B").next_to(B_dot, DOWN, buff=0.1).scale(0.6)
+        B_label = Tex("B(-1,0)").next_to(B_dot, DOWN, buff=0.1).scale(0.6)
         
         C_dot = Dot(axes.c2p(0, 3), color=RED)
-        C_label = Tex("C").next_to(C_dot, RIGHT, buff=0.1).scale(0.5)
+        C_label = Tex("C(0,3)").next_to(C_dot, LEFT, buff=0.1).scale(0.5)
         
         M_dot = Dot(axes.c2p(1, 4), color=RED)
-        M_label = Tex("M").next_to(M_dot, UP, buff=0.1).scale(0.5)
+        M_label = Tex("M(1,4)").next_to(M_dot, UP, buff=0.1).scale(0.5)
         
         
         self.add(axes,axis_labels,graph,A_dot,A_label,B_dot,B_label,C_dot,C_label,M_dot,M_label)
@@ -89,4 +87,4 @@ class CirclePropertiesDemo(Scene):
         )
         self.wait(3)
         
-#   manim -pqh --format=png 8月24日.py CirclePropertiesDemo -r 1080,1920
+#   manim -p 8月24日.py CirclePropertiesDemo

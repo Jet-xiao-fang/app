@@ -11,8 +11,7 @@ class MultiImage(Scene):
         self.showImage()
         
     def showImage(self):
-        # 设置深色背景
-        self.camera.background_color = "#0F0F1A"
+
         title = Text("数学符号发明人", font_size=42, color=YELLOW).to_edge(UP,buff=1)
         self.play(Write(title))
         # 设置缩放比例和间距
@@ -180,4 +179,4 @@ class MultiImage(Scene):
         )
         self.wait(3)
         
-# manim -pqh 数学符号发明人.py MultiImage
+# manim -p 数学符号发明人.py MultiImage
