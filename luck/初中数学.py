@@ -9,8 +9,7 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class JuniorHighMathFormulas(Scene):
     def construct(self):
-        # 设置背景颜色
-        self.camera.background_color = "#0F0F1A"
+        
         
         # 1. 创建标题
         title = Text("初中数学核心公式", 
@@ -101,4 +100,4 @@ class JuniorHighMathFormulas(Scene):
         self.play(FadeIn(copyright, shift=UP), run_time=1.5)
         self.wait(3)
 
-# 运行命令：manim -pqh --format=png 初中数学.py JuniorHighMathFormulas
+# 运行命令：manim -p 初中数学.py JuniorHighMathFormulas

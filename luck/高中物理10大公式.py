@@ -106,3 +106,5 @@ class ImportantPhysicsFormulas(Scene):
             run_time=2
         )
         self.wait(3)
+        
+# manim -p 高中物理10大公式.py ImportantPhysicsFormulas

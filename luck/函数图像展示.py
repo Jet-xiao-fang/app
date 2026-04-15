@@ -112,4 +112,4 @@ class TransformingFunctions(Scene):
         )
         self.wait(2)
 
-# 运行命令：manim -pqh --format=png 函数图像展示.py TransformingFunctions
+# 运行命令：manim -p 函数图像展示.py TransformingFunctions

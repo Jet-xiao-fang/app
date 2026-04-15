@@ -10,8 +10,6 @@ config.pixel_width = 1080
 
 class ConeVolumeProof(Scene):
     def construct(self):
-        # 设置深色背景
-        self.camera.background_color = "#0F0B1A"
         
         # 创建坐标系 - 移除 scale(0.9)
         axes = Axes(
@@ -100,4 +98,4 @@ class ConeVolumeProof(Scene):
         
         self.wait(2)
         
-# 运行命令: manim -pqh --format=png 两个定点.py ConeVolumeProof -r 1920,1080
+# 运行命令: manim -p 两个定点.py ConeVolumeProof

@@ -129,4 +129,4 @@ class CirclePropertiesDemo(Scene):
     
         self.wait(3)
         
-#   manim -pqh --format=png 线段最值.py CirclePropertiesDemo -r 1080,1920
+#   manim -p 线段最值.py CirclePropertiesDemo

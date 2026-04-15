@@ -8,8 +8,6 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class RotatingTangentLine(Scene):
     def construct(self):
-        # 设置背景颜色
-        self.camera.background_color = "#0F0F1A"
         
         # 创建坐标系（1:1 等比例）
         axes = Axes(
@@ -128,4 +126,4 @@ class RotatingTangentLine(Scene):
         self.play(Write(proof_step1))
         self.wait(3)
 
-#    manim -pqh 圆上最大值.py RotatingTangentLine -r 1920,1080
+#    manim -p 圆上最大值.py RotatingTangentLine

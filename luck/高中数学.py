@@ -94,4 +94,4 @@ class SeniorHighMathFormulas(Scene):
         
         self.wait(3)
 
-# 运行命令：manim -pqh --format=png 高中数学.py SeniorHighMathFormulas
+# 运行命令：manim -p 高中数学.py SeniorHighMathFormulas

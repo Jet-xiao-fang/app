@@ -101,4 +101,4 @@ class ImportantTrigonometricFormulas(Scene):
         self.play(FadeIn(copyright, shift=UP), run_time=1.5)
         self.wait(3)
 
-# 运行命令：manim -pqh --format=png 三角函数公式.py ImportantTrigonometricFormulas -r 1920,1080
+# 运行命令：manim -p 三角函数公式.py ImportantTrigonometricFormulas

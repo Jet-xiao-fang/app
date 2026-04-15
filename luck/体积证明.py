@@ -1,12 +1,13 @@
 from manim import *
 import numpy as np
 
-config.background_color = "#1F2430"
+
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
 class ConeVolumeProof(ThreeDScene):
     def construct(self):
+        self.camera.background_color = "#0F0F1A"
         # 1. 标题和开场动画
         title = Text("圆锥体积的微积分证明", 
                      font="Source Han Sans CN", 
@@ -267,4 +268,4 @@ class ConeVolumeProof(ThreeDScene):
         self.add_fixed_in_frame_mobjects(conclusion)
         self.play(Write(conclusion))
         self.wait(3)
-# manim -pqh --format=png 体积证明.py ConeVolumeProof -r 1920,1080
+# manim -pqh 体积证明.py ConeVolumeProof

@@ -3,6 +3,8 @@ config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 #这个背景色可以
 config.background_color = "#1F2430"
+# 设置背景颜色
+self.camera.background_color = "#0F0F1A"
 # 生成视频
 manim -pqh example5.py StaticCircle3 -r 1080,1920
 # 覆盖上次生成的图片

@@ -110,4 +110,4 @@ class MathSymbolsScene(Scene):
         
         self.wait(2)
 
-# 运行命令：manim -pqh 正方形内一点.py MathSymbolsScene -r 1920,1080
+# 运行命令：manim -p 正方形内一点.py MathSymbolsScene

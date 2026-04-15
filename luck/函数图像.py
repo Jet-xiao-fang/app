@@ -10,8 +10,7 @@ config.pixel_width = 1080
 
 class ConeVolumeProof(Scene):
     def construct(self):
-# 设置深色背景
-        self.camera.background_color = "#0F0B1A"
+
         
         # 定义函数
         def func(x):
@@ -126,4 +125,4 @@ class ConeVolumeProof(Scene):
         
         self.wait(2)
         
-# 运行命令: manim -pqh --format=png 函数图像.py ConeVolumeProof -r 1920,1080
+# 运行命令: manim -p 函数图像.py ConeVolumeProof

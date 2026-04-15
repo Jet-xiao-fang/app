@@ -54,7 +54,7 @@ class MathSymbolsScene(Scene):
 
         # 添加初始元素
         self.add(title, rectangle, *dots, *texts, length_label, width_label, diagonal)
-        self.wait(1)
+        self.wait(0.5)
         
         # 创建动点E和F
         t = ValueTracker(0)  # 参数控制器
@@ -72,17 +72,17 @@ class MathSymbolsScene(Scene):
         ))
         
         # 添加E、F标签
-        E_label = always_redraw(lambda: Tex("E", color=PINK, font_size=30).next_to(E, DOWN, buff=0.1))
-        F_label = always_redraw(lambda: Tex("F", color=RED, font_size=30).next_to(F, DOWN, buff=0.1))
+        E_label = always_redraw(lambda: Tex("E", color=WHITE, font_size=30).next_to(E, DOWN, buff=0.1))
+        F_label = always_redraw(lambda: Tex("F", color=WHITE, font_size=30).next_to(F, DOWN, buff=0.1))
         
         # 创建连接线
         DE = always_redraw(lambda: Line(corners[3], E.get_center(), color=YELLOW))
         DF = always_redraw(lambda: Line(corners[3], F.get_center(), color=YELLOW))
         
         # 添加所有动态元素
-        self.play(
-            Create(E), Create(F),
-            Write(E_label), Write(F_label)
+        self.add(
+            E, F,
+            E_label, F_label
         )
         self.play(Create(DE), Create(DF))
         
@@ -102,4 +102,4 @@ class MathSymbolsScene(Scene):
         self.wait(3)
 
 
-# manim -pqh 逆等线.py MathSymbolsScene -r 1080,1920
+# manim -p 逆等线.py MathSymbolsScene
