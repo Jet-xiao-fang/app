@@ -81,4 +81,4 @@ class ImageScene(Scene):
         self.wait(5)
     
 
-# manim -pqh --format=png 人物.py ImageScene -r 1080,1920
+# manim -p 人物.py ImageScene

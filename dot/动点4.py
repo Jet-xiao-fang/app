@@ -150,4 +150,4 @@ class ParabolaPlot(Scene):
         self.wait(3)
 
 
-# manim -pqh 动点4.py ParabolaPlot
+# manim -p 动点4.py ParabolaPlot

@@ -88,4 +88,4 @@ class ParabolaPlot(Scene):
         
         
       
-# manim -pqh 半圆.py ParabolaPlot
+# manim -p 半圆.py ParabolaPlot

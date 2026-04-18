@@ -78,4 +78,4 @@ class DynamicLineChart(Scene):
         
 
 # 运行命令: 
-# manim -pqh 圆与三角.py DynamicLineChart -r 1080,1920
+# manim -p 圆与三角.py DynamicLineChart

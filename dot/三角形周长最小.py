@@ -100,4 +100,4 @@ class ParabolaPlot(Scene):
         self.wait(2)
 
 
-# manim -pqh 三角形周长最小.py ParabolaPlot -r 1920,1080
+# manim -p 三角形周长最小.py ParabolaPlot

@@ -153,4 +153,4 @@ class CleanParabolaPlot(Scene):
         )
         
         self.wait(3)  
-# manim -pqh 全圆.py CleanParabolaPlot
+# manim -p 全圆.py CleanParabolaPlot

@@ -11,10 +11,10 @@ class RectangleABCD(Scene):
         self.camera.background_color = "#0F0F1A"
         
         # 放大矩形尺寸到6×4
-        rect = Rectangle(width=6, height=4, color=BLUE, fill_opacity=0.5)
+        rect = Rectangle(width=6, height=4, color=BLUE, fill_opacity=0.3)
         # 增大标签字体并调整位置
-        width_label = MathTex("3",color=YELLOW).scale(0.7).next_to(rect, UP, buff=0.3)
-        height_label = MathTex("2",color=YELLOW).scale(0.7).next_to(rect, RIGHT, buff=0.3)
+        width_label = MathTex("3",color=YELLOW).scale(0.8).next_to(rect, UP, buff=0.3)
+        height_label = MathTex("2",color=YELLOW).scale(0.8).next_to(rect, RIGHT, buff=0.3)
         tex = Tex(r"当$PE+2PD$最小时，\\求$BP$的长", color=YELLOW).next_to(rect ,UP,buff=1.5)
         self.add(tex)
         # 顶点坐标定义（按比例放大）
@@ -50,13 +50,13 @@ class RectangleABCD(Scene):
         # 动态更新线段
         EP = always_redraw(lambda: Line(
             E, P.get_center(), 
-            color=GREEN_C, 
+            color=YELLOW, 
             stroke_width=4  # 加粗线条
         ))
         
         PD = always_redraw(lambda: Line(
             P.get_center(), D, 
-            color=ORANGE, 
+            color=RED, 
             stroke_width=4  # 加粗线条
         ))
 
@@ -64,13 +64,13 @@ class RectangleABCD(Scene):
         EP_label = always_redraw(
             lambda: MathTex("EP").scale(0.6)
             .next_to(EP.point_from_proportion(0.5), LEFT, buff=0.1)
-            .set_color(GREEN_C)
+            
         )
         
         PD_label = always_redraw(
             lambda: MathTex("PD").scale(0.6)
             .next_to(PD.point_from_proportion(0.5), DOWN, buff=0.1)
-            .set_color(ORANGE)
+            
         )
         pd_line = always_redraw(lambda: Line(B,P.get_center(),color=RED,stroke_width=4))
 
@@ -109,5 +109,5 @@ class RectangleABCD(Scene):
         
         self.wait(2)
 
-# manim -pqh  拉格朗日.py RectangleABCD
+# manim -p  拉格朗日.py RectangleABCD
 

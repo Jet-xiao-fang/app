@@ -107,4 +107,4 @@ class ImportantPhysicsFormulas(Scene):
         )
         self.wait(3)
         
-# manim -pqh 10个物理公式.py ImportantPhysicsFormulas -r 1920,1080
+# manim -p 10个物理公式.py ImportantPhysicsFormulas

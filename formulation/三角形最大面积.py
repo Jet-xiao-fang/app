@@ -101,4 +101,4 @@ class CirclePropertiesDemo(Scene):
         
         self.wait(3)
         
-#   manim -pqh --format=png 三角形最大面积.py CirclePropertiesDemo -r 1920,1080
+#   manim -p 三角形最大面积.py CirclePropertiesDemo

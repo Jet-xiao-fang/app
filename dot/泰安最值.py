@@ -9,7 +9,7 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class CleanParabolaPlot(Scene):
     def construct(self):
-        self.camera.background_color = "#0F0F1B"
+        self.camera.background_color = "#0F0F1A"
         
         # 坐标轴配置
         axes = Axes(
@@ -162,4 +162,4 @@ class CleanParabolaPlot(Scene):
             UpdateFromFunc(OM_line, update_all)
         )
         self.wait(3)
-# manim -pqh 泰安最值.py CleanParabolaPlot
+# manim -p 泰安最值.py CleanParabolaPlot

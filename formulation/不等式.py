@@ -15,8 +15,10 @@ class ImportantInequalities(Scene):
         # 1. 创建标题
         title = Text("10个重要不等式", 
                     font_size=48,
+                    font="STKaiti",
                     color=YELLOW).to_edge(UP, buff=1)
-        
+        # 9. 动画展示
+        self.add(title)
         # 2. 创建所有不等式列表（每行一个不等式）
         inequalities = [
             MathTex(r"\frac{a+b}{2} \geqslant \sqrt{ab} \quad (a,b > 0)"),  # 1. 算术-几何平均不等式
@@ -78,8 +80,7 @@ class ImportantInequalities(Scene):
             all_rows.scale(0.9)
             all_rows.next_to(title, DOWN, buff=0.3)
         
-        # 9. 动画展示
-        self.play(Write(title), run_time=1)
+        
         self.wait(0.5)
         
         # 逐个展示公式行
@@ -93,4 +94,4 @@ class ImportantInequalities(Scene):
             self.wait(0.2)
         self.wait(1)
         
-# 运行命令：manim -pqh 不等式.py ImportantInequalities
+# 运行命令：manim -p 不等式.py ImportantInequalities

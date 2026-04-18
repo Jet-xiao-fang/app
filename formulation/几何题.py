@@ -101,4 +101,4 @@ class Draw3DSphere(Scene):
         )
         self.wait(2)
 
-# manim -pqh 几何题.py Draw3DSphere -r 1920,1080
+# manim -p 几何题.py Draw3DSphere

@@ -72,4 +72,4 @@ class GridExample(Scene):
         )
         self.wait(3)
         
-# manim -pqh 三角形.py GridExample
+# manim -p 三角形.py GridExample

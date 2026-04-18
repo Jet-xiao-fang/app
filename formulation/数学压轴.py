@@ -115,4 +115,4 @@ class CirclePropertiesDemo(Scene):
         self.wait(1)
         
         
-#   manim -pqh 数学压轴.py CirclePropertiesDemo
+#   manim -p 数学压轴.py CirclePropertiesDemo

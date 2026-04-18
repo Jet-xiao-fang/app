@@ -20,7 +20,7 @@ class MultiImage(Scene):
         items = [
             {
                 "image": r"D:\Videos\图片素材\阿贝尔.jpg", 
-                "name": r"尼尔斯·阿贝尔（1802–1829，27岁去世）",
+                "name": r"尼尔斯·阿贝尔：(1802-1829，27岁去世)",
                 "symbols": [
                     r"证明五次方程无一般代数解（1824），终结了数学界250年的猜想",
                     r"开创椭圆函数论，提出“阿贝尔积分”“阿贝尔函数”等概念，为复变函数奠基"
@@ -29,7 +29,7 @@ class MultiImage(Scene):
             },
             {
                 "image": r"D:\Videos\图片素材\伽罗瓦.png", 
-                "name": r"埃瓦里斯特·伽罗瓦（1811–1832，21岁去世）",
+                "name": r"埃瓦里斯特·伽罗瓦：(1811-1832，21岁去世)",
                 "symbols": [
                     r"创立伽罗瓦理论，用群论彻底解决代数方程根式可解性问题",
                     r"奠定近世代数基础"
@@ -38,7 +38,7 @@ class MultiImage(Scene):
             },
             {
                 "image": r"D:\Videos\图片素材\拉马.jpeg", 
-                "name": r"斯里尼瓦瑟·拉马努金（1887–1920，32岁去世）",
+                "name": r"斯里尼瓦瑟·拉马努金：(1887-1920，32岁去世)",
                 "symbols": [
                     r"自学成才，留下3900个公式，涉及数论、分拆数、模形式等，如圆周率无穷级数表达式",
                     r"直觉推导能力惊人，许多公式后被应用于物理（如黑洞熵）"
@@ -58,7 +58,7 @@ class MultiImage(Scene):
                 img = ImageMobject(info["image"]).scale(image_scale)
             
             # 创建名称文本
-            name = Text(info["name"], font="Microsoft YaHei", font_size=26, color=info["color"])
+            name = Text(info["name"], font="STXingkai", font_size=26, color=info["color"])
             
             formula1 = Tex(info["symbols"][0], color=info["color"]).scale(0.55)
             formula2 = Tex(info["symbols"][1], color=info["color"]).scale(0.55)
@@ -87,13 +87,12 @@ class MultiImage(Scene):
     def clear_scene(self):
         # 淡出所有内容，但保留背景色
         self.play(*[FadeOut(mob) for mob in self.mobjects])
-        self.wait(0.5)
         
     def showDescribe(self):
         # 创建标题
         title = Text("英年早逝的数学家", 
-                    font="Microsoft YaHei", 
-                    font_size=32,  # 减小标题字号
+                    font="STKaiti",
+                    font_size=38,  # 减小标题字号
                     color=WHITE)
         title.to_edge(UP, buff=0.5)  # 增加上边距
         
@@ -103,19 +102,19 @@ class MultiImage(Scene):
         
         # 创建贡献列表 - 精简内容并减小字号
         contributions = VGroup(
-            Text("尼尔斯·阿贝尔:", font="Microsoft YaHei", font_size=28, color=YELLOW),
-            Text("• 出身贫困，18岁负担全家生计", color=YELLOW, font_size=24),
-            Text("• 论文被柯西遗失、勒让德拒评", color=YELLOW, font_size=24),
+            Text("尼尔斯·阿贝尔", font="STXingkai", font_size=28, color=YELLOW),
+            Text("• 出身贫困，18岁负担全家生计", color=YELLOW, font_size=20),
+            Text("• 论文被柯西遗失、勒让德拒评", color=YELLOW, font_size=20),
             Text("• 1829年贫病中去世", color=YELLOW, font_size=24),
             Text("• 去世两天后聘书送达", color=YELLOW, font_size=24),
             
-            Text("埃瓦里斯特·伽罗瓦:", font="Microsoft YaHei", font_size=28, color=GREEN),
+            Text("埃瓦里斯特·伽罗瓦", font="STXingkai", font_size=28, color=GREEN),
             Text("• 论文两次被退回", color=GREEN, font_size=24),
             Text("• 投身共和运动两次入狱", color=GREEN, font_size=24),
             Text("• 1832年决斗身亡", color=GREEN, font_size=24),
             Text("• 理论死后14年才发表", color=GREEN, font_size=24),
             
-            Text("斯里尼瓦瑟·拉马努金:", font="Microsoft YaHei", font_size=28, color=PINK),
+            Text("斯里尼瓦瑟·拉马努金", font="STXingkai", font_size=28, color=PINK),
             Text("• 印度贫寒家庭出身", color=PINK, font_size=24),
             Text("• 受哈代邀请赴剑桥", color=PINK, font_size=24),
             Text("• 因战争与饮食不适患病", color=PINK, font_size=24),
@@ -133,7 +132,7 @@ class MultiImage(Scene):
         column3.arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(RIGHT*4 + UP*0.2)
         
         # 动画展示标题
-        self.play(Write(title), Create(underline))
+        self.add(title, underline)
         self.wait(0.5)
         
         # 动画展示贡献列表
@@ -165,4 +164,4 @@ class MultiImage(Scene):
         )
         self.wait(3)
         
-# manim -pqh --format=png 年轻数学家.py MultiImage -r 1920,1080
+# manim -pqh 年轻数学家.py MultiImage

@@ -88,4 +88,4 @@ class AnimateSquareWithAPBP(Scene):
         )
         self.wait(4)
 
-# manim -pqh 将军饮马.py AnimateSquareWithAPBP
+# manim -p 将军饮马.py AnimateSquareWithAPBP
