@@ -2,9 +2,9 @@ from manim import *
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-config.frame_height = 16
+config.frame_height = 12
 config.frame_width = 9
-config.pixel_height = 1920
+config.pixel_height = 1440
 config.pixel_width = 1080
 
 class MathSymbolsScene(Scene):
@@ -99,15 +99,15 @@ class MathSymbolsScene(Scene):
         # 优雅的淡入效果，每个持续2秒，总时长约8-10秒
         self.play(
             LaggedStart(
-                FadeIn(groups[0], shift=UP*0.5, run_time=2),
-                FadeIn(groups[1], shift=UP*0.5, run_time=2),
-                FadeIn(groups[2], shift=UP*0.5, run_time=2),
-                FadeIn(groups[3], shift=UP*0.5, run_time=2),
-                lag_ratio=0.8  # 40%的重叠，让动画更流畅
+                FadeIn(groups[0], shift=UP*0.5, run_time=1.8),
+                FadeIn(groups[1], shift=UP*0.5, run_time=1.8),
+                FadeIn(groups[2], shift=UP*0.5, run_time=1.8),
+                FadeIn(groups[3], shift=UP*0.5, run_time=1.8),
+                lag_ratio=1  # 40%的重叠，让动画更流畅
             )
         )
 
-        self.wait(5)  # 最后等待2秒
+        self.wait(6)  # 最后等待2秒
         
         
         

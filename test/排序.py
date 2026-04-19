@@ -12,14 +12,14 @@ class NineAngleRadarChart(Scene):
     科目：数学、政治、地理、历史、美术、生物、语文、英文、德文
     """
     def construct(self):
-        self.camera.background_color = "#FDFDFD"
+        self.camera.background_color = "#0F0F1A"
         # ========== 5. 标题 ==========
-        title = Text("孩子偏科太严重了，\n以后毕业能干点什么？", font_size=42, color=BLACK)
-        title.to_edge(UP, buff=1)
+        title = Text("孩子偏科太严重了，\n以后毕业能干点什么？", font_size=42)
+        title.to_edge(UP, buff=1)  # 减小上边距，让标题稍微下移
         self.add(title)
         # ========== 参数设置 ==========
         radius = 3.2                  # 外九边形半径
-        center = ORIGIN               # 中心点坐标
+        center = DOWN * 1.0           # 中心点向下移动1个单位
         num_dims = 9                  # 维度数量
         # 九个轴的角度（从正上方开始，顺时针方向，间隔 2π/9）
         angles = [PI/2 - i * 2*PI/num_dims for i in range(num_dims)]
@@ -112,4 +112,4 @@ class NineAngleRadarChart(Scene):
         self.play(FadeIn(value_labels, shift=UP, run_time=1))
         self.wait(15)
 
-        
+# manim -p 排序.py NineAngleRadarChart

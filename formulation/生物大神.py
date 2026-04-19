@@ -67,15 +67,15 @@ class BiologyPioneersScene(Scene):
         all_groups.arrange(DOWN, buff=0.5).shift(UP*0.2)   
         
         self.play(LaggedStart(
-            FadeIn(all_groups[0], shift=UP*0.5),
-            FadeIn(all_groups[1], shift=UP*0.5),
-            FadeIn(all_groups[2], shift=UP*0.5),
+            FadeIn(all_groups[0], shift=UP*0.5,run_time=2),
+            FadeIn(all_groups[1], shift=UP*0.5,run_time=2),
+            FadeIn(all_groups[2], shift=UP*0.5,run_time=2),
             lag_ratio=1.0
         ))
 
         final_text = Text("生命科学：揭示自然奥秘",
-                          font="Microsoft YaHei", font_size=36, color=GOLD)
-        final_text.to_edge(DOWN, buff=0.8)
+                          font="Microsoft YaHei", font_size=26, color=GOLD)
+        final_text.to_edge(DOWN, buff=0.5)
         self.play(Write(final_text))
         self.wait(3)
         
