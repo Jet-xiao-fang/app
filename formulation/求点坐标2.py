@@ -98,4 +98,4 @@ class CirclePropertiesDemo(Scene):
         
         self.wait(3)
         
-#   manim -pqh 求点坐标2.py CirclePropertiesDemo
+#   manim -p 求点坐标2.py CirclePropertiesDemo

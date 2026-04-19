@@ -125,4 +125,4 @@ class CirclePropertiesDemo(Scene):
         self.wait(1)
         
         
-#   manim -pqh 线段比例.py CirclePropertiesDemo
+#   manim -p 线段比例.py CirclePropertiesDemo

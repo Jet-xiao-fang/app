@@ -95,4 +95,4 @@ class MathSymbolsScene(Scene):
         )
         self.wait(2)
 
-# manim -pqh 费马点模型.py MathSymbolsScene
+# manim -p 费马点模型.py MathSymbolsScene
