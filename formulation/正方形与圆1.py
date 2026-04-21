@@ -9,7 +9,7 @@ class GridExample(Scene):
     def construct(self):
         self.camera.background_color = "#0F0F1A"
         rectangle = Rectangle(width=4, height=4, color=BLUE, fill_color=BLUE, fill_opacity=0.5)
-        title = Tex("求$CP+BP$的最小值？", color=YELLOW).next_to(rectangle, UP, buff=1.5)
+        title = Tex("求$CP+BP$的最小值？", color=WHITE).next_to(rectangle, UP, buff=1.5)
         corners = [
             rectangle.get_corner(DL),
             rectangle.get_corner(DR),
@@ -74,4 +74,4 @@ class GridExample(Scene):
 
     
 
-# manim -pqh --format=png 正方形与圆1.py GridExample -r 1920,1080
+# manim -p 正方形与圆1.py GridExample

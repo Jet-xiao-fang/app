@@ -91,4 +91,4 @@ class CirclePropertiesDemo(Scene):
         
         self.wait(1)
         
-#   manim -pqh 曲线与圆.py CirclePropertiesDemo
+#   manim -p 曲线与圆.py CirclePropertiesDemo

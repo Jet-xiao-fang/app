@@ -95,4 +95,4 @@ class MathSymbolsScene(Scene):
 
         self.wait(5)
 
-# manim -pqh 正方形与圆.py MathSymbolsScene -r 1920,1080 
+# manim -p 正方形与圆.py MathSymbolsScene

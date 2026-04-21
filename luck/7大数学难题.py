@@ -219,4 +219,4 @@ class MillenniumProblems(Scene):
         
         
 
-# 运行命令：manim -pqh --format=png 7大数学难题.py MillenniumProblems -r 1920,1080
+# 运行命令：manim -p 7大数学难题.py MillenniumProblems

@@ -140,4 +140,4 @@ class MathSymbolsScene(Scene):
         self.wait(3)
 
 
-# manim -pqh 正方形与2动点.py MathSymbolsScene -r 1920,1080 
+# manim -p 正方形与2动点.py MathSymbolsScene

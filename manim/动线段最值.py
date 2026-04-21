@@ -55,4 +55,4 @@ class CosTaylorApproximation(Scene):
         self.wait(3)
         
 
-#   manim -pqh 动线段最值.py CosTaylorApproximation -r 1080,1920
+#   manim -p 动线段最值.py CosTaylorApproximation

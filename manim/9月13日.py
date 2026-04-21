@@ -88,7 +88,7 @@ class ConeVolumeProof(Scene):
         self.play(
             Rotating(
                 P_dot,
-                radians=2 * PI,  # 旋转360度（一圈）
+                angle=2 * PI,          # 将 radians 改为 angle
                 about_point=circle.get_center(),  # 围绕圆心旋转
                 run_time=5,
                 rate_func=linear
@@ -97,7 +97,7 @@ class ConeVolumeProof(Scene):
         self.play(
             Rotating(
                 P_dot,
-                radians=2 * PI,  # 再旋转一圈
+                angle=2 * PI,          # 将 radians 改为 angle
                 about_point=circle.get_center(),
                 run_time=5,
                 rate_func=linear
@@ -105,4 +105,4 @@ class ConeVolumeProof(Scene):
         )
         self.wait(3)
 
-# 运行命令: manim -pqh --format=png 9月13日.py ConeVolumeProof -r 1080,1920
+# 运行命令: manim -p 9月13日.py ConeVolumeProof

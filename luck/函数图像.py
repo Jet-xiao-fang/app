@@ -11,7 +11,8 @@ config.pixel_width = 1080
 class ConeVolumeProof(Scene):
     def construct(self):
 
-        
+        # 设置背景颜色
+        self.camera.background_color = "#0F0F1A"
         # 定义函数
         def func(x):
             return 0.5 * x**2 - 2 * x - 6
@@ -34,7 +35,7 @@ class ConeVolumeProof(Scene):
         y_label = axes.get_y_axis_label("y")
         origin_label = Tex("O", font_size=24).next_to(axes.c2p(0,0), DL, SMALL_BUFF)
         
-        self.add(axes,x_label,y_label,title)
+        self.add(axes,x_label,y_label,title,origin_label)
         
         
         

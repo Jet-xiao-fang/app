@@ -10,7 +10,8 @@ config.pixel_width = 1080
 
 class ConeVolumeProof(Scene):
     def construct(self):
-        
+        # 设置背景颜色
+        self.camera.background_color = "#0F0F1A"
         # 创建坐标系 - 移除 scale(0.9)
         axes = Axes(
             x_range=[-1, 6, 1],
