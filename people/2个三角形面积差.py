@@ -1,7 +1,7 @@
 from manim import *
-config.frame_height = 16
+config.frame_height = 12
 config.frame_width = 9
-config.pixel_height = 1920
+config.pixel_height = 1440
 config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
@@ -9,7 +9,7 @@ config.tex_template = TexTemplateLibrary.ctex
 class CirclePropertiesDemo(Scene):
     def construct(self):
         # 设置背景颜色
-        self.camera.background_color = "#0F0F1A"
+        self.camera.background_color = "#0F0B1A"
         
         # 创建等比例坐标系
         axes = Axes(
@@ -19,11 +19,11 @@ class CirclePropertiesDemo(Scene):
             y_length=9,
             axis_config={"color": WHITE, "stroke_width": 3},
             tips=False,
-        ).set_aspect_ratio(1.0)
+        ).set_aspect_ratio(1.0).shift(DOWN * 1)  # 整体下移1.5个单位
         
         # 添加坐标标签
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
-        title=Tex(r"求$s1-s2$的最大值？",color=YELLOW).next_to(axes,UP,buff=1.5)
+        title=Tex(r"求$s1-s2$的最大值？",color=YELLOW).next_to(axes,UP,buff=1.2)
         self.add(title)
         
         def parabola(x):
@@ -198,4 +198,4 @@ class CirclePropertiesDemo(Scene):
         
         self.wait(3)
         
-#   manim -pqh  2个三角形面积差.py CirclePropertiesDemo
+#   manim -p  2个三角形面积差.py CirclePropertiesDemo

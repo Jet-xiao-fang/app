@@ -1,14 +1,15 @@
 from manim import *
-config.frame_height = 16
+config.frame_height = 12
 config.frame_width = 9
-config.pixel_height = 1920
+config.pixel_height = 1440
 config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
 class CirclePropertiesDemo(Scene):
     def construct(self):
-        
+        # 设置背景颜色
+        self.camera.background_color = "#0F0F1A"
         # 创建等比例坐标系
         axes = Axes(
             x_range=[-2, 4, 1],

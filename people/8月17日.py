@@ -3,14 +3,15 @@ import numpy as np
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-config.frame_height = 16
+config.frame_height = 12
 config.frame_width = 9
-config.pixel_height = 1920
+config.pixel_height = 1440
 config.pixel_width = 1080
 
 class ConeVolumeProof(Scene):
     def construct(self):
-
+        # 设置背景颜色
+        self.camera.background_color = "#0F0B1A"
         # 创建坐标系 - 移除 scale(0.9)
         axes = Axes(
             x_range=[-1, 6, 1],
