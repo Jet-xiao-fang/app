@@ -154,3 +154,5 @@ class BernoulliFamilyContributions(Scene):
             run_time=2
         )
         self.wait(4)
+    
+# manim -pqh 伯努力家族.py BernoulliFamilyContributions

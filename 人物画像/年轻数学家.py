@@ -1,10 +1,8 @@
 from manim import *
+import os
+
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-config.frame_height = 12
-config.frame_width = 9
-config.pixel_height = 1440
-config.pixel_width = 1080
 
 class MultiImage(Scene):
     def construct(self):
@@ -14,80 +12,78 @@ class MultiImage(Scene):
         self.showDescribe()
 
     def showImage(self):
-        self.camera.background_color = "#0F0F1A"
+        self.camera.background_color = "#0F0B1A"
 
         items = [
             {
                 "image": r"D:\Videos\图片素材\阿贝尔.jpg",
-                "name": "尼尔斯·阿贝尔\n(1802-1829，27岁去世)",
+                "name": "尼尔斯·阿贝尔 (1802-1829)",
                 "symbols": [
-                    "证明五次方程无一般代数解（1824），\n终结了数学界250年的猜想",
-                    "开创椭圆函数论，提出“阿贝尔积分”\n“阿贝尔函数”等概念，为复变函数奠基"
+                    "证明五次方程无一般代数解（1824），终结了数学界250年的猜想",
+                    "开创椭圆函数论，为复变函数奠基"
                 ],
                 "color": YELLOW,
-                "image_scale": 0.2
+                "image_scale": 0.3
             },
             {
                 "image": r"D:\Videos\图片素材\伽罗瓦.png",
-                "name": "埃瓦里斯特·伽罗瓦\n(1811-1832，21岁去世)",
+                "name": "埃瓦里斯特·伽罗瓦 (1811-1832)",
                 "symbols": [
-                    "创立伽罗瓦理论，用群论彻底解决\n代数方程根式可解性问题",
+                    "创立伽罗瓦理论，用群论解决代数方程根式可解性问题",
                     "奠定近世代数基础"
                 ],
                 "color": GREEN,
-                "image_scale": 0.2
+                "image_scale": 0.3
             },
             {
                 "image": r"D:\Videos\图片素材\拉马.jpeg",
-                "name": "斯里尼瓦瑟·拉马努金\n(1887-1920，32岁去世)",
+                "name": "斯里尼瓦瑟·拉马努金 (1887-1920)",
                 "symbols": [
-                    "自学成才，留下3900个公式，涉及数论、\n分拆数、模形式等，如圆周率无穷级数表达式",
-                    "直觉推导能力惊人，许多公式后被\n应用于物理（如黑洞熵）"
+                    "自学成才，留下3900个公式，涉及数论、模形式等",
+                    "直觉推导能力惊人，公式被应用于黑洞熵研究"
                 ],
                 "color": PINK,
-                "image_scale": 0.2
+                "image_scale": 0.3
             }
         ]
 
-        groups = []
+        groups = Group()
         for info in items:
+            # 检查图片是否存在
+            if not os.path.exists(info["image"]):
+                print(f"警告: 图片不存在 - {info['image']}")
+                continue
+                
             img = ImageMobject(info["image"]).scale(info["image_scale"])
-            name = Text(info["name"], font="STXingkai", font_size=26, color=info["color"])
+            name = Text(info["name"], font="Microsoft YaHei", font_size=26, color=info["color"])
 
-            # 使用 Text 替代 Tex，支持换行
-            formula1 = Text(info["symbols"][0], font_size=18, color=info["color"], line_spacing=1.2)
-            formula2 = Text(info["symbols"][1], font_size=18, color=info["color"], line_spacing=1.2)
+            formula1 = Text(info["symbols"][0], font_size=18, color=info["color"])
+            formula2 = Text(info["symbols"][1], font_size=18, color=info["color"])
 
             text_group = VGroup(name, formula1, formula2)
-            text_group.arrange(DOWN, buff=0.15, aligned_edge=LEFT)
+            text_group.arrange(DOWN, buff=0.3, aligned_edge=LEFT)
             text_group.next_to(img, RIGHT, buff=0.3)
 
+            # 使用 Group 来混合 ImageMobject 和 VGroup
             group = Group(img, text_group)
-            groups.append(group)
+            groups.add(group)
 
-        # 手动排列 groups
-        for i, group in enumerate(groups):
-            if i == 0:
-                group.move_to(UP * 3)
-            elif i == 1:
-                group.move_to(ORIGIN)
-            else:
-                group.move_to(DOWN * 3)
-
+        groups.arrange(DOWN, buff=0.5,aligned_edge=LEFT)
+         # 动画展示
         self.play(LaggedStart(
-            FadeIn(groups[0], shift=UP * 0.5,run_time=2),
-            FadeIn(groups[1], shift=UP * 0.5,run_time=2),
-            FadeIn(groups[2], shift=UP * 0.5,run_time=2),
-            lag_ratio=1
+            FadeIn(groups[0], shift=UP*0.5,scale=0.9),
+            FadeIn(groups[1], shift=UP*0.5,scale=0.9),
+            FadeIn(groups[2], shift=UP*0.5,scale=0.9),
+            lag_ratio=1.0
         ))
-        self.wait(1)
+        self.wait(3)
 
     def clear_scene(self):
-        self.play(*[FadeOut(mob) for mob in self.mobjects])
+        self.play(*[FadeOut(mob) for mob in self.mobjects], run_time=0.5)
 
     def showDescribe(self):
         title = Text("英年早逝的数学家",
-                    font="STKaiti",
+                    font="Microsoft YaHei",
                     font_size=36,
                     color=WHITE)
         title.to_edge(UP, buff=1)
@@ -95,43 +91,58 @@ class MultiImage(Scene):
         underline = Line(LEFT, RIGHT, color=BLUE).scale(1.1)
         underline.next_to(title, DOWN, buff=0.1)
 
-        # 创建三个独立的组，每组内部竖排
-        group1 = VGroup(
-            Text("尼尔斯·阿贝尔", font="STXingkai", font_size=28, color=YELLOW),
-            Text("• 出身贫困，18岁负担全家生计", color=YELLOW, font_size=20),
-            Text("• 论文被柯西遗失、勒让德拒评", color=YELLOW, font_size=20),
-            Text("• 1829年贫病中去世", color=YELLOW, font_size=20),
-            Text("• 去世两天后聘书送达", color=YELLOW, font_size=20)
-        )
-        group1.arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+        # 人物资料
+        mathematicians = [
+            {
+                "name": "尼尔斯·阿贝尔",
+                "color": YELLOW,
+                "details": [
+                    "• 出身贫困，18岁负担全家生计",
+                    "• 论文被柯西遗失、勒让德拒评",
+                    "• 1829年贫病中去世",
+                    "• 去世两天后聘书送达"
+                ]
+            },
+            {
+                "name": "埃瓦里斯特·伽罗瓦",
+                "color": GREEN,
+                "details": [
+                    "• 论文两次被退回",
+                    "• 投身共和运动两次入狱",
+                    "• 1832年决斗身亡",
+                    "• 理论死后14年才发表"
+                ]
+            },
+            {
+                "name": "斯里尼瓦瑟·拉马努金",
+                "color": PINK,
+                "details": [
+                    "• 印度贫寒家庭出身",
+                    "• 受哈代邀请赴剑桥",
+                    "• 因战争与饮食不适患病",
+                    "• 返回印度后病逝"
+                ]
+            }
+        ]
 
-        group2 = VGroup(
-            Text("埃瓦里斯特·伽罗瓦", font="STXingkai", font_size=28, color=GREEN),
-            Text("• 论文两次被退回", color=GREEN, font_size=20),
-            Text("• 投身共和运动两次入狱", color=GREEN, font_size=20),
-            Text("• 1832年决斗身亡", color=GREEN, font_size=20),
-            Text("• 理论死后14年才发表", color=GREEN, font_size=20)
-        )
-        group2.arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+        groups = []
+        for m in mathematicians:
+            group = VGroup(
+                Text(m["name"], font="Microsoft YaHei", font_size=28, color=m["color"]),
+                *[Text(detail, color=m["color"], font_size=20) for detail in m["details"]]
+            )
+            group.arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+            groups.append(group)
 
-        group3 = VGroup(
-            Text("斯里尼瓦瑟·拉马努金", font="STXingkai", font_size=28, color=PINK),
-            Text("• 印度贫寒家庭出身", color=PINK, font_size=20),
-            Text("• 受哈代邀请赴剑桥", color=PINK, font_size=20),
-            Text("• 因战争与饮食不适患病", color=PINK, font_size=20),
-            Text("• 返回印度后病逝", color=PINK, font_size=20)
-        )
-        group3.arrange(DOWN, buff=0.2, aligned_edge=LEFT)
+        # 这里使用 VGroup 因为都是 Text 对象
+        groups_vgroup = VGroup(*groups)
+        groups_vgroup.arrange(RIGHT, buff=0.3)
+        groups_vgroup.center()
 
-        # 将三个组整体竖排列，并居中
-        groups = VGroup(group1, group2, group3)
-        groups.arrange(DOWN, buff=0.6, aligned_edge=LEFT)
-        groups.move_to(ORIGIN)
-
-        self.add(title, underline)
+        self.play(FadeIn(title), Create(underline), run_time=0.8)
         self.wait(0.5)
 
-        # 逐组淡入显示
+        # 流畅的淡入动画
         for group in groups:
             self.play(FadeIn(group, shift=RIGHT * 0.3), run_time=0.5)
         
@@ -143,13 +154,15 @@ class MultiImage(Scene):
                         color=RED)
         final_text.to_edge(DOWN, buff=1)
 
-        box = SurroundingRectangle(groups, buff=0.4, color=BLUE, stroke_width=2)
+        box = SurroundingRectangle(groups_vgroup, buff=0.4, color=BLUE, stroke_width=2)
 
+        # 同时播放框和文字动画
         self.play(
             Create(box),
             Write(final_text),
             run_time=1.2
         )
         self.wait(3)
-        
-# manim -p 年轻数学家.py MultiImage
+
+
+# 运行命令: manim -pqh 年轻数学家.py MultiImage
