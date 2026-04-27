@@ -1,15 +1,12 @@
 from manim import *
 import numpy as np
 
-config.frame_width = 9
-config.frame_height = 16
-config.pixel_height = 1920
-config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
 class DynamicBarChart(Scene):
     def construct(self):
+        self.camera.background_color = "#0F0F1A"
         # ========== 真实数据（2010–2025，只存储每年实际前五名） ==========
         yearly_data = {
             2012: [("卡洛斯·斯利姆", 690), ("比尔·盖茨", 610), ("沃伦·巴菲特", 440), ("伯纳德·阿诺特", 410), ("阿曼西奥·奥尔特加", 375)],
@@ -202,7 +199,5 @@ class DynamicBarChart(Scene):
             )
             self.wait(1)
         
-
-# 运行命令：manim -pqh 动态条形图.py DynamicBarChart
 
 # 运行命令：manim -pqh 排序3.py DynamicBarChart
