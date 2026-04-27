@@ -146,4 +146,4 @@ class ImportantFormulas(Scene):
         self.play(FadeIn(copyright, shift=UP), run_time=1.5)
         self.wait(3)
 
-# 运行命令：manim -pqh --format=png 公式模版.py ImportantFormulas -r 1920,1080
+# 运行命令：manim -pqh 公式模版.py ImportantFormulas
