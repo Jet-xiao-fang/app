@@ -6,10 +6,9 @@ config.background_color = "#1F2430"
 # 设置背景颜色
 self.camera.background_color = "#0F0F1A"
 # 生成视频
-manim -pqh example5.py StaticCircle3 -r 1080,1920
-# 覆盖上次生成的图片
-manim -pqh --format=png 测试.py test -r 1080,1920 --output_file test
-# 生成图片
-manim -pqh --format=png circle_static.py StaticCircle -r 1080,1920
+config.frame_height = 12
+config.frame_width = 9
+config.pixel_height = 1440
+config.pixel_width = 1080
 
 排版优化，确保所有元素（标题、坐标轴、余弦曲线、泰勒公式）清晰可见且互不遮挡。

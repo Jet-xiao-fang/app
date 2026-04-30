@@ -37,23 +37,13 @@ class GroupedGreekLetters(Scene):
             }
         ]
 
-        # ==========================================
-        # 2. UI 元素准备：背景板与标题
-        # ==========================================
-        background_rect = Rectangle(
-            width=12, height=7, 
-            fill_color=BLACK, fill_opacity=0.8, 
-            stroke_width=0
-        )
-        self.add(background_rect)
-
         # 标题：先居中展示
-        main_title = Text("数学中常见的 14 个希腊字母", font="SimHei", font_size=40, color=BLUE)
+        main_title = Text("数学中常见的14个希腊字母", font="SimHei", font_size=40, color=BLUE)
         main_title.move_to(ORIGIN)  # 初始居中
         self.play(Write(main_title))
         
         # 标题向上移动并固定
-        self.play(main_title.animate.to_edge(UP, buff=0.3), run_time=0.5)
+        self.play(main_title.animate.to_edge(UP, buff=0.5), run_time=0.5)
         self.wait(0.5)
         
         for group_info in groups_data:
@@ -61,7 +51,7 @@ class GroupedGreekLetters(Scene):
             rows = []
             for latex_code, desc in group_info["letters"]:
                 # 字母本身 (MathTex，增大字体)
-                letter_sym = MathTex(latex_code, color=YELLOW, font_size=56)  # 从48增大到56
+                letter_sym = MathTex(latex_code, font_size=56)  # 从48增大到56
                 # 读法与含义 (Text，白色，略微增大)
                 letter_desc = Text(desc, font="SimHei", font_size=34, color=WHITE)  # 从32增大到34
                 
@@ -84,7 +74,7 @@ class GroupedGreekLetters(Scene):
             for row in rows:
                 self.play(
                     FadeIn(row, shift=LEFT * 0.5),
-                    run_time=0.3
+                    run_time=0.5
                 )
             
             self.wait(2.5)
@@ -102,14 +92,10 @@ class GroupedGreekLetters(Scene):
         # ==========================================
         all_symbols = MathTex(
             r"\alpha \quad \beta \quad \gamma \quad \delta \quad \epsilon \quad \theta \quad \lambda \quad \mu \quad \pi \quad \sigma \quad \tau \quad \phi \quad \omega \quad \xi",
-            font_size=48, color=YELLOW  # 从36增大到48
+            font_size=48  # 从36增大到48
         )
         all_symbols.move_to(ORIGIN)
-        
-        self.play(main_title.animate.set_color(WHITE))
-        self.play(FadeIn(all_symbols, shift=UP), run_time=2)
-        self.wait(2)
-        
-        self.play(FadeOut(VGroup(main_title, background_rect, all_symbols)))
+        self.add(all_symbols)
+        self.wait(3)
     
 #    manim -pqh 常见的数学符号.py GroupedGreekLetters
