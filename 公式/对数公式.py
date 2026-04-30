@@ -6,7 +6,7 @@ config.tex_template = TexTemplateLibrary.ctex
 class ImportantLogarithmicFormulas(Scene):
     def construct(self):
         # 设置深色背景
-        self.camera.background_color = "#0F0B1A"
+        self.camera.background_color = GRAY_D
         
         # 2. 定义公式数据列表（每个元素是一个字典，包含公式、中文解释、颜色和缩放比例）
         items = [
@@ -132,11 +132,10 @@ class ImportantLogarithmicFormulas(Scene):
             self.play(
                 Write(all_indices[i]),
                 Write(all_formulas[i]),
-                FadeIn(all_chinese_texts[i], shift=UP*0.3),
-                run_time=2
+                FadeIn(all_chinese_texts[i], shift=UP*0.3,scale=0.9),
+                run_time=1.5
             )
-            self.wait(0.2)
-    
+            
         self.wait(2)
         
 # manim -pqh  对数公式.py ImportantLogarithmicFormulas
