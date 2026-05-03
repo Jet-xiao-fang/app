@@ -10,7 +10,7 @@ config.pixel_width = 1080
 
 class ConeVolumeProof(Scene):
     def construct(self):
-        
+        self.camera.background_color = "#0F0F1A"
         # 创建坐标系 - 移除 scale(0.9)
         axes = Axes(
             x_range=[-1, 6, 1],
@@ -66,8 +66,8 @@ class ConeVolumeProof(Scene):
         BC_line = always_redraw(lambda: Line(B_point, get_C(), color=YELLOW))
         
         # 添加线段OA（从原点O到点A）
-        OA_line = always_redraw(lambda: Line(axes.c2p(0,0), get_A(), 
-                                            color=PURPLE, stroke_width=2))
+        OA_line = always_redraw(lambda: DashedLine(axes.c2p(0,0), get_A(), 
+                                            color=PURPLE, stroke_width=3))
         
         # 添加点O
         O_dot = Dot(axes.c2p(0,0), color=WHITE)
@@ -86,10 +86,10 @@ class ConeVolumeProof(Scene):
         self.add(axes, x_label, y_label)
         self.add(B_dot, B_label, C_dot, C_label, A_dot, A_label)
         self.add(O_dot, O_label)
-        self.add(triangle, AB_line, BC_line, OA_line)
+        self.add(triangle, AB_line, BC_line)
         self.add(OA_label)
         self.add(title)
-        
+        self.play(Create(OA_line))
         # 点C的运动轨迹
         c_trajectory = TracedPath(C_dot.get_center, stroke_color=RED, stroke_width=2)
         self.add(c_trajectory)
