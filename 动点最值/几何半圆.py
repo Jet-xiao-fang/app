@@ -1,15 +1,15 @@
 from manim import *
 
-config.frame_height = 16
+config.frame_height = 12
 config.frame_width = 9
-config.pixel_height = 1920
+config.pixel_height = 1440
 config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
 class MovingPointOnSemicircle(Scene):
     def construct(self):
-        
+        self.camera.background_color = "#0F0F1A"
         # 定义下移距离
         shift_down = DOWN * 1
         
@@ -39,14 +39,14 @@ class MovingPointOnSemicircle(Scene):
             stroke_color=GREEN,
             fill_opacity=0.3,
             fill_color=BLUE,
-            stroke_width=6
+            stroke_width=4
         )
         
         # 添加半圆到场景
         self.add(semicircle)
         
         # 添加标题
-        title = Tex(r"求$AC+\frac{\sqrt{3}}{3}BC$的最大值?", font_size=46, color=BLUE)
+        title = Tex(r"求$AC+\frac{\sqrt{3}}{3}BC$的最大值?", font_size=46)
         title.next_to(semicircle, UP, buff=1.5)
         self.add(title)
         
@@ -62,7 +62,7 @@ class MovingPointOnSemicircle(Scene):
         label_o = Tex("O", color=WHITE).next_to(dot_o, DOWN, buff=0.2)
         
         # 添加OB半径指示线（虚线）
-        ob_line = DashedLine(center, point_b.get_center(), color=WHITE, stroke_width=2)
+        ob_line = Line(center, point_b.get_center(), color=RED, stroke_width=2)
         
         # 添加半径标签在OB下方
         r_label = Tex("$r=3$", font_size=42)
@@ -74,17 +74,17 @@ class MovingPointOnSemicircle(Scene):
         point_c = Dot(point_a.get_center(), color=RED, radius=0.12)
         
         # 创建AC和BC线段
-        ac_line = always_redraw(lambda: Line(
+        ac_line = always_redraw(lambda: DashedLine(
             point_a.get_center(), 
             point_c.get_center(), 
             color=YELLOW, 
-            stroke_width=4
+            stroke_width=3
         ))
-        bc_line = always_redraw(lambda: Line(
+        bc_line = always_redraw(lambda: DashedLine(
             point_b.get_center(), 
             point_c.get_center(), 
-            color=YELLOW, 
-            stroke_width=4
+            color=GRAY, 
+            stroke_width=3
         ))
         
         # 添加圆心、半径标记和端点

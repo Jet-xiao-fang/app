@@ -37,8 +37,8 @@ class ParabolaPlot(Scene):
             graph=parabola,
             label=MathTex(r"y = \dfrac{1}{4}x^2", color=GREEN).scale(0.8),
             x_val=-3,  # 指定x=3处的标签位置
-            direction=LEFT,
-            buff=0.6,
+            direction=LEFT+DOWN,  # 标签方向
+            buff=0.8,
             dot=False  # 不显示定位点
         )
         # 添加到场景
