@@ -1,14 +1,13 @@
 from manim import *
-config.frame_height = 12
+config.frame_height = 16
 config.frame_width = 9
-config.pixel_height = 1440
+config.pixel_height = 1920
 config.pixel_width = 1080
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 
 class CirclePropertiesDemo(Scene):
     def construct(self):
-        # 设置背景颜色
         self.camera.background_color = "#0F0F1A"
         # 创建等比例坐标系
         axes = Axes(
@@ -22,7 +21,7 @@ class CirclePropertiesDemo(Scene):
         
         # 添加坐标标签
         axis_labels = axes.get_axis_labels(MathTex("x"), MathTex("y"))
-        title=Tex(r"求出点$P$的坐标？",color=YELLOW).next_to(axes,UP,buff=1.5)
+        title=Tex(r"求$PA+PC$的最小值？",color=YELLOW).next_to(axes,UP,buff=1.5)
         self.add(title)
         
         def parabola(x):
@@ -47,45 +46,47 @@ class CirclePropertiesDemo(Scene):
         
         # 计算交点
         # 与y轴交点 (x=0)
-        A_dot = Dot(axes.c2p(3,0), color=RED)
-        A_label = Tex("A(3,0)").next_to(A_dot, DOWN, buff=0.1).scale(0.6)
+        A_dot = Dot(axes.c2p(-1,0), color=RED)
+        A_label = Tex("A").next_to(A_dot, DOWN, buff=0.1).scale(0.6)
         
-        B_dot = Dot(axes.c2p(-1, 0), color=RED)
-        B_label = Tex("B(-1,0)").next_to(B_dot, DOWN, buff=0.1).scale(0.6)
+        B_dot = Dot(axes.c2p(3, 0), color=RED)
+        B_label = Tex("B").next_to(B_dot, DOWN, buff=0.1).scale(0.6)
         
         C_dot = Dot(axes.c2p(0, 3), color=RED)
-        C_label = Tex("C(0,3)").next_to(C_dot, LEFT, buff=0.1).scale(0.5)
+        C_label = Tex("C").next_to(C_dot, RIGHT, buff=0.1).scale(0.5)
         
-        M_dot = Dot(axes.c2p(1, 4), color=RED)
-        M_label = Tex("M(1,4)").next_to(M_dot, UP, buff=0.1).scale(0.5)
+        self.add(axes,axis_labels,graph,A_dot,A_label,B_dot,B_label,C_dot,C_label)
         
+        # 添加对称轴虚线 (x=1)
+        symmetry_line = DashedLine(
+            start=axes.c2p(1, axes.y_range[0]),  # 从x=1,y最小值开始
+            end=axes.c2p(1, axes.y_range[1]),    # 到x=1,y最大值结束
+            color=BLUE,
+            stroke_width=2.5
+        )
+        symmetry_label = MathTex("x=1").next_to(symmetry_line, RIGHT, buff=0.1).set_color(BLUE).scale(0.5)
         
-        self.add(axes,axis_labels,graph,A_dot,A_label,B_dot,B_label,C_dot,C_label,M_dot,M_label)
+        self.play(Write(symmetry_line),Write(symmetry_label),run_time=1)
         
-        
-        P_dot = Dot(axes.c2p(0, 0), color=YELLOW)
+        P_dot = Dot(axes.c2p(1, -1), color=YELLOW)
         P_label = always_redraw(lambda: Tex("P", font_size=28, color=YELLOW).next_to(P_dot, LEFT, buff=0.1))
         self.add(P_dot,P_label)
         
+        line_ap=always_redraw(lambda: Line(A_dot.get_center(),P_dot.get_center(),stroke_width=3,color=ORANGE))
+        line_cp=always_redraw(lambda: Line(C_dot.get_center(),P_dot.get_center(),stroke_width=3,color=ORANGE))
         
-        triangle = always_redraw(lambda: Polygon(
-            P_dot.get_center(),
-            M_dot.get_center(),
-            A_dot.get_center(),
-            color=ORANGE, fill_color=ORANGE, fill_opacity=0.5
-        ))
-        self.play(Create(triangle),run_time=0.8)
-         # 让点沿着x轴从 -3 移动到 3
+        self.play(Write(line_ap),Write(line_cp),run_time=2)
         self.play(
-            P_dot.animate.move_to(axes.c2p(0, 3)),
+            P_dot.animate.move_to(axes.c2p(1, 4)),
             run_time=6,  # 动画时长为3秒
             rate_func=linear  # 匀速运动
         )
         self.play(
-            P_dot.animate.move_to(axes.c2p(0, 0)),
+            P_dot.animate.move_to(axes.c2p(1, -1)),
             run_time=6,  # 动画时长为3秒
             rate_func=linear  # 匀速运动
         )
-        self.wait(3)
         
-#   manim -p 8月24日.py CirclePropertiesDemo
+        self.wait(2)
+        
+#   manim -p 中间虚线.py CirclePropertiesDemo

@@ -79,4 +79,4 @@ class ConeVolumeProof(Scene):
         
         self.wait(3)
 
-# 运行命令: manim -p 8月17日.py ConeVolumeProof
+# 运行命令: manim -p 三角形移动.py ConeVolumeProof

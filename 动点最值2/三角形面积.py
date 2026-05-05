@@ -8,7 +8,7 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class CirclePropertiesDemo(Scene):
     def construct(self):
-        
+        self.camera.background_color = "#0F0B1A"
         # 创建等比例坐标系
         axes = Axes(
             x_range=[-4, 2, 1],
@@ -96,4 +96,4 @@ class CirclePropertiesDemo(Scene):
         
         self.wait(3)
         
-#   manim -p 8月30日.py CirclePropertiesDemo
+#   manim -p 三角形面积.py CirclePropertiesDemo
