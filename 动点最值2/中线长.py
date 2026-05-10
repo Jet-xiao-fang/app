@@ -7,7 +7,7 @@ config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
 class CosTaylorApproximation(Scene):
     def construct(self):
-        
+        self.camera.background_color = "#0F0F1A"
         # 坐标系配置
         axes = Axes(
             x_range=[-3, 8, 1],
