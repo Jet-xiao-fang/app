@@ -9,7 +9,7 @@ config.pixel_width = 1080
 
 class MathSymbolsScene(Scene):
     def construct(self):
-
+        self.camera.background_color = "#0F0F1A"
         rectangle = Rectangle(width=6, height=3, color=BLUE)
         rectangle.set_fill(color=BLUE, opacity=0.5)
         titile = Tex(r"求$\frac{AP}{BP}$的最大值？",color=YELLOW).next_to(rectangle,UP,buff = 1.5)
