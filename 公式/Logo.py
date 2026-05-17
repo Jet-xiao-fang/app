@@ -12,7 +12,7 @@ class LogoScene(Scene):
                  stroke_width=1,            # 描边宽度
                  corner=UL,
                  buff=0.5,
-                 animate=True,
+                 animate=False,
                  shadow_offset=0.05):       # 阴影偏移量
         """
         在场景左上角添加个人 Logo（无背景框，带白色描边和立体阴影）
