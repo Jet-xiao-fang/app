@@ -9,13 +9,12 @@ class LogoScene(Scene):
                  font_size=18,
                  color=GREY_D,                # 灰色文字
                  stroke_color=WHITE,        # 白色描边
-                 stroke_width=1,            # 描边宽度
+                 stroke_width=0.5,            # 描边宽度
                  corner=UL,
                  buff=0.5,
-                 animate=False,
-                 shadow_offset=0.05):       # 阴影偏移量
+                 animate=False):
         """
-        在场景左上角添加个人 Logo（无背景框，带白色描边和立体阴影）
+        在场景左上角添加个人 Logo（无背景框，带白色描边）
         
         参数:
             text: Logo 文字
@@ -27,20 +26,13 @@ class LogoScene(Scene):
             corner: 位置角 (UL, UR, DL, DR)
             buff: 距边缘距离
             animate: 是否使用淡入动画
-            shadow_offset: 阴影相对于文字右下方的偏移比例
         """
         # 主文字
         logo_text = Text(text, font=font, font_size=font_size, color=color, weight=BOLD)
         logo_text.set_stroke(color=stroke_color, width=stroke_width)
         logo_text.to_corner(corner, buff=buff)
         
-        # 阴影文字（立体感）
-        shadow_text = logo_text.copy()
-        shadow_text.set_color(BLACK)
-        shadow_text.set_opacity(0.3)
-        shadow_text.shift(shadow_offset * RIGHT + shadow_offset * DOWN)
-        
-        self.logo_group = VGroup(shadow_text, logo_text)
+        self.logo_group = logo_text
         
         if animate:
             self.play(FadeIn(self.logo_group, shift=RIGHT * 0.2), run_time=0.8)
