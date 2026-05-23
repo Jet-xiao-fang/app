@@ -2,10 +2,6 @@ from manim import *
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-config.frame_height = 12
-config.frame_width = 9
-config.pixel_height = 1440
-config.pixel_width = 1080
 
 class GroupedGreekLetters(Scene):
     def construct(self):
@@ -77,78 +73,62 @@ class GroupedGreekLetters(Scene):
         self.play(Create(underline), run_time=0.8)
 
         # ==========================================
-        # 3. 分组展示
+        # 3. 逐个展示符号
         # ==========================================
 
-        for idx, group_info in enumerate(groups_data):
-            theme_color = group_info["theme_color"]
+        all_letters = []
+        for group_info in groups_data:
+            all_letters.extend(group_info["letters"])
 
-            # --- 3.1 副标题 ---
-            sub_title = Text(
-                group_info["title"],
-                font="Microsoft YaHei",
+        first_sym = MathTex(all_letters[0][0], font_size=80, color=WHITE).scale(2)
+        first_sym.move_to(ORIGIN)
+
+        first_desc = Text(
+            all_letters[0][1],
+            font="STXingkai",
+            font_size=34,
+            color=TEAL,
+        ).scale(1.5)
+        first_desc.next_to(first_sym, DOWN, buff=0.8)
+
+        self.play(
+            FadeIn(first_sym, scale=1.5),
+            FadeIn(first_desc, shift=UP * 0.2),
+            run_time=0.6
+        )
+
+        old_sym = first_sym
+        old_desc = first_desc
+
+        for latex_code, desc, _ in all_letters[1:]:
+            new_sym = MathTex(latex_code, font_size=80, color=WHITE).scale(2)
+            new_sym.move_to(ORIGIN)
+
+            new_desc = Text(
+                desc,
+                font="STXingkai",
                 font_size=34,
-                color=theme_color,
-                weight=BOLD,
-            )
-            sub_title.next_to(underline, DOWN, buff=0.5)
-
-            sub_underline = Line(
-                LEFT * 2.5, RIGHT * 2.5,
-                color=group_info["underline_color"],
-                stroke_width=1.5,
-            )
-            sub_underline.next_to(sub_title, DOWN, buff=0.15)
+                color=TEAL,
+            ).scale(1.5)
+            new_desc.next_to(new_sym, DOWN, buff=0.8)
 
             self.play(
-                FadeIn(sub_title, shift=UP * 0.2),
-                Create(sub_underline),
-                run_time=0.7
+                ReplacementTransform(old_sym, new_sym),
+                ReplacementTransform(old_desc, new_desc),
+                run_time=0.5
             )
+            self.wait(0.4)
 
-            # --- 3.2 构建行 ---
-            rows = []
-            for latex_code, desc, letter_color in group_info["letters"]:
-                letter_sym = MathTex(latex_code, font_size=60, color=letter_color)
-                letter_desc = Text(
-                    desc,
-                    font="Microsoft YaHei",
-                    font_size=30,
-                    color=WHITE,
-                )
+            old_sym = new_sym
+            old_desc = new_desc
 
-                row = VGroup(letter_sym, letter_desc).arrange(RIGHT, buff=1.2)
+        self.play(
+            FadeOut(old_sym, scale=0.8),
+            FadeOut(old_desc, shift=DOWN * 0.2),
+            run_time=0.5
+        )
 
-                bg_rect = BackgroundRectangle(
-                    row,
-                    buff=0.35,
-                    fill_opacity=0.12,
-                    fill_color=theme_color,
-                    stroke_opacity=0,
-                )
-                row_with_bg = VGroup(bg_rect, row)
-                rows.append(row_with_bg)
-
-            group_vgroup = VGroup(*rows).arrange(DOWN, buff=0.5, aligned_edge=LEFT)
-            group_vgroup.next_to(sub_underline, DOWN, buff=0.6)
-
-            # --- 3.3 逐行入场 ---
-            for row in rows:
-                self.play(
-                    FadeIn(row, scale=1.15, shift=RIGHT * 0.4),
-                    run_time=0.55
-                )
-
-            self.wait(0.5)
-
-            # --- 3.4 出场 ---
-            self.play(
-                FadeOut(sub_title, shift=UP * 0.2),
-                FadeOut(sub_underline),
-                *[FadeOut(row, scale=0.95, shift=DOWN * 0.3) for row in rows],
-                run_time=1.0
-            )
-            self.wait(0.3)
+        self.wait(0.3)
 
         # 收掉标题与底线，为结尾展示腾出空间
         self.play(
@@ -164,7 +144,7 @@ class GroupedGreekLetters(Scene):
         all_group_symbols = VGroup()
         for group_info in groups_data:
             for latex_code, desc, letter_color in group_info["letters"]:
-                sym = MathTex(latex_code, font_size=52, color=letter_color)
+                sym = MathTex(latex_code, font_size=52, color=WHITE)
                 all_group_symbols.add(sym)
 
         n = len(all_group_symbols)
@@ -211,7 +191,7 @@ class GroupedGreekLetters(Scene):
                   for sym in all_group_symbols],
                 lag_ratio=0.06,
             ),
-            run_time=2.5
+            run_time=1
         )
 
         # 呼吸动画：符号微微缩放
@@ -221,7 +201,7 @@ class GroupedGreekLetters(Scene):
                   for sym in all_group_symbols],
                 lag_ratio=0.03,
             ),
-            run_time=2
+            run_time=1
         )
         ring.set_stroke(opacity=0.6)
         self.wait(0.5)
