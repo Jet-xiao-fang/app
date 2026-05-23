@@ -1,21 +1,23 @@
 from manim import *
+from starfield import add_logo as _add_logo
+
 
 class LogoScene(Scene):
     """带左上角 Logo 的基础场景"""
-    
+
     def add_logo(self,
                  text="TheMathFlow",
                  font="Microsoft YaHei",
                  font_size=18,
-                 color=GREY_D,                # 灰色文字
-                 stroke_color=WHITE,        # 白色描边
-                 stroke_width=0.5,            # 描边宽度
+                 color=GREY_D,
+                 stroke_color=WHITE,
+                 stroke_width=0.5,
                  corner=UL,
                  buff=0.5,
                  animate=False):
         """
         在场景左上角添加个人 Logo（无背景框，带白色描边）
-        
+
         参数:
             text: Logo 文字
             font: 字体
@@ -27,16 +29,7 @@ class LogoScene(Scene):
             buff: 距边缘距离
             animate: 是否使用淡入动画
         """
-        # 主文字
-        logo_text = Text(text, font=font, font_size=font_size, color=color, weight=BOLD)
-        logo_text.set_stroke(color=stroke_color, width=stroke_width)
-        logo_text.to_corner(corner, buff=buff)
-        
-        self.logo_group = logo_text
-        
-        if animate:
-            self.play(FadeIn(self.logo_group, shift=RIGHT * 0.2), run_time=0.8)
-        else:
-            self.add(self.logo_group)
-        
-        return self.logo_group
+        return _add_logo(self, text=text, font=font, font_size=font_size,
+                         color=color, stroke_color=stroke_color,
+                         stroke_width=stroke_width, corner=corner,
+                         buff=buff, animate=animate)
