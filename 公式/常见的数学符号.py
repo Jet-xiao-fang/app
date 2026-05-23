@@ -1,14 +1,15 @@
 from manim import *
-from starfield import create_starfield, add_logo
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-
+config.frame_height = 12
+config.frame_width = 9
+config.pixel_height = 1440
+config.pixel_width = 1080
 
 class GroupedGreekLetters(Scene):
     def construct(self):
         self.camera.background_color = "#020212"
-        self.add(create_starfield(n_stars=100))
 
         # ==========================================
         # 1. 数据准备
@@ -74,8 +75,6 @@ class GroupedGreekLetters(Scene):
         )
         underline.next_to(main_title, DOWN, buff=0.2)
         self.play(Create(underline), run_time=0.8)
-
-        add_logo(self, animate=True)
 
         # ==========================================
         # 3. 分组展示
