@@ -5,8 +5,7 @@ config.tex_template = TexTemplateLibrary.ctex
 
 class GroupedGreekLetters(Scene):
     def construct(self):
-        self.camera.background_color = "#020212"
-
+        
         # ==========================================
         # 1. 数据准备
         # ==========================================
@@ -18,11 +17,11 @@ class GroupedGreekLetters(Scene):
                 "theme_color": GOLD,
                 "underline_color": YELLOW_E,
                 "letters": [
-                    (r"\alpha",  "Alpha / 阿尔法",            GOLD),
-                    (r"\beta",   "Beta / 贝塔",               ORANGE),
-                    (r"\gamma",  "Gamma / 伽马",              YELLOW),
-                    (r"\theta",  "Theta / 西塔",              GOLD_C),
-                    (r"\phi",    "Phi / 斐 (黄金分割/立体角)", GOLD_D),
+                    (r"\alpha",  "阿尔法",            GOLD),
+                    (r"\beta",   "贝塔",               ORANGE),
+                    (r"\gamma",  "伽马",              YELLOW),
+                    (r"\theta",  "西塔",              GOLD_C),
+                    (r"\phi",    "斐", GOLD_D),
                 ]
             },
             {
@@ -30,10 +29,10 @@ class GroupedGreekLetters(Scene):
                 "theme_color": GREEN,
                 "underline_color": GREEN_B,
                 "letters": [
-                    (r"\epsilon", "Epsilon / 艾普西龙 (极限)", GREEN_C),
-                    (r"\delta",   "Delta / 德尔塔 (变化量)",   TEAL),
-                    (r"\pi",      "Pi / 派 (圆周率)",          PURE_GREEN),
-                    (r"\tau",     "Tau / 陶 (2π)",             GREEN_E),
+                    (r"\epsilon", "艾普西龙", GREEN_C),
+                    (r"\delta",   "德尔塔",   TEAL),
+                    (r"\pi",      "派",          PURE_GREEN),
+                    (r"\tau",     "陶",             GREEN_E),
                 ]
             },
             {
@@ -41,11 +40,11 @@ class GroupedGreekLetters(Scene):
                 "theme_color": BLUE,
                 "underline_color": BLUE_C,
                 "letters": [
-                    (r"\lambda",  "Lambda / 拉姆达 (特征值)",      PINK),
-                    (r"\mu",      "Mu / 缪 (均值)",                 PURPLE),
-                    (r"\sigma",   "Sigma / 西格马 (标准差/求和)",   BLUE_C),
-                    (r"\omega",   "Omega / 奥米伽 (角速度/样本空间)", MAROON_C),
-                    (r"\xi",      "Xi / 克赛 (随机变量)",           ORANGE),
+                    (r"\lambda",  "拉姆达",      PINK),
+                    (r"\mu",      "缪",                 PURPLE),
+                    (r"\sigma",   "西格马",   BLUE_C),
+                    (r"\omega",   "奥米伽", MAROON_C),
+                    (r"\xi",      "克赛",           ORANGE),
                 ]
             }
         ]
@@ -56,8 +55,8 @@ class GroupedGreekLetters(Scene):
 
         main_title = Tex(
             r"数学中常见的$14$个希腊字母",
-            font_size=48, color=GOLD
-        )
+            font_size=48, color=BLUE
+        ).scale(1.5)
         main_title.move_to(ORIGIN)
         self.play(
             FadeIn(main_title, scale=1.3, shift=DOWN * 0.3),
