@@ -2,23 +2,26 @@ from manim import *
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-from 星空背景 import add_starry_sky 
+config.frame_height = 12
+config.frame_width = 9
+config.pixel_height = 1440
+config.pixel_width = 1080
 class CompleteBackgroundExample(Scene):
     def construct(self):
-        # background = ImageMobject(r"D:\Videos\图片素材\星空背景图.jpg")
-        # background.scale_to_fit_height(config.frame_height)
-        # background.scale_to_fit_width(config.frame_width)
-        # background.set_opacity(0.7)
-        # self.add(background)
+        background = ImageMobject(r"D:\Videos\图片素材\星空背景图.jpg")
+        background.scale_to_fit_height(config.frame_height)
+        background.scale_to_fit_width(config.frame_width)
+        background.set_opacity(0.7)
+        self.add(background)
 
-        # overlay = Rectangle(
-        #     width=config.frame_width,
-        #     height=config.frame_height,
-        #     color=BLACK,
-        #     fill_opacity=0.5,
-        #     stroke_opacity=0
-        # )
-        # self.add(overlay)
+        overlay = Rectangle(
+            width=config.frame_width,
+            height=config.frame_height,
+            color=BLACK,
+            fill_opacity=0.5,
+            stroke_opacity=0
+        )
+        self.add(overlay)
 
         items = [
             {
