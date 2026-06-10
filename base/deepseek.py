@@ -3,7 +3,7 @@ from openai import OpenAI
 
 # 初始化DeepSeek客户端
 client = OpenAI(
-    api_key="sk-d565eee0a5764b0cb138e2b294a77b58", 
+    api_key="sk-72d21a5642f7491dae582a2468709f26", 
     base_url="https://api.deepseek.com"
 )
 
