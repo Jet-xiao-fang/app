@@ -11,12 +11,12 @@ from langchain_community.agent_toolkits import create_sql_agent
 from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
 from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
-from langchain import hub
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 sys.stdout.reconfigure(encoding="utf-8")
 load_dotenv()
 
-# ===================== 配置区（新增 Impala 配置） =====================
+# ===================== 配置区 =====================
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
 MODEL_NAME = "deepseek-chat"
@@ -37,8 +37,8 @@ MAX_ITERATIONS = 5
 # =================================================
 
 def create_impala_connection():
-    """创建并返回 Impala 数据库连接"""
-    conn = connect(
+    """创建 Impala 连接"""
+    return connect(
         host=IMPALA_HOST,
         port=IMPALA_PORT,
         user=IMPALA_USER,
@@ -46,16 +46,14 @@ def create_impala_connection():
         database=IMPALA_DATABASE,
         auth_mechanism=IMPALA_AUTH
     )
-    return conn
 
 def main():
-    # 检查必要的环境变量
     if not DEEPSEEK_API_KEY:
         raise ValueError("请在 .env 文件中设置 DEEPSEEK_API_KEY")
     if not IMPALA_HOST:
         raise ValueError("请在 .env 文件中设置 IMPALA_HOST")
 
-    # 1. 连接 Impala 数据库
+    # 1. 连接 Impala
     print("正在连接 Impala 数据库...")
     impala_conn = create_impala_connection()
     db = SQLDatabase.from_impala(
@@ -65,7 +63,7 @@ def main():
     )
     print(f"已连接，可访问的表：{db.get_usable_table_names()}")
 
-    # 2. 初始化 DeepSeek 大模型
+    # 2. 初始化 DeepSeek 模型
     print(f"正在初始化 DeepSeek 模型（{MODEL_NAME}）...")
     llm = ChatOpenAI(
         model=MODEL_NAME,
@@ -74,15 +72,28 @@ def main():
         openai_api_base=DEEPSEEK_BASE_URL
     )
 
-    # 3. 创建 SQL Agent，并设置 Impala 方言的提示词
-    toolkit = SQLDatabaseToolkit(db=db, llm=llm)
-    prompt_template = hub.pull("langchain-ai/sql-agent-system-prompt")
-    system_message = prompt_template.format(dialect="Impala", top_k=5)
+    # 3. 构造自定义提示词（指定 Impala 方言）
+    system_prompt = (
+        "你是一个 Impala SQL 专家。请根据用户的自然语言问题，生成并执行正确的 Impala SQL 查询。\n"
+        "注意事项：\n"
+        "1. 使用双引号包裹表名和列名（例如 SELECT \"col1\" FROM \"table\"）。\n"
+        "2. 除法运算默认返回 DOUBLE 类型，可使用 CAST 控制精度。\n"
+        "3. 不支持 MySQL 的 `LIMIT` 在子查询中的某些用法，请使用标准语法。\n"
+        "4. 表信息会通过工具提供，请优先使用 `sql_db_schema` 查看表结构。\n"
+        "5. 只返回最终答案，不要解释中间步骤。"
+    )
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{input}"),
+        MessagesPlaceholder(variable_name="agent_scratchpad"),
+    ])
 
+    # 4. 创建 SQL Agent
+    toolkit = SQLDatabaseToolkit(db=db, llm=llm)
     agent = create_sql_agent(
         llm=llm,
         toolkit=toolkit,
-        system_message=system_message,
+        prompt=prompt,                      # 使用自定义提示词
         verbose=VERBOSE,
         handle_parsing_errors=HANDLE_PARSING_ERRORS,
         max_iterations=MAX_ITERATIONS,
@@ -90,7 +101,7 @@ def main():
 
     print("Agent 已就绪，输入 'exit' 退出程序\n")
 
-    # 4. 交互循环
+    # 5. 交互循环
     while True:
         try:
             question = input("请输入您的问题: ").strip()

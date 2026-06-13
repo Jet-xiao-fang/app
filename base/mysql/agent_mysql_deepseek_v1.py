@@ -20,7 +20,7 @@ load_dotenv()
 # ===================== 配置区 =====================
 # DeepSeek 配置
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
+DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://baitong-ai.gree.com/openapi/cllm")
 MODEL_NAME = "deepseek-chat"        # 或 "deepseek-reasoner"（推理模型）
 TEMPERATURE = 0.0                    # 0 表示确定性输出
 
@@ -36,7 +36,6 @@ VERBOSE = True                       # 是否打印详细思考过程（调试�
 HANDLE_PARSING_ERRORS = True         # 自动处理解析错误
 MAX_ITERATIONS = 5                   # 最大迭代次数，防止死循环
 # =================================================
-
 def main():
     # 检查必要的环境变量
     if not DEEPSEEK_API_KEY:
