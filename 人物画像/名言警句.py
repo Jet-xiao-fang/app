@@ -2,10 +2,7 @@ from manim import *
 
 config.tex_compiler = "xelatex"
 config.tex_template = TexTemplateLibrary.ctex
-config.frame_height = 12
-config.frame_width = 9
-config.pixel_height = 1440
-config.pixel_width = 1080
+
 class CompleteBackgroundExample(Scene):
     def construct(self):
         background = ImageMobject(r"D:\Videos\图片素材\星空背景图.jpg")
