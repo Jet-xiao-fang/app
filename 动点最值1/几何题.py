@@ -12,7 +12,7 @@ class Draw3DSphere(Scene):
         self.camera.background_color = "#0F0F1A"
         
         rectangle = Rectangle(width=4, height=4, color=BLUE).scale(1.2)
-        rectangle.set_fill(color=BLUE, opacity=0.5).scale(0.8)
+        rectangle.set_fill(color=BLUE, opacity=0.3).scale(0.8)
         corners = [
             rectangle.get_corner(UL),  # 左上 (A)
             rectangle.get_corner(DL),  # 左下 (B)
@@ -21,8 +21,8 @@ class Draw3DSphere(Scene):
         ]
         # 1. 创建标题
         title = Tex("求$CF+EF$的最小值？", 
-                    font_size=36,
-                    color=YELLOW
+                    font_size=48,
+                    color=WHITE
                     ).next_to(rectangle,UP,buff=1.5)
         self.add(title)
         labels = ["A", "B", "C", "D"]
@@ -47,12 +47,12 @@ class Draw3DSphere(Scene):
         # B、C的坐标分别为corners[1]和corners[2]，E位于BC上
         b_to_c = corners[2] - corners[1]
         e_position = corners[1] + (b_to_c / 4)  # BE = 1 (4是边BC的长度)
-        point_e = Dot(e_position, color=PURPLE)
+        point_e = Dot(e_position, color=RED)
         text_e = Text("E", color=WHITE, font_size=24).next_to(point_e, DOWN, buff=0.1)
-        length_label = Text("4", color=YELLOW, font_size=20)
+        length_label = Text("4", color=YELLOW, font_size=30)
         length_label.next_to(rectangle, DOWN, buff=0.2)
 
-        width_label = Text("4", color=YELLOW, font_size=20)
+        width_label = Text("4", color=YELLOW, font_size=30)
         width_label.next_to(rectangle, RIGHT, buff=0.2)
 
         self.add(length_label, width_label)
@@ -70,8 +70,8 @@ class Draw3DSphere(Scene):
         text_f = always_redraw(lambda: Text("F").scale(0.5).next_to(dot_f, UR, buff=0.1))
 
         # 添加线条 CF 和 EF
-        line_cf = always_redraw(lambda: Line(corners[2], dot_f.get_center(), color=PINK))
-        line_ef = always_redraw(lambda: Line(e_position, dot_f.get_center(), color=PURPLE))
+        line_cf = always_redraw(lambda: Line(corners[2], dot_f.get_center(), color=RED,stroke_width=3))
+        line_ef = always_redraw(lambda: Line(e_position, dot_f.get_center(), color=RED,stroke_width=3))
         # 添加动态元素
         self.add(line_cf, line_ef, dot_f, text_f)
         # self.play(
