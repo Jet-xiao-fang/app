@@ -12,3 +12,4 @@ config.pixel_height = 1440
 config.pixel_width = 1080
 Manim Community v0.20.1
 排版优化，确保所有元素（标题、坐标轴、余弦曲线、泰勒公式）清晰可见且互不遮挡。
+yt-dlp -f "bestvideo" --merge-output-format mp4 "https://x.com/TheMathFlow/status/2067478066277068885?s=20"
