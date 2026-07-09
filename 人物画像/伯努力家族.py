@@ -16,7 +16,7 @@ class BernoulliFamilyContributions(Scene):
     
     def showImage(self):
         # 设置深色背景
-        self.camera.background_color = "#0F0B1A"
+        self.camera.background_color = "#0F0F1A"
        
         # 设置缩放比例和间距
         image_scale = 0.3
